@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:38:09 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/22 16:39:47 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/22 18:58:25 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -47,7 +47,7 @@ int     main(void)
 {
 	int i;
 
-        ft_printf("char : %c\nstring : %s\npointer : %p\ndecimal : %d\ninteger : %i\nunsigned int : %u\ns hexadecimal : %x\nb hexadecimal : %X\npercent sign : %%\n", 'a', "hello", &i, 123, 123, 2147483650, 31, 47);
-
+        //ft_printf("char : %c\nstring : %s\npointer : %p\ndecimal : %d\ninteger : %i\nunsigned int : %u\ns hexadecimal : %x\nb hexadecimal : %X\npercent sign : %%\n", 'a', "hello", &i, 123, 123, 2147483650, 31, 47);
+	printf("%#.2o", 1);
 }
 
