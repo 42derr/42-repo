@@ -6,13 +6,13 @@
 #    By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/18 15:52:39 by dfasius           #+#    #+#              #
-#    Updated: 2024/05/20 15:37:33 by dfasius          ###   ########.fr        #
+#    Updated: 2024/05/22 14:52:36 by dfasius          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-INCS_DIR = libft.h
+INCS_DIR = .
 
 SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
        ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \

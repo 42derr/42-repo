@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 12:57:38 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/20 18:19:35 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:52:59 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -82,6 +82,8 @@ char	*one(void)
 	char	*str;
 
 	str = (char *) malloc (sizeof(char));
+	if (!str)
+		return (0);
 	str[0] = '\0';
 	return (str);
 }

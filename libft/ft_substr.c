@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 12:44:10 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/20 16:32:15 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:53:17 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (size == 0)
 	{
 		str = (char *) malloc(1 * sizeof(char));
+		if (!str)
+			return (0);
 		str[0] = 0;
 		return (str);
 	}

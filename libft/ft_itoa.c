@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:18:11 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/20 17:03:45 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:53:48 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -36,6 +36,8 @@ static char	*ft_max(long n)
 
 	size = 11;
 	str = (char *) malloc (size + 1 * sizeof(char));
+	if (!str)
+		return (0);
 	str[size] = '\0';
 	if (n < 0)
 	{

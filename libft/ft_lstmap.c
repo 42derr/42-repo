@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:42:49 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/20 17:07:56 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:12:00 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -41,50 +41,70 @@ void	*ft_tp(void *content)
 	return ((void *)str);
 }
 */
-
-static t_list	*fl(t_list *l, t_list *n, void *(*f)(void *), void (*d)(void *))
+static void	addback(t_list **lst, t_list *new)
 {
-	t_list	*nextlist;
+	t_list	*temp;
 
-	nextlist = (t_list *) malloc (sizeof(t_list));
-	if (!nextlist)
-		return (0);
-	n->content = f(l->content);
-	n->next = nextlist;
-	if (l->next)
-		n = n->next;
-	else
+	temp = *lst;
+	if (!(*lst))
 	{
-		n->next = 0;
-		d(nextlist);
+		*lst = new;
+		(*lst)->next = 0;
+		return ;
 	}
-	return (n);
+	while (temp->next)
+	{
+		temp = temp->next;
+	}
+	temp->next = new;
+	temp = new;
+}
+
+static t_list	*new(void *content)
+{
+	t_list	*node;
+
+	node = (t_list *) malloc(sizeof(t_list));
+	if (!node)
+		return (0);
+	node->content = content;
+	node->next = 0;
+	return (node);
+}
+
+static void	freeall(t_list *fir, void (*del)(void *))
+{
+	t_list	*temp;
+
+	while (fir)
+	{
+		temp = fir->next;
+		del(fir->content);
+		free(fir);
+		fir = temp;
+	}
 }
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*newlist;
 	t_list	*firstlist;
+	t_list	*newlist;
+	void	*content;
 
-	if (!lst)
+	if (!lst || !f || !del)
 		return (0);
-	firstlist = (t_list *) malloc(sizeof (t_list));
-	if (!firstlist)
-		return (0);
-	newlist = (t_list *) malloc (sizeof(t_list));
-	if (!newlist)
-		return (0);
-	firstlist->content = f(lst->content);
-	firstlist->next = newlist;
-	if (!(lst->next))
-	{
-		firstlist->next = 0;
-		del(newlist);
-	}
-	lst = lst->next;
+	firstlist = 0;
 	while (lst)
 	{
-		newlist = fl(lst, newlist, f, del);
+		content = f(lst->content);
+		newlist = new(content);
+		if (!newlist)
+		{
+			del (content);
+			freeall(firstlist, del);
+			return (0);
+		}
+		addback(&firstlist, newlist);
 		lst = lst->next;
 	}
 	return (firstlist);

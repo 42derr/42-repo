@@ -6,11 +6,25 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:34:17 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/20 19:04:32 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:15:09 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 #include <stdio.h>
+
+static	char	**freeall(char	**buffer, int idx)
+{
+	int	i;
+
+	i = 0;
+	while (i < idx)
+	{
+		free(buffer[i]);
+		i++;
+	}
+	free(buffer);
+	return (0);
+}
 
 static int	array_length(char const *s, char c)
 {
@@ -51,8 +65,6 @@ static char	*fsm(char const *s, int size)
 	int		k;
 	int		i;
 
-	if (size < 1)
-		return (0);
 	k = 0;
 	i = 0;
 	str = (char *) malloc ((size + 1) * sizeof(char));
@@ -84,6 +96,8 @@ char	**ft_split(char const *s, char c)
 		if (fsl(s, c) > 0)
 		{
 			buffer[j] = fsm(s, fsl(s, c));
+			if (!buffer[j])
+				return (freeall(buffer, j));
 			j++;
 			while (*s != c && *s != 0)
 				s++;
