@@ -28,12 +28,12 @@ char	*flag_number(char *str, va_list args)
 	else if (*str == 'E')
 		return (0);
 	else if (*str == 'f')
-		return (0);
+		return (ft_num_f_small(str, va_arg(args, unsigned int), 0));
 	else if (*str == 'F')
-		return (0);
+		return (ft_num_f_big(str, va_arg(args, unsigned int), 0));
 	else if (*str == 'g')
-		return (0);
+		return (ft_num_g_small(str, va_arg(args, unsigned int), 0));
 	else if (*str == 'G')
-		return (0);
+		return (ft_num_g_big(str, va_arg(args, unsigned int), 0));
 	return (0);
 }

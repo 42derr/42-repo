@@ -25,7 +25,7 @@ int	maxval(int size)
 	return (store);
 }
 
-void	ft_num_fp(double num, int n)
+void	ft_num_gp(double num, int n)
 {
 	char	*str;
 	int	idx;
@@ -40,17 +40,19 @@ void	ft_num_fp(double num, int n)
 	max = maxval(idx);
 	while ((int) num < max)
 		num = num * 10;
+    while ((int)num % 10 == 0)
+        num = num / 10;
 	str = ft_itoa((int)num);
 	ft_putchar_fd (str[0], 1);
 	ft_putchar_fd ('.', 1);
-	while (idx--)
+	while (idx-- && str[i + 1])
 	{
 		ft_putchar_fd (str[i + 1], 1);
 		i++;
 	}
 }
 
-void	ft_num_fn(double num, int n)
+void	ft_num_gn(double num, int n)
 {
 	char	*str;
 	int	idx;
@@ -65,22 +67,24 @@ void	ft_num_fn(double num, int n)
 	max = maxval(idx);
 	while ((int) num < max)
 		num = num * 10;
+    while ((int)num % 10 == 0)
+        num = num / 10;
 	str = ft_itoa((int)num);
 	ft_putchar_fd ('0', 1);
 	ft_putchar_fd ('.', 1);
-	while (idx--)
+	while (idx-- && str[i + 1])
 	{
 		ft_putchar_fd (str[i], 1);
 		i++;
 	}
 }
 
-char	*ft_num_f_small(char *ptr, double num, int n)
+char	*ft_num_g_small(char *ptr, double num, int n)
 {
 	if (num > 0)
-		ft_num_fp(num, n);
+		ft_num_gp(num, n);
 	else if (num < 0)
-		ft_num_fn(num, n);
+		ft_num_gn(num, n);
 	else if (num == NAN_VAL)
 		ft_putstr_fd("-nan", 1);
 	else if (num == POS_INF)
@@ -90,12 +94,12 @@ char	*ft_num_f_small(char *ptr, double num, int n)
 	return (ptr + 1);
 }
 
-char	*ft_num_f_big(char *ptr, double num, int n)
+char	*ft_num_g_big(char *ptr, double num, int n)
 {
 	if (num > 0)
-		ft_num_fp(num, n);
+		ft_num_gp(num, n);
 	else if (num < 0)
-		ft_num_fn(num, n);
+		ft_num_gn(num, n);
 	else if (num == NAN_VAL)
 		ft_putstr_fd("-NAN", 1);
 	else if (num == POS_INF)

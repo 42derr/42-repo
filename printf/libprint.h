@@ -17,6 +17,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define NAN_VAL (0.0 / 0.0)
+# define POS_INF (1.0 / 0.0)
+# define NEG_INF (-1.0 / 0.0)
+
 int		addr_len(long nbr);
 int		flag_width_len(char *str, va_list args);
 int		hex_len(unsigned int nbr);
@@ -41,5 +45,11 @@ char	*ft_num_octal(char *str, unsigned int nbr);
 char	*ft_num_sh(char *str, unsigned int nbr);
 char	*ft_num_bh(char *str, unsigned int nbr);
 void	ft_putoctal(unsigned int nbr);
+int	    maxval(int size);
+void	ft_num_fp(double num, int n);
+void	ft_num_fn(double num, int n);
+char	*ft_num_f_small(char *ptr, double num, int n);
+char	*ft_num_f_big(char *ptr, double num, int n);
+
 
 #endif
