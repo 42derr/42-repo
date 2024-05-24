@@ -6,11 +6,12 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:41:02 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/24 20:17:11 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:52:23 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
 #include "ft_printf.h"
+#include <math.h>
 
 void	ft_num_eplen(double num, int *i)
 {
