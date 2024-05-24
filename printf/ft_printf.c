@@ -24,7 +24,7 @@ int	ft_printf(const char *str, ...)
 	ptr = (char *) str;
 	while (*ptr)
 	{
-		if (*ptr == '%')
+		while (*ptr == '%')
 			ptr = flag_check (ptr + 1, args, &i);
 		if (*ptr == '\0')
 			return (i);
@@ -36,7 +36,4 @@ int	ft_printf(const char *str, ...)
 }
 // int     main(void)
 // {
-// 	int i;
-
-// 	printf("\n%d\n",ft_printf(" %%%% "));
 // }
