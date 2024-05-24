@@ -1,0 +1,11 @@
+1. make #e ✅
+2. clean up the code ✅
+3. add return int logic ✅
+4. clean the ft_printf logic ✅
+5. add the #. logic
+6. add the flag combination
+7. beware the malloc
+
+cc -I./libft *.c libft/*.c -o my_program
+
+ft_printf("char : %c\nstring : %s\npointer : %p\ndecimal : %d\ninteger : %i\nunsigned int : %u\ns hexadecimal : %x\nb hexadecimal : %X\npercent sign : %%\n", 'a', "hello", &i, 123, 123, 2147483650, 31, 47);

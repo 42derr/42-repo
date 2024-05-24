@@ -9,26 +9,31 @@
 /*   Updated: 2024/05/22 17:23:34 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "libft.h"
-#include "libprint.h"
-#include <unistd.h>
+#include "libft/libft.h"
+#include "ft_printf.h"
 
-char	*flag_check(char *str, va_list args)
+char	*flag_check(char *str, va_list args, int *i)
 {
 	if (*str == '-')
-		return (flag_min(str, args));
+		return (flag_min(str, args, i));
 	else if (*str == '+')
-		return (flag_plus(str, args));
+		return (flag_plus(str, args, i));
 	else if (*str == ' ')
-		return (flag_space(str, args));
+	{
+		if (str[1] == '\0')
+			return (str);
+		return (flag_space(str, args, i));
+	}
 	else if (*str == '#')
-		return (flag_number(str, args));
-	else if (*str == '0')
-		return (flag_zero(str, args));
+		return (flag_number(str, args, i));
+	else if (*str == '0' || *str == '.')
+		return (flag_zero(str, args, i));
 	else if (*str >= '1' && *str <= '9')
-		return (flag_width(str, args));
-	return (0);
+		return (flag_width(str, args, i));
+	else
+	{
+		format_check(str, args, i);
+		str++;
+	}
+	return (str);
 }

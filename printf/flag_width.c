@@ -9,12 +9,12 @@
 /*   Updated: 2024/05/22 16:50:08 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
-#include "libprint.h"
+#include "libft/libft.h"
+#include "ft_printf.h"
 
 int	flag_width_len(char *str, va_list args)
 {
-	while (*str == '0' || *str >= '0' && *str <= '9')
+	while (*str == '0' || (*str >= '0' && *str <= '9'))
 		str++;
 	if (*str == 'c')
 		return (1);
@@ -37,7 +37,7 @@ int	flag_width_len(char *str, va_list args)
 	return (0);
 }
 
-char	*flag_width(char *str, va_list args)
+char	*flag_width(char *str, va_list args, int *i)
 {
 	int		cur;
 	int		print;
@@ -53,8 +53,8 @@ char	*flag_width(char *str, va_list args)
 	else
 		print = 0;
 	while (print--)
-		ft_putchar_fd(' ', 1);
-	format_check(str, args2);
+		ft_putchar_fd(' ', 1, i);
+	format_check(str, args2, i);
 	str++;
 	return (str);
 }

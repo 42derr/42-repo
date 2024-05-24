@@ -9,16 +9,13 @@
 /*   Updated: 2024/05/22 16:17:28 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "libft.h"
-#include "libprint.h"
-#include <unistd.h>
+
+#include "libft/libft.h"
+#include "ft_printf.h"
 
 int	flag_min_len(char *str, va_list args)
 {
-	while (*str == '-' || *str >= '0' && *str <= '9')
+	while (*str == '-' || (*str >= '0' && *str <= '9'))
 		str++;
 	if (*str == 'c')
 		return (1);
@@ -43,7 +40,7 @@ int	flag_min_len(char *str, va_list args)
 
 int	flag_zero_len(char *str, va_list args)
 {
-	while (*str == '0' || *str >= '0' && *str <= '9')
+	while (*str == '.' || (*str >= '0' && *str <= '9'))
 		str++;
 	if (*str == 'c')
 		return (1);
@@ -66,7 +63,7 @@ int	flag_zero_len(char *str, va_list args)
 	return (0);
 }
 
-char	*flag_min(char *str, va_list args)
+char	*flag_min(char *str, va_list args, int *i)
 {
 	int		cur;
 	int		print;
@@ -84,14 +81,14 @@ char	*flag_min(char *str, va_list args)
 		print = print - cur;
 	else
 		print = 0;
-	format_check(str, args2);
+	format_check(str, args2, i);
 	str++;
 	while (print--)
-		ft_putchar_fd (' ', 1);
+		ft_putchar_fd (' ', 1, i);
 	return (str);
 }
 
-char	*flag_zero(char *str, va_list args)
+char	*flag_zero(char *str, va_list args, int *i)
 {
 	int		cur;
 	int		print;
@@ -100,18 +97,20 @@ char	*flag_zero(char *str, va_list args)
 	va_copy (args2, args);
 	cur = flag_zero_len(str, args);
 	print = 0;
-	while (*str == '0')
+	while (*str == '0' || *str == '.')
 		str++;
+	if (*str == '-')
+		return (flag_min(str, args, i));
 	print = ft_atoi (str);
-	while (*str >= '0' && *str <= '9')
+	while (*str >= '1' && *str <= '9')
 		str++;
 	if (print > cur)
 		print = print - cur;
 	else
 		print = 0;
 	while (print--)
-		ft_putchar_fd('0', 1);
-	format_check(str, args2);
+		ft_putchar_fd('0', 1, i);
+	format_check(str, args2, i);
 	str++;
 	return (str);
 }
