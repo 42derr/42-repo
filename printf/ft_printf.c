@@ -38,5 +38,5 @@ int	ft_printf(const char *str, ...)
 // int     main(void)
 // {
 // 	// printf("%d\n", ft_printf("% d", 123));
-// 	ft_printf ("% 1s\n", "");
+// 	ft_printf("%.s", "-");
 // }

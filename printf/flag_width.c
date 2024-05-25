@@ -14,7 +14,7 @@
 
 int	flag_width_len(char *str, va_list args)
 {
-	while (*str == '0' || (*str >= '0' && *str <= '9'))
+	while (*str == '.' || (*str >= '0' && *str <= '9'))
 		str++;
 	if (*str == 'c')
 		return (1);
@@ -41,19 +41,35 @@ char	*flag_width(char *str, va_list args, int *i)
 {
 	int		cur;
 	int		print;
+	int		print2;
 	va_list	args2;
 
 	va_copy (args2, args);
+	print2 = 0;
 	cur = flag_width_len(str, args);
 	print = ft_atoi (str);
 	while (*str >= '0' && *str <= '9')
 		str++;
+	if (*str == '%')
+	{
+		ft_putchar_fd('%', 1, i);
+		return (str + 1);
+	}
+	if (*str == '.')
+	{
+		print2 = ft_atoi (str + 1);
+		if (print2 < cur)
+			cur = print2;
+	}
 	if (print > cur)
 		print = print - cur;
 	else
 		print = 0;
 	while (print--)
 		ft_putchar_fd(' ', 1, i);
+		
+	if (*str == '.')
+		return (flag_check(str, args2, i));
 	format_check(str, args2, i);
 	str++;
 	return (str);

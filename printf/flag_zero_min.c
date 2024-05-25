@@ -93,9 +93,19 @@ char	*flag_min(char *str, va_list args, int *i)
 	print = 0;
 	while (*str == '-')
 		str++;
+	if (!(*str >= '0' && *str <= '9'))
+	{
+		format_check(str, args, i);
+		return (str + 1);
+	}
 	print = ft_atoi (str);
 	while (*str >= '0' && *str <= '9')
 		str++;
+	if (*str == '%')
+	{
+		ft_putchar_fd('%', 1, i);
+		return (str + 1);
+	}
 	if (print > cur)
 		print = print - cur;
 	else
@@ -154,7 +164,10 @@ char	*flag_dot(char *str, va_list args, int *i)
 	while (*str == '.')
 		str++;
 	if (!(*str >= '0' && *str <= '9'))
-		return (str + 1);
+	{
+			// /format_check(str, args, i);
+			return (str + 1);
+	}
 	if (cur != 0 && ft_atoi(str) >= cur)
 		print = ft_atoi (str) - cur;
 	else

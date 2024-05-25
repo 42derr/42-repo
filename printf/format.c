@@ -120,9 +120,8 @@ char	*format_check_zero(char *str, va_list args, int *i, int print)
 	else if (*str == 'u' || *str == 'x' || *str == 'X')
 	{
 		numus = va_arg(args, unsigned int);
-		if (numus >= 0)
-			while(print--)
-				ft_putchar_fd('0', 1, i);
+		while(print--)
+			ft_putchar_fd('0', 1, i);
 		if (*str == 'u')
 		ft_putusnbr (numus, i);
 		else if (*str == 'x')
