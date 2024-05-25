@@ -34,6 +34,9 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (i);
 }
+
 // int     main(void)
 // {
+// 	// printf("%d\n", ft_printf("% d", 123));
+// 	ft_printf ("% 1s\n", "");
 // }

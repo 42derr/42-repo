@@ -12,7 +12,7 @@
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-int	addr_len(long nbr)
+int	addr_len(unsigned long nbr)
 {
 	int	i;
 
@@ -30,6 +30,8 @@ int	hex_len(unsigned int nbr)
 	int	i;
 
 	i = 0;
+	if (nbr == 0)
+		return (1);
 	while (nbr > 0)
 	{
 		nbr = nbr / 16;
@@ -43,10 +45,55 @@ int	us_len(unsigned int nbr)
 	int	i;
 
 	i = 0;
+	if (nbr == 0)
+		return (1);
 	while (nbr > 0)
 	{
 		nbr = nbr / 10;
 		i++;
+	}
+	return (i);
+}
+
+int	ft_numlen(int num)
+{
+	int	i;
+
+	i = 0;
+	if (num == 0)
+		return (1);	
+	if (num == -2147483648)
+		return (11);
+	if (num < 0)
+	{
+		num = num * -1;
+		i++;
+	}
+	while (num > 0)
+	{
+		num = num / 10;
+		i++; 
+	}
+	return (i);
+}
+
+int	ft_numlendot(int num)
+{
+	int	i;
+
+	i = 0;
+	if (num == 0)
+		return (1);	
+	if (num == -2147483648)
+		return (11);
+	if (num < 0)
+	{
+		num = num * -1;
+	}
+	while (num > 0)
+	{
+		num = num / 10;
+		i++; 
 	}
 	return (i);
 }

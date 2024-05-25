@@ -16,8 +16,9 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
-int		addr_len(long nbr);
+int		addr_len(unsigned long nbr);
 int		flag_width_len(char *str, va_list args);
 int		hex_len(unsigned int nbr);
 int		us_len(unsigned int nbr);
@@ -54,5 +55,14 @@ void	ft_num_ep(double num, int n, int *i);
 char	*ft_num_e_small(char *ptr, double num, int n, int *i);
 char	*ft_num_e_big(char *ptr, double num, int n, int *i);
 int		ft_printf(const char *str, ...);
+int     ft_numlen(int num);
+char	*format_check_zero(char *str, va_list args, int *i, int print);
+void	ft_putnbr_zero(int n, int fd, int *i, int print);
+char	*flag_dot(char *str, va_list args, int *i);
+int	flag_dot_len(char *str, va_list args);
+char	*format_check_dot(char *str, va_list args, int *i, int w);
+void	ft_putstr_dot(char *s, int fd, int *x, int w);
+int	ft_numlendot(int num);
+char	*format_check_space(char *str, va_list args, int *i, int print);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/18 15:52:39 by dfasius           #+#    #+#              #
-#    Updated: 2024/05/24 19:06:44 by dfasius          ###   ########.fr        #
+#    Updated: 2024/05/24 21:03:55 by dfasius          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,12 +50,12 @@ $(NAME): $(OBJS)
 clean:
 	rm -f $(OBJS)
 
-# bonus: all
-# 	ar rcs $(NAME) $(OBJS)
+bonus: all
+	ar rcs $(NAME) $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re : fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

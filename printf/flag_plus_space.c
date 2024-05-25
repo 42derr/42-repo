@@ -28,10 +28,16 @@ char	*flag_plus(char *str, va_list args, int *i)
 
 char	*flag_space(char *str, va_list args, int *i)
 {
+	int	print;
+
+	print = 0;
 	while (*str == ' ')
 		str++;
-	ft_putchar_fd (' ', 1, i);
-	format_check(str, args, i);
+	if (*str >= '0' && *str <= '9')
+		print = ft_atoi(str);
+	while (*str >= '0' && *str <= '9')
+		str++;
+	format_check_space(str, args, i, print);
 	str++;
 	return (str);
 }

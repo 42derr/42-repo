@@ -26,8 +26,10 @@ char	*flag_check(char *str, va_list args, int *i)
 	}
 	else if (*str == '#')
 		return (flag_number(str, args, i));
-	else if (*str == '0' || *str == '.')
+	else if (*str == '0')
 		return (flag_zero(str, args, i));
+	else if (*str == '.')
+		return (flag_dot(str, args, i));		
 	else if (*str >= '1' && *str <= '9')
 		return (flag_width(str, args, i));
 	else
