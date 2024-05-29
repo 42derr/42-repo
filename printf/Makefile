@@ -15,14 +15,14 @@ NAME = libftprintf.a
 INCS_DIR = ./libft .
 
 SRCS = flag_check.c \
-      flag_number.c \
-      flag_num_e.c \
-      flag_num_f.c \
-      flag_num_g.c \
-      flag_num_octal.c \
-      flag_plus_space.c \
+      flag_num.c \
+      flag_num_hex.c \
       flag_width.c \
-      flag_zero_min.c \
+      flag_dot.c \
+      flag_zero.c \
+      flag_plus.c \
+      flag_space.c \
+      flag_min.c \
       format.c \
       format_length.c \
       format_put.c \
