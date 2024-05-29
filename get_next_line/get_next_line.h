@@ -23,6 +23,6 @@ void	clear_node(t_list **lst);
 char   *save_string(t_list *list);
 char *create_string(t_list **list, int fd);
 char *get_next_line(int fd);
-void	dealloc(t_list **list, t_list *clean_node, char *buf);
+char *create_string_helper(int bytes_size, t_list **list);
 
 #endif

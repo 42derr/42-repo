@@ -50,13 +50,24 @@ int search_newline(t_list *list)
     return(0);
 }
 
+char *create_string_helper(int bytes_size, t_list **list)
+{
+    int len;
+    char *str;
+
+    if (bytes_size <= 0 && !*list)
+        return (0);
+    len = string_length(*list);
+    str = (char *) malloc (sizeof(char) * (len + 2));
+    if (!str)
+         return (0);
+    return (string_malloc(*list, str, len));
+}
+
 char *create_string(t_list **list, int fd)
 {
-    char    *str;
     char    *buffer;
-    int len;
     int bytes_size;
-    t_list *new_list;
 
     bytes_size = 0;
     while (!search_newline(*list))
@@ -71,21 +82,9 @@ char *create_string(t_list **list, int fd)
             break ;
         }
         buffer[bytes_size] = '\0';
-        new_list = new_node(buffer);
-        if (!new_list)
-        {
-            free(buffer);
-            return (0);
-        }
-        addback_node (list, new_list);
+        addback_node (list, new_node(buffer));
     }
-    if (bytes_size <= 0 && !*list)
-        return (0);
-    len = string_length(*list);
-    str = (char *) malloc (sizeof(char) * (len + 2));
-    if (!str)
-         return (0);
-    return (string_malloc(*list, str, len));
+    return (create_string_helper(bytes_size, list));
 }
 
 char *get_next_line(int fd)
