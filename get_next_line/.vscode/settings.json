@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "get_next_line.h": "c"
+    "list": "c",
+    "sstream": "c",
+    "unistd.h": "c"
   }
 }

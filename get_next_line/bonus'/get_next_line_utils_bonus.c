@@ -45,15 +45,14 @@ void	addback_node(t_list **lst, t_list *news)
 	temp = news;
 }
 
-int save_string(t_list **list)
+char   *save_string(t_list *list)
 {
     int i;
     int j;
     char    *str;
 	t_list *temp;
-	t_list *new_list;
 
-	temp = *list;
+	temp = list;
     i = 0;
     j = 0;
 	while (temp->next)
@@ -63,26 +62,21 @@ int save_string(t_list **list)
 	if ((temp->content)[i] == '\n')
 		i++;
 	if (!(temp->content)[i])
-	{
-		clear_node(list);
-		return (1);
-	}
+		return (NULL);
     str = (char *) malloc (sizeof(char) * (BUFFER_SIZE + 1));
     if (!str)
-		return (0);
-    while ((temp->content)[i])
-        str[j++] = (temp->content)[i++];
-    str[j] = '\0';
-	
-	clear_node(list);
-	new_list = new_node(str);
-	if (!new_list)
 	{
-		free(str);
-		return (0);
+		clear_node(&list);
+		return (NULL);
 	}
-	addback_node(list, new_list);     
-    return (1);
+    while ((temp->content)[i])
+    {
+        str[j] = (temp->content)[i];
+		j++;
+		i++;
+    }
+    str[j] = '\0';
+    return (str);
 }
 
 int string_length(t_list *list)
