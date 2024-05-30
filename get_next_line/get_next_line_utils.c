@@ -14,44 +14,55 @@ void	clear_node(t_list **lst)
 	*lst = 0;
 }
 
-t_list	*new_node(char *content)
-{
-	t_list	*node;
-
-	node = (t_list *) malloc(sizeof(t_list));
-	if (!node)
-		return (NULL);
-	node->content = content;
-	node->next = 0;
-	return (node);
-}
-
-void	addback_node(t_list **lst, t_list *news)
+int		addback_new_node(t_list **lst, char **content)
 {
 	t_list	*temp;
+	t_list	*news;
 
+	news = (t_list *) malloc(sizeof(t_list));
+	if (!news)
+	{
+		free(*content);
+		return (0);
+	}
+	news->content = *content;
+	news->next = 0;
 	temp = *lst;
 	if (!(*lst))
 	{
 		*lst = news;
 		(*lst)->next = 0;
-		return ;
+		return (1);
 	}
 	while (temp->next)
-	{
 		temp = temp->next;
-	}
 	temp->next = news;
 	temp = news;
+	return (1);
+}
+
+int	save_string_helper(int i, int j, char *content, t_list **list)
+{
+	char    *str;
+
+	str = (char *) malloc (sizeof(char) * (BUFFER_SIZE + 1));
+    if (!str)
+		return (0);
+    while (content[i])
+        str[j++] = content[i++];
+    str[j] = '\0';
+	
+	clear_node(list);    
+	if (addback_new_node (list, &str) == 0)
+		return (0);
+    return (1);
 }
 
 int save_string(t_list **list)
 {
     int i;
     int j;
-    char    *str;
 	t_list *temp;
-	t_list *new_list;
 
 	temp = *list;
     i = 0;
@@ -67,22 +78,7 @@ int save_string(t_list **list)
 		clear_node(list);
 		return (1);
 	}
-    str = (char *) malloc (sizeof(char) * (BUFFER_SIZE + 1));
-    if (!str)
-		return (0);
-    while ((temp->content)[i])
-        str[j++] = (temp->content)[i++];
-    str[j] = '\0';
-	
-	clear_node(list);
-	new_list = new_node(str);
-	if (!new_list)
-	{
-		free(str);
-		return (0);
-	}
-	addback_node(list, new_list);     
-    return (1);
+    return (save_string_helper(i, j, (temp->content), list));
 }
 
 int string_length(t_list *list)

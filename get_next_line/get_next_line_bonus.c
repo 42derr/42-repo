@@ -1,5 +1,4 @@
 #include "get_next_line.h"
-#include <stdio.h>
 
 char *string_malloc(t_list *list, char *str, int len)
 {
@@ -44,15 +43,24 @@ int search_newline(t_list *list)
     return(0);
 }
 
+char *create_string_helper( t_list **list)
+{
+    int len;
+    char    *str;
+
+    len = string_length(*list);
+    str = (char *) malloc (sizeof(char) * (len + 1));
+    if (!str)
+         return (NULL);
+    str = string_malloc(*list, str, len);
+    return (str);
+}
+
 char *create_string(t_list **list, int fd)
 {
-    char    *str;
     char    *buffer;
-    int len;
     int bytes_size;
-    t_list *new_list;
 
-    bytes_size = 0;
     while (!search_newline(*list))
     {
         buffer = (char *) malloc (sizeof(char) * (BUFFER_SIZE + 1));
@@ -65,28 +73,19 @@ char *create_string(t_list **list, int fd)
             break ;
         }
         buffer[bytes_size] = '\0';
-        new_list = new_node(buffer);
-        if (!new_list)
-        {
-            free(buffer);
+        if (addback_new_node (list, &buffer) == 0)
             return (NULL);
-        }
-        addback_node (list, new_list);
     }
-    if ((bytes_size <= 0 && !(*list)) || bytes_size == -1)
+    if (!(*list))
         return (NULL);
-    len = string_length(*list);
-    str = (char *) malloc (sizeof(char) * (len + 1));
-    if (!str)
-         return (NULL);
-    return (string_malloc(*list, str, len));
+    return (create_string_helper(list));
 }
 
 char *get_next_line(int fd)
 {
     static t_list *list[1024] = {0};
-    char    *save_str;
     char    *final_string;
+    int     save;
 
     if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
     {
@@ -99,11 +98,12 @@ char *get_next_line(int fd)
         clear_node(&list[fd]);
         return (NULL);
     }
-    save_str = save_string (list[fd]);
-    if (!save_str && !list[fd])
+    save = save_string (&list[fd]);
+    if (save == 0)
+    {
+        free(final_string);
+        clear_node(&list[fd]);
         return (NULL);
-    clear_node(&list[fd]);
-    if (save_str)
-        addback_node(&list[fd], new_node(save_str));     
+    }
     return (final_string);
 }

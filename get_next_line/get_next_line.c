@@ -1,5 +1,4 @@
 #include "get_next_line.h"
-#include <stdio.h>
 
 char *string_malloc(t_list *list, char *str, int len)
 {
@@ -49,20 +48,18 @@ char *create_string_helper( t_list **list)
     int len;
     char    *str;
 
-    if (!(*list))
-        return (NULL);
     len = string_length(*list);
     str = (char *) malloc (sizeof(char) * (len + 1));
     if (!str)
          return (NULL);
-    return (string_malloc(*list, str, len));
+    str = string_malloc(*list, str, len);
+    return (str);
 }
 
 char *create_string(t_list **list, int fd)
 {
     char    *buffer;
     int bytes_size;
-    t_list *new_list;
 
     while (!search_newline(*list))
     {
@@ -76,14 +73,11 @@ char *create_string(t_list **list, int fd)
             break ;
         }
         buffer[bytes_size] = '\0';
-        new_list = new_node(buffer);
-        if (!new_list)
-        {
-            free(buffer);
+        if (addback_new_node (list, &buffer) == 0)
             return (NULL);
-        }
-        addback_node (list, new_list);
     }
+    if (!(*list))
+        return (NULL);
     return (create_string_helper(list));
 }
 

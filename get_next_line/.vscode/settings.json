@@ -1,7 +1,0 @@
-{
-  "files.associations": {
-    "list": "c",
-    "sstream": "c",
-    "unistd.h": "c"
-  }
-}
