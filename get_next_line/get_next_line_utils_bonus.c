@@ -1,4 +1,16 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/31 14:57:24 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/31 15:16:26 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_bonus.h"
 
 void	clear_node(t_list **lst)
 {
@@ -14,7 +26,7 @@ void	clear_node(t_list **lst)
 	*lst = 0;
 }
 
-int		addback_new_node(t_list **lst, char **content)
+int	addback_new_node(t_list **lst, char **content)
 {
 	t_list	*temp;
 	t_list	*news;
@@ -43,30 +55,29 @@ int		addback_new_node(t_list **lst, char **content)
 
 int	save_string_helper(int i, int j, char *content, t_list **list)
 {
-	char    *str;
+	char	*str;
 
 	str = (char *) malloc (sizeof(char) * (BUFFER_SIZE + 1));
-    if (!str)
+	if (!str)
 		return (0);
-    while (content[i])
-        str[j++] = content[i++];
-    str[j] = '\0';
-	
-	clear_node(list);    
+	while (content[i])
+		str[j++] = content[i++];
+	str[j] = '\0';
+	clear_node(list);
 	if (addback_new_node (list, &str) == 0)
 		return (0);
-    return (1);
+	return (1);
 }
 
-int save_string(t_list **list)
+int	save_string(t_list **list)
 {
-    int i;
-    int j;
-	t_list *temp;
+	int		i;
+	int		j;
+	t_list	*temp;
 
 	temp = *list;
-    i = 0;
-    j = 0;
+	i = 0;
+	j = 0;
 	while (temp->next)
 		temp = temp->next;
 	while ((temp->content)[i] != '\n' && temp->content[i])
@@ -78,31 +89,31 @@ int save_string(t_list **list)
 		clear_node(list);
 		return (1);
 	}
-    return (save_string_helper(i, j, (temp->content), list));
+	return (save_string_helper(i, j, (temp->content), list));
 }
 
-int string_length(t_list *list)
+int	string_length(t_list *list)
 {
-    t_list *temp;
-    int i;
-    int len;
+	t_list	*temp;
+	int		i;
+	int		len;
 
-    temp = list;
-    len = 0;
-    while (temp)
-    {
-        i = 0;
-        while ((temp->content)[i])
-        {
-            if ((temp->content)[i] == '\n')
+	temp = list;
+	len = 0;
+	while (temp)
+	{
+		i = 0;
+		while ((temp->content)[i])
+		{
+			if ((temp->content)[i] == '\n')
 			{
 				len++;
 				return (len);
 			}
-            i++;
-            len++;
-        }
-        temp = temp->next;
-    }
-    return(len);
+			i++;
+			len++;
+		}
+		temp = temp->next;
+	}
+	return (len);
 }

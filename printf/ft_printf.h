@@ -18,36 +18,29 @@
 # include <unistd.h>
 # include <stdio.h>
 
-int		addr_len(unsigned long nbr);
-int		flag_width_len(char *str, va_list args);
-int		hex_len(unsigned int nbr);
-int		us_len(unsigned int nbr);
-char	*format_check(char *str, va_list args, int *i);
-int		flag_min_len(char *str, va_list args);
-int		flag_zero_len(char *str, va_list args);
-char	*flag_min(char *str, va_list args, int *i);
-char	*flag_zero(char *str, va_list args, int *i);
-char	*flag_plus(char *str, va_list args, int *i);
-char	*flag_space(char *str, va_list args, int *i);
-char	*flag_number(char *str, va_list args, int *i);
-char	*flag_width(char *str, va_list args, int *i);
-char	*flag_check(char *str, va_list args, int *i);
-void	ft_putusnbr(unsigned int nbr, int *i);
-void	ft_puthex(unsigned int nbr, int *i);
-void	ft_puthex_addr(unsigned long nbr, int *i);
-void	ft_putaddr(void *add, int *i);
-void	ft_puthex_big(unsigned int nbr, int *i);
-char	*ft_num_sh(char *str, unsigned int nbr, int *i);
-char	*ft_num_bh(char *str, unsigned int nbr, int *i);
-int		ft_printf(const char *str, ...);
-int     ft_numlen(int num);
-char	*format_check_zero(char *str, va_list args, int *i, int print);
-void	ft_putnbr_zero(int n, int fd, int *i, int print);
-char	*flag_dot(char *str, va_list args, int *i);
-int	flag_dot_len(char *str, va_list args);
-char	*format_check_dot(char *str, va_list args, int *i, int w);
-void	ft_putstr_dot(char *s, int fd, int *x, int w);
+typedef struct s_flag
+{
+    int plus;
+    int min;
+    int space;
+    int dot;
+    int sharp;
+    int width;
+    int zero;
+} t_flag;
+
+int	ft_printf(const char *str, ...);
+void	ft_put_us_num(unsigned int nbr, int *i);
+void	ft_put_small_hex(unsigned int nbr, int *i);
+void	ft_put_addr_helper(unsigned long nbr, int *i);
+void	ft_put_addr(void *add, int *i);
+void	ft_put_big_hex(unsigned int nbr, int *i);
+int	addr_len(unsigned long nbr);
+int	hex_len(unsigned int nbr);
+int	us_len(unsigned int nbr);
+int	ft_numlen(int num);
 int	ft_numlendot(int num);
-char	*format_check_space(char *str, va_list args, int *i, int print);
+
+
 
 #endif

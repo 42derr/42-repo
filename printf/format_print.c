@@ -12,12 +12,12 @@
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-void	ft_putusnbr(unsigned int nbr, int *i)
+void	ft_put_us_num(unsigned int nbr, int *i)
 {
 	if (nbr > 9)
 	{
-		ft_putusnbr (nbr / 10, i);
-		ft_putusnbr (nbr % 10, i);
+		ft_put_us_num (nbr / 10, i);
+		ft_put_us_num (nbr % 10, i);
 	}
 	else
 	{
@@ -25,14 +25,14 @@ void	ft_putusnbr(unsigned int nbr, int *i)
 	}
 }
 
-void	ft_puthex(unsigned int nbr, int *i)
+void	ft_put_small_hex(unsigned int nbr, int *i)
 {
 	char	c;
 
 	if (nbr > 15)
 	{
-		ft_puthex (nbr / 16, i);
-		ft_puthex (nbr % 16, i);
+		ft_put_small_hex (nbr / 16, i);
+		ft_put_small_hex (nbr % 16, i);
 	}
 	else
 	{
@@ -41,14 +41,14 @@ void	ft_puthex(unsigned int nbr, int *i)
 	}
 }
 
-void	ft_puthex_addr(unsigned long nbr, int *i)
+void	ft_put_addr_helper(unsigned long nbr, int *i)
 {
 	char	c;
 
 	if (nbr > 15)
 	{
-		ft_puthex_addr (nbr / 16, i);
-		ft_puthex_addr (nbr % 16, i);
+		ft_put_addr_helper (nbr / 16, i);
+		ft_put_addr_helper (nbr % 16, i);
 	}
 	else
 	{
@@ -57,7 +57,7 @@ void	ft_puthex_addr(unsigned long nbr, int *i)
 	}
 }
 
-void	ft_putaddr(void *add, int *i)
+void	ft_put_addr(void *add, int *i)
 {
 	unsigned long	nbr;
 
@@ -69,17 +69,17 @@ void	ft_putaddr(void *add, int *i)
 	nbr = (unsigned long) add;
 	ft_putchar_fd ('0', 1, i);
 	ft_putchar_fd ('x', 1, i);
-	ft_puthex_addr (nbr, i);
+	ft_put_addr_helper (nbr, i);
 }
 
-void	ft_puthex_big(unsigned int nbr, int *i)
+void	ft_put_big_hex(unsigned int nbr, int *i)
 {
 	char	c;
 
 	if (nbr > 15)
 	{
-		ft_puthex_big (nbr / 16, i);
-		ft_puthex_big (nbr % 16, i);
+		ft_put_big_hex (nbr / 16, i);
+		ft_put_big_hex (nbr % 16, i);
 	}
 	else
 	{

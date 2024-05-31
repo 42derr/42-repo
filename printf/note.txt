@@ -10,7 +10,7 @@ flag: start with
     ( ) & (+) if number like - 9, -+9
     (#) -#10x, %-#10.3x
     (9) -> not possible
-
+%-10.5s
 (+)
     (0) +010d , 
     (.) ignore the (0) and do the .
