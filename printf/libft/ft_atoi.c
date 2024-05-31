@@ -37,13 +37,3 @@ int	ft_atoi(const char *nptr)
 		return ((int)s);
 	return (0);
 }
-/*
-#include <stdlib.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%d", atoi("+00123a"));
-	printf("\n%d", ft_atoi("+00123a"));
-}
-*/

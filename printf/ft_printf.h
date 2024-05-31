@@ -35,12 +35,10 @@ void	ft_put_small_hex(unsigned int nbr, int *i);
 void	ft_put_addr_helper(unsigned long nbr, int *i);
 void	ft_put_addr(void *add, int *i);
 void	ft_put_big_hex(unsigned int nbr, int *i);
+void	format_check(char *str, va_list args, int *i, t_flag *flag);
 int	addr_len(unsigned long nbr);
 int	hex_len(unsigned int nbr);
 int	us_len(unsigned int nbr);
 int	ft_numlen(int num);
-int	ft_numlendot(int num);
-
-
 
 #endif

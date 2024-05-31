@@ -16,6 +16,7 @@
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
+	t_flag flag;
 	char	*ptr;
 	int		i;
 
@@ -25,9 +26,10 @@ int	ft_printf(const char *str, ...)
 	while (*ptr)
 	{
 		if (*ptr == '%')
-			ptr = flag_check (ptr + 1, args, &i);
+			flag_loop (flag, &ptr);
 		if (*ptr == '\0')
 			return (i);
+		format_check(ptr, args, &i, &flag);
 		ft_putchar_fd(*ptr, 1, &i);
 		ptr++;
 	}

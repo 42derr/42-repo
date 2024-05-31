@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd, int *x)
+void	ft_putstr(char *s, int *x)
 {
 	int	i;
 
 	i = 0;
 	if (s == NULL)
 	{
-		ft_putstr_fd ("(null)", 1, x);
+		ft_putstr ("(null)", x);
 		return ;
 	}
 	while (s[i])
@@ -26,11 +26,5 @@ void	ft_putstr_fd(char *s, int fd, int *x)
 		*x = *x + 1;
 		i++;
 	}
-	write (fd, s, i);
+	write (1, s, i);
 }
-/*
-int	main(void)
-{
-	ft_putstr_fd("hello", 1);
-}
-*/

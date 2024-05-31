@@ -18,8 +18,8 @@
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
-void	ft_putchar_fd(char c, int fd, int *i);
-void	ft_putstr_fd(char *s, int fd, int *i);
-void	ft_putnbr_fd(int n, int fd, int *i);
+void	ft_putchar(char c, int *i);
+void	ft_putstr(char *s, int *i);
+void	ft_putnbr(int n, int *i);
 
 #endif

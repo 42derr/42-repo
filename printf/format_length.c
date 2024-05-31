@@ -76,24 +76,3 @@ int	ft_numlen(int num)
 	}
 	return (i);
 }
-
-int	ft_numlendot(int num)
-{
-	int	i;
-
-	i = 0;
-	if (num == 0)
-		return (1);	
-	if (num == -2147483648)
-		return (11);
-	if (num < 0)
-	{
-		num = num * -1;
-	}
-	while (num > 0)
-	{
-		num = num / 10;
-		i++; 
-	}
-	return (i);
-}

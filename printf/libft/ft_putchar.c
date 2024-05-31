@@ -11,13 +11,7 @@
 /* ************************************************************************** */
 #include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd, int *i)
+void	ft_putchar(char c, int *i)
 {
-	*i += write(fd, &c, 1);
+	*i += write(1, &c, 1);
 }
-/*
-int	main(void)
-{
-	ft_putchar_fd('c',2);
-}
-*/

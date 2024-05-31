@@ -2,93 +2,63 @@
 
 void    flag_loop(t_flag *flag, char **str)
 {
+   if (**str == '%')
+      (*str)++;
     while ((**str == '-' || **str == '+' || **str == '#' || **str == '0' || **str == '.' || **str >= '1' && **str <= '9') && **str)
     {
         if (**str == '-')
-           flag_min_zero(flag, str);
+           flag->min = 1;
         else if (**str == '+')
-           flag_plus_space_shrap(flag, str);
+            flag->plus = 1;
         else if (**str == ' ')
-           flag_plus_space_shrap(flag, str);
+           flag->space = 1;
         else if (**str == '#')
-           flag_plus_space_shrap(flag, str);
+           flag->sharp = 1;
         else if (**str == '0')
-           flag_min_zero(flag, str);
+           flag->sharp = 1;
         else if (**str >= '1' && **str <= '9')
-           flag_width_dot(flag, str);
+        {
+            flag->width = ft_atoi(&str);
+            while (**str >= '1' && **str <= '9')
+               (*str)++;
+        }
         else if (**str == '.')
-           flag_width_dot(flag, str);
+        {
+            (*str)++;
+            flag->dot = ft_atoi(&str);
+            while (**str >= '1' && **str <= '9')
+               (*str)++;
+        }
+      (*str)++;
     }
 }
 
-void    flag_min_zero(t_flag *flag, char **str)
+int	format_length(char *str, va_list args)
 {
-    int number;
-
-    if (**str == '-')
-    {
-        while (**str == '-')
-           (*str)++;
-        number = ft_atoi(*str);
-        if (number)
-            flag->min = number;
-        while (**str >= '0' && **str <= '9')
-           (*str)++;
-    }
-    if (**str == '0')
-    {
-        while (**str == '0')
-           (*str)++;
-        number = ft_atoi(*str);
-        if (number)
-            flag->zero = number;
-        while (**str >= '1' && **str <= '9')
-           (*str)++;
-    }
+	if (*str == 'c')
+		return (1);
+	else if (*str == 's')
+		return (ft_strlen(va_arg(args, char *)));
+	else if (*str == 'p')
+		return (addr_len(va_arg(args, long)));
+	else if (*str == 'd')
+		return (ft_numlen(va_arg(args, int)));
+	else if (*str == 'i')
+		return (ft_numlen(va_arg(args, int)));
+	else if (*str == 'u')
+		return (us_len(va_arg(args, unsigned int)));
+	else if (*str == 'x')
+		return (hex_len(va_arg(args, unsigned int)));
+	else if (*str == 'X')
+		return (hex_len(va_arg(args, unsigned int)));
+	else if (*str == '%')
+		return (1);
 }
 
-void    flag_plus_space_shrap(t_flag *flag, char **str)
+void  len_flag(t_flag *flag)
 {
-    if (**str == '+')
-    {
-        while (**str == '+')
-           (*str)++;
-        flag->plus = 1;
-    }
-    if (**str == ' ')
-    {
-        while (**str == ' ')
-           (*str)++;
-        flag->space = 1;
-    }
-    if (**str == '#')
-    {
-        while (**str == '#')
-           (*str)++;
-        flag->sharp = 1;
-    }
-}
-
-void    flag_width_dot(t_flag *flag, char **str)
-{
-    int number;
-
-    if (**str >= '1' && **str <= '9')
-    {
-        number = ft_atoi(*str);
-        if (number)
-            flag->width = number;
-        while (**str >= '0' && **str <= '9')
-           (*str)++;
-    }
-    if (**str == '.')
-    {
-        while (**str == '.')
-           (*str)++;
-        number = ft_atoi(*str);
-        if (number)
-            flag->dot = number;
-        while (**str >= '0' && **str <= '9')
-           (*str)++;
-    }
+   if (flag->min == 1)
+   {
+      
+   }
 }

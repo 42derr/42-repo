@@ -12,7 +12,7 @@
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-char	*format_check(char *str, va_list args, int *i)
+void	format_check(char *str, va_list args, int *i, t_flag *flag)
 {
 	if (*str == 'c')
 		ft_putchar_fd (va_arg(args, int), 1, i);
@@ -30,5 +30,4 @@ char	*format_check(char *str, va_list args, int *i)
 		ft_puthex_big (va_arg(args, unsigned int), i);
 	else if (*str == '%')
 		ft_putchar_fd('%', 1, i);
-	return (0);
 }
