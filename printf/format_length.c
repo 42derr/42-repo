@@ -88,3 +88,30 @@ int	ft_numlen(int num, t_flag *flag)
 	}
 	return (i);
 }
+
+int	format_length(char *str, va_list args, t_flag *flag)
+{
+	if (*str == 'c')
+   {
+      va_arg(args, int);
+		return (1);
+   }
+	else if (*str == 's')
+   {
+      flag->str = 1;
+		return (ft_strlen(va_arg(args, char *), flag));
+   }
+	else if (*str == 'p')
+		return (addr_len(va_arg(args, long)));
+	else if (*str == 'd' || *str == 'i')
+		return (ft_numlen(va_arg(args, int), flag));
+	else if (*str == 'u')
+		return (us_len(va_arg(args, unsigned int), flag));
+	else if (*str == 'x')
+		return (hex_len(va_arg(args, unsigned int), flag));
+	else if (*str == 'X')
+		return (hex_len(va_arg(args, unsigned int), flag));
+	else if (*str == '%')
+		return (1);
+   return (0);
+}

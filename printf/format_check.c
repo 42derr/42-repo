@@ -14,12 +14,7 @@
 
 void	format_check(char *str, va_list args, int *i, t_flag *flag)
 {
-	int back;
-	int front;
-
-	back = flag->back;
-	front = flag->front;
-	while (front-- && front >= 0 && !(*str == '%'))
+	while (flag->front-- && flag->front >= 0 && !(*str == '%'))
 		ft_putchar(' ', i);
 	if (*str == 'c')
 		ft_putchar (va_arg(args, int), i);
@@ -37,9 +32,87 @@ void	format_check(char *str, va_list args, int *i, t_flag *flag)
 		ft_put_big_hex (va_arg(args, unsigned int), i, flag);
 	else if (*str == '%')
 		ft_putchar('%', i);
-
-	while (back-- && back >= 0 && !(*str == '%'))
+	while (flag->back-- && flag->back >= 0 && !(*str == '%'))
 	{
 		ft_putchar(' ', i);
 	}
+}
+
+void len_flag_dot(t_flag *flag, int len)
+{
+      if (flag->dotvalue > len && !flag->str)
+      {
+         flag->middle = flag->dotvalue - len;
+         flag->zero = 1;
+      }
+      else if (flag->dotvalue > len && flag->str)
+      {
+         flag->middle = len;
+      }
+      else
+      {
+         flag->middle = flag->dotvalue;
+         flag->zero = 0;
+      }
+}
+
+void len_flag_width(t_flag *flag, int len)
+{
+      if (flag->dot && flag->dotvalue < len && flag->str)
+         flag->front = flag->width - flag->dotvalue;
+      else if (flag->dot && flag->dotvalue > len && !flag->str)
+      {
+            flag->front = flag->width - flag->dotvalue - flag->neg;
+      }
+      else if (flag->dot && flag->dotvalue < len && !flag->str)
+      {
+            flag->front = flag->width - len - flag->neg;
+      }
+      else
+         flag->front = flag->width - len;
+}
+
+
+void len_flag_min(t_flag *flag, int len)
+{
+      if (flag->dot && flag->dotvalue < len && flag->str)
+         flag->back = flag->width - flag->dotvalue;
+      else if (flag->dot && flag->dotvalue > len && !flag->str)
+      {
+            flag->back = flag->width - flag->dotvalue - flag->neg;
+      }
+      else if (flag->dot && flag->dotvalue < len && !flag->str)
+      {
+            flag->back = flag->width - len - flag->neg;
+      }
+      else if (flag->width != 0)
+         flag->back = flag->width - len;
+}
+
+void  len_flag(t_flag *flag, va_list args, char *str)
+{
+   int len;
+
+   len = 0;
+   if ((flag->min || flag->sharp || flag->zero || flag->plus || flag->space 
+   || flag->width || flag->dot) && *str != '%' )
+      len = format_length(str, args, flag);
+   if (flag->min == 1)
+         len_flag_min(flag, len);
+   if (flag->zero == 1)
+   {
+      if (flag->width > len)
+            flag->middle = flag->width - len;
+   }
+   if (flag->width && (!flag->min) && (!flag->sharp) && (!flag->zero) && (!flag->plus))
+      len_flag_width(flag, len);
+   if (flag->dot && flag->zero)
+   {
+      if (flag->dotvalue > len)
+         flag->front = flag->width - flag->dotvalue - flag->neg;
+      else
+         flag->front = flag->width - len - flag->neg;
+   }
+   if (flag->dot)
+      len_flag_dot(flag, len);
 }

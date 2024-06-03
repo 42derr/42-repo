@@ -12,25 +12,9 @@
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-void format_loop(char **ptr, va_list args, va_list args2, int *i)
-{
-	t_flag flag = {0};
-
-	while (**ptr == '%')
-	{
-		(*ptr)++;
-		flag_loop (&flag, ptr);
-		len_flag (&flag, args, *ptr);
-		format_check(*ptr, args2, i, &flag);
-		clear_flag (&flag);
-		if (**ptr == 'c' || **ptr == 's' || **ptr == 'p' || **ptr == 'd' ||
-		 **ptr == 'i' || **ptr == 'u' || **ptr == 'x' || **ptr == 'X' || **ptr == '%')
-			(*ptr)++;
-	}	
-}
-
 int	ft_printf(const char *str, ...)
 {
+	t_flag flag = {0};
 	va_list	args;
 	va_list args2;
 	char	*ptr;
@@ -42,7 +26,17 @@ int	ft_printf(const char *str, ...)
 	ptr = (char *) str;
 	while (*ptr)
 	{
-		format_loop(&ptr, args, args2, &i);
+		while (*ptr == '%')
+		{
+			ptr++;
+			flag_loop (&flag, &ptr);
+			len_flag (&flag, args, ptr);
+			format_check(ptr, args2, &i, &flag);
+			clear_flag (&flag);
+			if (*ptr == 'c' || *ptr == 's' || *ptr == 'p' || *ptr == 'd' ||
+			 *ptr == 'i' || *ptr == 'u' || *ptr == 'x' || *ptr == 'X' || *ptr == '%')
+				ptr++;
+		}
 		if (*ptr == '\0')
 			return (i);
 		ft_putchar(*ptr, &i);

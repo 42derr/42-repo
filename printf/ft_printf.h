@@ -35,6 +35,7 @@ typedef struct s_flag
 } t_flag;
 
 int	ft_printf(const char *str, ...);
+void format_loop(char **ptr, va_list args, va_list args2, int *i);
 
 void	ft_put_us_num(unsigned int nbr, int *i, t_flag *flag);
 void	ft_put_small_hex(unsigned int nbr, int *i, t_flag *flag);
@@ -56,5 +57,8 @@ void  len_flag(t_flag *flag, va_list args, char *str);
 void  clear_flag (t_flag *flag);
 void	ft_putnbr_helper(int n, int *i, t_flag *flag);
 
+void len_flag_dot(t_flag *flag, int len);
+void len_flag_width(t_flag *flag, int len);
+void len_flag_min(t_flag *flag, int len);
 
 #endif

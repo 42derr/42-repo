@@ -1,0 +1,64 @@
+cc -I./libft *.c libft/*.c -o my_program
+
+/francinette/tests/printf/printfTester/tests
+
+ft_printf("char : %c\nstring : %s\npointer : %p\ndecimal : %d\ninteger : %i\nunsigned int : %u\ns hexadecimal : %x\nb hexadecimal : %X\npercent sign : %%\n", 'a', "hello", &i, 123, 123, 2147483650, 31, 47);
+
+flag: start with
+
+(-)
+    (0) ignored doesnt need to do any
+    (.) -9.4
+    ( ) & (+) if number like - 9, -+9
+    (#) -#10x, %-#10.3x
+    (9) -> not possible
+%-10.5s
+(+)
+    (0) +010d , 
+    (.) ignore the (0) and do the .
+    ( ) ignored
+    (-) %+-4d, %+-6.4d
+    (#) don't do any thing, dont give + 
+    (9) -> %+10d, %+10.4d
+
+( )
+    (0) % 010d , ignored if have a .
+    (.) % .4d, ignore 0
+    (+) % +010d , ignore the ' '
+    (-) % -10d
+    (#) don't do any thing
+    (9) -> % 5d, % 5.4d
+
+(0)
+    (0) % 010d , ignored if have a .
+    (.) % %010.4d, 0 ignored,
+    (+) & ( ) cant after 0
+    (-) cant after 0
+    (#) cant after 0
+    (9) cant after 0
+
+(#)-> use 0x or 0X
+    (0) %#05x
+    (.) %#05.4x, 0 ignored,
+    (+) & ( ) cant be used
+    (-) %#-5x
+    (9) "%#5x
+
+(.)
+    (0) cant be used
+    (+) & ( ) cant be used
+    (-) cant be used
+    (9) cant be used
+
+(9)
+    (0) cant be used
+    (.) cant be used
+    (+) & ( ) cant be used
+    (-) cant be used
+
+
+rule :
+1. - can be used liked --- but not -2-2 as well as other flag
+2. (.) always come last, (9) second last
+3. (-) > (0) && (.) > (0)
+

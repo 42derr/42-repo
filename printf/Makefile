@@ -19,7 +19,7 @@ SRCS = flag_check.c \
       format_length.c \
       format_print.c \
       ft_printf.c \
-	  ./libft/ft_atoi.c \
+	./libft/ft_atoi.c \
       ./libft/ft_putchar.c \
       ./libft/ft_putnbr.c \
       ./libft/ft_putstr.c \
