@@ -9,22 +9,26 @@
 /*   Updated: 2024/05/24 20:18:32 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
+#include "../ft_printf.h"
+#include "libft.h"
 
-void	ft_putstr(char *s, int *x)
+void	ft_putstr(char *s, int *x, t_flag *flag)
 {
 	int	i;
 
 	i = 0;
+	if (flag && flag->dot && flag->dotvalue < 6 && !s)
+		return ;
 	if (s == NULL)
 	{
-		ft_putstr ("(null)", x);
+		ft_putstr ("(null)", x, flag);
 		return ;
 	}
 	while (s[i])
 	{
-		*x = *x + 1;
+		if (flag && flag->dot && flag->middle < i + 1 )
+			return ;
+		ft_putchar(s[i], x);
 		i++;
 	}
-	write (1, s, i);
 }

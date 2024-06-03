@@ -14,12 +14,12 @@
 # define LIBFT_H
 
 # include <stddef.h>
+#include "../ft_printf.h"
 
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen(const char *s, t_flag *flag);
 int		ft_atoi(const char *nptr);
-char	*ft_itoa(int n);
 void	ft_putchar(char c, int *i);
-void	ft_putstr(char *s, int *i);
-void	ft_putnbr(int n, int *i);
+void	ft_putstr(char *s, int *i, t_flag *flag);
+void	ft_putnbr(long n, int *i, t_flag *flag);
 
 #endif

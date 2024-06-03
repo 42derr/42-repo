@@ -17,6 +17,8 @@ int	addr_len(unsigned long nbr)
 	int	i;
 
 	i = 2;
+	if (!nbr)
+		return (5);
 	while (nbr > 0)
 	{
 		nbr = nbr / 16;
@@ -25,9 +27,12 @@ int	addr_len(unsigned long nbr)
 	return (i);
 }
 
-int	hex_len(unsigned int nbr)
+int	hex_len(unsigned int nbr, t_flag *flag)
 {
 	int	i;
+
+	if (nbr == 0 && flag->dot && !flag->dotvalue)
+		return (0);
 
 	i = 0;
 	if (nbr == 0)
@@ -40,11 +45,13 @@ int	hex_len(unsigned int nbr)
 	return (i);
 }
 
-int	us_len(unsigned int nbr)
+int	us_len(unsigned int nbr, t_flag *flag)
 {
 	int	i;
 
 	i = 0;
+	if (nbr == 0 && flag->dot && !flag->dotvalue)
+		return (0);
 	if (nbr == 0)
 		return (1);
 	while (nbr > 0)
@@ -55,11 +62,13 @@ int	us_len(unsigned int nbr)
 	return (i);
 }
 
-int	ft_numlen(int num)
+int	ft_numlen(int num, t_flag *flag)
 {
 	int	i;
 
 	i = 0;
+	if (num == 0 && flag->dot && !flag->dotvalue)
+		return (0);
 	if (num == 0)
 		return (1);	
 	if (num == -2147483648)
@@ -68,6 +77,9 @@ int	ft_numlen(int num)
 	{
 		num = num * -1;
 		i++;
+		if (flag->dot)
+			i--;
+		flag->neg = 1;
 	}
 	while (num > 0)
 	{

@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s, t_flag *flag)
 {
 	int	i;
 
-	if (!s)
+	if (!s && flag->dot && flag->dotvalue < 6)
 		return (0);
+	if (!s)
+		return (6);
 	i = 0;
 	while (s[i] != '\0')
 		i++;

@@ -1,5 +1,7 @@
 cc -I./libft *.c libft/*.c -o my_program
 
+/francinette/tests/printf/printfTester/tests
+
 ft_printf("char : %c\nstring : %s\npointer : %p\ndecimal : %d\ninteger : %i\nunsigned int : %u\ns hexadecimal : %x\nb hexadecimal : %X\npercent sign : %%\n", 'a', "hello", &i, 123, 123, 2147483650, 31, 47);
 
 flag: start with
@@ -59,3 +61,4 @@ rule :
 1. - can be used liked --- but not -2-2 as well as other flag
 2. (.) always come last, (9) second last
 3. (-) > (0) && (.) > (0)
+

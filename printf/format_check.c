@@ -14,20 +14,32 @@
 
 void	format_check(char *str, va_list args, int *i, t_flag *flag)
 {
+	int back;
+	int front;
+
+	back = flag->back;
+	front = flag->front;
+	while (front-- && front >= 0 && !(*str == '%'))
+		ft_putchar(' ', i);
 	if (*str == 'c')
-		ft_putchar_fd (va_arg(args, int), 1, i);
+		ft_putchar (va_arg(args, int), i);
 	else if (*str == 's')
-		ft_putstr_fd (va_arg(args, char *), 1, i);
+		ft_putstr (va_arg(args, char *), i, flag);
 	else if (*str == 'p')
-		ft_putaddr (va_arg(args, void *), i);
+		ft_put_addr (va_arg(args, void *), i);
 	else if (*str == 'd' || *str == 'i')
-		ft_putnbr_fd (va_arg(args, int), 1, i);
+		ft_putnbr_helper (va_arg(args, int), i, flag);
 	else if (*str == 'u')
-		ft_putusnbr (va_arg(args, unsigned int), i);
+		ft_put_us_num (va_arg(args, unsigned int), i,flag);
 	else if (*str == 'x')
-		ft_puthex (va_arg(args, unsigned int), i);
+		ft_put_small_hex (va_arg(args, unsigned int), i, flag);
 	else if (*str == 'X')
-		ft_puthex_big (va_arg(args, unsigned int), i);
+		ft_put_big_hex (va_arg(args, unsigned int), i, flag);
 	else if (*str == '%')
-		ft_putchar_fd('%', 1, i);
+		ft_putchar('%', i);
+
+	while (back-- && back >= 0 && !(*str == '%'))
+	{
+		ft_putchar(' ', i);
+	}
 }
