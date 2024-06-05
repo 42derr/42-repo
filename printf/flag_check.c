@@ -1,16 +1,22 @@
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-void    flag_loop_helper(int *value, char **str)
+void    flag_loop_helper(int *value, char **str, int *i)
 {
       if (**str == '.')
+      {
+         (*i)++;
          (*str)++;
+      }
       *value = ft_atoi(*str);
       while (**str >= '0' && **str <= '9')
+      {
+         (*i)++;
          (*str)++;
+      }
 }
 
-void    flag_loop(t_flag *flag, char **str)
+void    flag_loop(t_flag *flag, char **str, int *i)
 {
     while ((**str == '-' || **str == '+' || **str == '#'|| **str == ' ' 
     || **str == '0' || **str == '.' || (**str >= '1' && **str <= '9')) && **str)
@@ -28,12 +34,15 @@ void    flag_loop(t_flag *flag, char **str)
         else if (**str == '.')
         {
             flag->dot = 1;
-            flag_loop_helper(&(flag->dotvalue), str);
+            flag_loop_helper(&(flag->dotvalue), str, i);
         }
         else if (**str >= '1' && **str <= '9')
-            flag_loop_helper(&(flag->width), str);
+            flag_loop_helper(&(flag->width), str, i);
          if (**str == '-' || **str == '+' || **str == '#' || **str == '0' || **str == ' ')
+         {
+            (*i)++;
             (*str)++;
+         }
     }
 }
 

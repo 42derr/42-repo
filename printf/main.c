@@ -4,8 +4,8 @@
 
 int main(void)
 {
-    printf("%d\n" , ft_printf("%%%%%67.s", "hello"));
-    printf("%d\n" , printf("%%%%%67.s", "hello"));
+    printf("%d\n" , ft_printf("% k %s % k", "hello"));
+    printf("%d\n" , printf("% k %s % k", "hello"));
     int i;
 }
 

@@ -50,8 +50,8 @@ int	ft_numlen(int num, t_flag *flag);
 
 void	format_check(char *str, va_list args, int *i, t_flag *flag);
 
-void    flag_loop(t_flag *flag, char **str);
-void    flag_loop_helper(int *value, char **str);
+void    flag_loop(t_flag *flag, char **str, int *i);
+void    flag_loop_helper(int *value, char **str, int *i);
 int	format_length(char *str, va_list args, t_flag *flag);
 void  len_flag(t_flag *flag, va_list args, char *str);
 void  clear_flag (t_flag *flag);

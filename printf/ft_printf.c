@@ -12,19 +12,35 @@
 #include "libft/libft.h"
 #include "ft_printf.h"
 
+void	error_str(char *s, int *x)
+{
+	int	i;
+
+	i = 0;
+
+	while (s[i] == '%' || s[i] == '-' || s[i] == '+' || s[i] == '#'|| s[i] == ' ' 
+    || s[i] == '0' || s[i] == '.' || (s[i] >= '1' && s[i] <= '9'))
+	{
+		ft_putchar(s[i], x);
+		i++;
+	}
+}
+
 void format_loop(char **ptr, va_list args, va_list args2, int *i)
 {
 	t_flag flag = {0};
+	int x;
 
+	x = 1;
 	while (**ptr == '%')
 	{
 		(*ptr)++;
-		flag_loop (&flag, ptr);
+		flag_loop (&flag, ptr, &x);
 		len_flag (&flag, args, *ptr);
 		if (!(**ptr == 'c' || **ptr == 's' || **ptr == 'p' || **ptr == 'd' ||
 		 **ptr == 'i' || **ptr == 'u' || **ptr == 'x' || **ptr == 'X' || **ptr == '%'))
 		{
-			ft_putchar('%', i);
+			error_str(*ptr - x, i);
 			ft_putchar(**ptr, i);
 			clear_flag (&flag);
 			(*ptr)++;
