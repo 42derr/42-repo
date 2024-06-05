@@ -95,7 +95,8 @@ void  len_flag(t_flag *flag, va_list args, char *str)
 
    len = 0;
    if ((flag->min || flag->sharp || flag->zero || flag->plus || flag->space 
-   || flag->width || flag->dot) && *str != '%' )
+   || flag->width || flag->dot) && (*str == 'c' || *str == 's' || *str == 'p' || *str == 'd' ||
+		 *str == 'i' || *str == 'u' || *str == 'x' || *str == 'X'))
       len = format_length(str, args, flag);
    if (flag->min == 1)
          len_flag_min(flag, len);

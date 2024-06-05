@@ -21,11 +21,18 @@ void format_loop(char **ptr, va_list args, va_list args2, int *i)
 		(*ptr)++;
 		flag_loop (&flag, ptr);
 		len_flag (&flag, args, *ptr);
+		if (!(**ptr == 'c' || **ptr == 's' || **ptr == 'p' || **ptr == 'd' ||
+		 **ptr == 'i' || **ptr == 'u' || **ptr == 'x' || **ptr == 'X' || **ptr == '%'))
+		{
+			ft_putchar('%', i);
+			ft_putchar(**ptr, i);
+			clear_flag (&flag);
+			(*ptr)++;
+			break ;
+		}
 		format_check(*ptr, args2, i, &flag);
 		clear_flag (&flag);
-		if (**ptr == 'c' || **ptr == 's' || **ptr == 'p' || **ptr == 'd' ||
-		 **ptr == 'i' || **ptr == 'u' || **ptr == 'x' || **ptr == 'X' || **ptr == '%')
-			(*ptr)++;
+		(*ptr)++;
 	}	
 }
 
