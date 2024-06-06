@@ -6,7 +6,7 @@
 #    By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/18 15:52:39 by dfasius           #+#    #+#              #
-#    Updated: 2024/05/24 21:03:55 by dfasius          ###   ########.fr        #
+#    Updated: 2024/06/06 19:13:40 by dfasius          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,13 @@ SRCS = flag_check.c \
 OBJS = ${SRCS:.c=.o}
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fPIE
+CFLAGS = -Wall -Wextra -Werror
+HEAD = ./libft/
 
 all: ${NAME}
 
 .c.o:
-	$(CC) $(CFLAGS) $(addprefix -I, $(INCS_DIR)) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(HEAD) -c $< -o $@
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
@@ -41,8 +42,7 @@ $(NAME): $(OBJS)
 clean:
 	rm -f $(OBJS)
 
-bonus: all
-	ar rcs $(NAME) $(OBJS)
+bonus: ${NAME}
 
 fclean: clean
 	rm -f $(NAME)

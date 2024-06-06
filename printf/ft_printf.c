@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:38:09 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/24 20:19:40 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:57:06 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -17,28 +17,30 @@ void	error_str(char *s, int *x)
 	int	i;
 
 	i = 0;
-
-	while (s[i] == '%' || s[i] == '-' || s[i] == '+' || s[i] == '#'|| s[i] == ' ' 
-    || s[i] == '0' || s[i] == '.' || (s[i] >= '1' && s[i] <= '9'))
+	while (s[i] == '%' || s[i] == '-' || s[i] == '+' || s[i] == '#'
+		|| s[i] == ' ' || s[i] == '0' || s[i] == '.'
+		|| (s[i] >= '1' && s[i] <= '9'))
 	{
 		ft_putchar(s[i], x);
 		i++;
 	}
 }
 
-void format_loop(char **ptr, va_list args, va_list args2, int *i)
+void	format_loop(char **ptr, va_list args, va_list args2, int *i)
 {
-	t_flag flag = {0};
-	int x;
+	t_flag	flag;
+	int		x;
 
+	flag = (t_flag){0};
 	x = 1;
 	while (**ptr == '%')
 	{
 		(*ptr)++;
 		flag_loop (&flag, ptr, &x);
 		len_flag (&flag, args, *ptr);
-		if (!(**ptr == 'c' || **ptr == 's' || **ptr == 'p' || **ptr == 'd' ||
-		 **ptr == 'i' || **ptr == 'u' || **ptr == 'x' || **ptr == 'X' || **ptr == '%'))
+		if (!(**ptr == 'c' || **ptr == 's' || **ptr == 'p' || **ptr == 'd'
+				|| **ptr == 'i' || **ptr == 'u' || **ptr == 'x'
+				|| **ptr == 'X' || **ptr == '%'))
 		{
 			error_str(*ptr - x, i);
 			ft_putchar(**ptr, i);
@@ -55,7 +57,7 @@ void format_loop(char **ptr, va_list args, va_list args2, int *i)
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
-	va_list args2;
+	va_list	args2;
 	char	*ptr;
 	int		i;
 

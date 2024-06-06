@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format_put.c                                       :+:      :+:    :+:   */
+/*   format_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:48:30 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/24 20:07:33 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:53:38 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -39,7 +39,7 @@ void	ft_put_small_hex(unsigned int nbr, int *i, t_flag *flag)
 	char	c;
 
 	if (nbr == 0 && flag->dot && !flag->dotvalue)
-		return ;	
+		return ;
 	while (flag->middle > 0 && flag->zero == 1)
 	{
 		ft_putchar ('0', i);
@@ -98,7 +98,7 @@ void	ft_put_big_hex(unsigned int nbr, int *i, t_flag *flag)
 	char	c;
 
 	if (nbr == 0 && flag->dot && !flag->dotvalue)
-		return ;	
+		return ;
 	while (flag->middle > 0 && flag->zero == 1)
 	{
 		ft_putchar ('0', i);

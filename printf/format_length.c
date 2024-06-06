@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lenght.c                                        :+:      :+:    :+:   */
+/*   format_length.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:49:43 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/22 16:14:10 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:50:51 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -33,7 +33,6 @@ int	hex_len(unsigned int nbr, t_flag *flag)
 
 	if (nbr == 0 && flag->dot && !flag->dotvalue)
 		return (0);
-
 	i = 0;
 	if (nbr == 0)
 		return (1);
@@ -70,7 +69,7 @@ int	ft_numlen(int num, t_flag *flag)
 	if (num == 0 && flag->dot && !flag->dotvalue)
 		return (0);
 	if (num == 0)
-		return (1);	
+		return (1);
 	if (num == -2147483648)
 		return (11);
 	if (num < 0)
@@ -84,7 +83,7 @@ int	ft_numlen(int num, t_flag *flag)
 	while (num > 0)
 	{
 		num = num / 10;
-		i++; 
+		i++;
 	}
 	return (i);
 }
@@ -92,15 +91,15 @@ int	ft_numlen(int num, t_flag *flag)
 int	format_length(char *str, va_list args, t_flag *flag)
 {
 	if (*str == 'c')
-   {
-      va_arg(args, int);
+	{
+		va_arg(args, int);
 		return (1);
-   }
+	}
 	else if (*str == 's')
-   {
-      flag->str = 1;
+	{
+		flag->str = 1;
 		return (ft_strlen(va_arg(args, char *), flag));
-   }
+	}
 	else if (*str == 'p')
 		return (addr_len(va_arg(args, long)));
 	else if (*str == 'd' || *str == 'i')
@@ -113,5 +112,5 @@ int	format_length(char *str, va_list args, t_flag *flag)
 		return (hex_len(va_arg(args, unsigned int), flag));
 	else if (*str == '%')
 		return (1);
-   return (0);
+	return (0);
 }
