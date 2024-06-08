@@ -26,12 +26,14 @@ int main(int argc, char **argv)
     if (!assign_stackb(argc,&push))
         return (0);
 
-    int i;
+    sort_stacka(&push);
+    sort_stacka(&push);
 
-    i = 0;
-    while (i < push.asize)
+    printf("Sorted stacka:\n");
+    for (int i = 7; i >= 0; i--)
     {
-        printf("%d\n",push.stacka[i]);
-        i++;
+        printf("%d\n", push.stacka[i]);
     }
+
+    return 0;
 }

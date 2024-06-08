@@ -2,6 +2,7 @@
 
 int    assign_stacka(int argc, char **argv, t_push *push)
 {
+    int max;
     int i;
 
     if (check_argv(argc, argv) <= 0)
@@ -10,14 +11,16 @@ int    assign_stacka(int argc, char **argv, t_push *push)
             printf("Error\n");
         return (0);
     }
-    i = argc - 1;
+    max = argc - 1;
+    i = 1;
     push->stacka = (int *) malloc(sizeof(int) * (argc - 1));
     if (!push->stacka)
         return (0);
-    while (i)
+    while (max)
     {
-        push->stacka[i - 1] = atoi(argv[i]);
-        i--;
+        push->stacka[max - 1] = atoi(argv[i]);
+        max--;
+        i++;
     }
     push->asize = argc - 1;
     return (1);
