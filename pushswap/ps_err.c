@@ -23,8 +23,6 @@ int     check_argv_helper(int argc , char **argv)
             return (0);
         i++;
     }
-    if (argc < 3)
-        return (-1);
     return (1);
 }
 

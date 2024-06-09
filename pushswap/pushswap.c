@@ -9,7 +9,7 @@ int check_stack(t_push *push)
         return(0);
     while (i < push->asize - 1)
     {
-        if (push->stacka[i] > push->stacka[i + 1])
+        if (push->stacka[i] < push->stacka[i + 1])
             return (0);
         i++;
     }
@@ -25,15 +25,17 @@ int main(int argc, char **argv)
         return (0);
     if (!assign_stackb(argc,&push))
         return (0);
-
-    sort_stacka(&push);
-    sort_stacka(&push);
-
-    printf("Sorted stacka:\n");
-    for (int i = 7; i >= 0; i--)
+    if (check_stack(&push) || argc == 2)
     {
-        printf("%d\n", push.stacka[i]);
+        free(push.stacka);
+        free(push.stackb);
+        return (0);
     }
-
-    return 0;
+    solve_stack(&push, argc);
+    // printf("Sorted stacka:\n");
+    // for (int i = 9; i >= 0; i--)
+    // {
+    //     printf("%d\n", push.stacka[i]);
+    // }
+    return (0);
 }

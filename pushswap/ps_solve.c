@@ -1,117 +1,72 @@
 #include "pushswap.h"
 
-int stacka_sorted(t_push *push)
+void    solve_stack_3num(t_push *push)
 {
-    int i;
-
-    i = 0;
-    if (push == NULL || push->stacka == NULL)
-        return(0);
-    while (i < push->asize - 1  && push->asize > 1)
+    if (push->stacka[0] == 1 && push->stacka[1] == 2 && push->stacka[2] == 0)
     {
-        if (push->stacka[i] < push->stacka[i + 1])
-            return (0);
-        i++;
+        cmd_sa(push, 1);
+        cmd_ra(push, 1);
     }
-    return (1);
-}
-
-int stackb_sorted(t_push *push)
-{
-    int i;
-
-    i = 0;
-    if (push == NULL || push->stackb == NULL)
-        return(0);
-    while (i < push->bsize - 1 && push->bsize > 1)
+    else if (push->stacka[0] == 2 && push->stacka[1] == 0 && push->stacka[2] == 1)
+        cmd_sa(push, 1);
+    else if (push->stacka[0] == 0 && push->stacka[1] == 2 && push->stacka[2] == 1)
+        cmd_rra(push, 1);
+    else if (push->stacka[0] == 1 && push->stacka[1] == 0 && push->stacka[2] == 2)
+        cmd_ra(push, 1);
+    else if (push->stacka[0] == 0 && push->stacka[1] == 1 && push->stacka[2] == 2)
     {
-        if (push->stackb[i] > push->stackb[i + 1])
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
-void    sort_stacka(t_push *push)
-{
-    int pivot;
-
-    if (stacka_sorted(push))
-    {
-        sort_stackb(push);
-    }
-    else
-    {
-        while (1)
-        {
-            if (push->asize >= 1 && push->stacka[0] < push->stacka[push->asize - 1] && push->stacka[0] < push->stacka[push->asize - 2])
-                cmd_rra(push, 1);
-            else if (push->asize >= 2 && push->stacka[push->asize - 2] < push->stacka[push->asize - 1] && push->stacka[push->asize - 2] < push->stacka[0])
-                cmd_sa(push, 1);
-            else
-                break ;
-        }
-        pivot = push->stacka[push->asize - 1];
-        cmd_pb(push);
-        while (1)
-        {
-            if (push->asize >= 1 && push->stacka[push->asize - 1] < pivot)
-            {
-                cmd_pb(push);
-            }
-            else if (push->asize >= 2 && (push->stacka[push->asize - 2] < pivot || push->stacka[0] < pivot))
-            {
-                if (push->stacka[push->asize - 2] > push->stacka[0])
-                    cmd_sa(push, 1);
-                else
-                    cmd_ra(push, 1);
-                cmd_pb(push);
-            }
-            else
-                break ;
-        }
-    }
-    printf("\n");
-    sort_stackb(push);
-}
-
-void    sort_stackb(t_push *push)
-{
-    int pivot;
-
-    if (stackb_sorted(push))
-    {
-        sort_stacka(push);
-    }
-    else
-    {
-        while (1)
-        {
-            if (push->bsize >= 1 && push->stackb[0] > push->stackb[push->bsize - 1] && push->stackb[0] > push->stackb[push->bsize - 2])
-                cmd_rrb(push, 1);
-            else if (push->bsize >= 2 && push->stackb[push->bsize - 2] > push->stackb[push->bsize - 1] && push->stackb[push->bsize - 2] > push->stackb[0])
-                cmd_sb(push, 1);
-            else
-                break ;
-        }
-        pivot = push->stackb[push->bsize - 1];
-        cmd_pa(push);
-        while (1)
-        {
-            if (push->bsize >= 1 && push->stackb[push->bsize - 1] > pivot)
-                cmd_pb(push);
-            else if (push->bsize >= 2 &&( push->stackb[push->bsize - 2] > pivot || push->stackb[0] > pivot))
-            {
-                if (push->stackb[push->bsize - 2] > push->stackb[0])
-                    cmd_sb(push, 1);
-                else
-                    cmd_rrb(push, 1);
-                cmd_pa(push);
-            }
-            else
-                break ;
-        }
+        cmd_sa(push, 1);
+        cmd_rra(push, 1);
     }
 }
 
-//pivot -> send all you can ->= try to fix
+void    solve_stack_4num(t_push *push)
+{
+    if (push->stacka[2] == 3)
+        cmd_sa(push, 1);
+    else if (push->stacka[1] == 3)
+    {
+        cmd_ra(push, 1);
+        cmd_sa(push, 1);
+    }
+    else if (push->stacka[0] == 3)
+        cmd_rra(push, 1);
+    cmd_pb(push);
+    solve_stack_3num(push);
+    cmd_pa(push);
+    cmd_ra(push, 1);
+}
+
+void    solve_stack_5num(t_push *push)
+{
+    if (push->stacka[3] == 4)
+        cmd_sa(push, 1);
+    else if (push->stacka[2] == 4)
+    {
+        cmd_ra(push, 1);
+        cmd_sa(push, 1);
+    }
+    else if (push->stacka[1] == 4)
+    {
+        cmd_rra(push, 1);
+        cmd_rra(push, 1);
+    }
+    else if (push->stacka[0] == 4)
+        cmd_rra(push, 1);
+    cmd_pb(push);
+    solve_stack_4num(push);
+    cmd_pa(push);
+    cmd_ra(push, 1);
+}
+
+void    solve_stack(t_push *push, int argc)
+{
+    if (argc == 3 && push->stacka[0] < push->stacka[1])
+        printf("sa");
+    if (argc == 4)
+        solve_stack_3num(push);
+    if (argc == 5)
+        solve_stack_4num(push);
+    if (argc > 5)
+        insertion_sort(push);
+}
