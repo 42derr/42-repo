@@ -1,1 +1,5 @@
-./push_swap 5 7 4 1 6 2 8 3
+• For a minimalist validation (that implies a minimal grade of 80), you must be
+able to sort 100 random numbers in fewer than 700 operations.
+• For maximal project validation and thus to be able to achieve the bonuses, you
+must fulfill the first step above, but also for 500 random numbers, there should
+be no more than 5500 operations.
