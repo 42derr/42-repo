@@ -68,5 +68,5 @@ void    solve_stack(t_push *push, int argc)
     if (argc == 5)
         solve_stack_4num(push);
     if (argc > 5)
-        insertion_sort(push);
+        radix_base4(push);
 }

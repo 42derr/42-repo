@@ -1,0 +1,33 @@
+    printf("intitial\n");
+    printf("stack a\n");
+    j = push->asize;
+    while (j--)
+    {
+        printf("%s\n", (push->stackaa[j]));
+    }
+    printf("stack b\n");
+    j = push->bsize;
+    while (j--)
+    {
+        printf("%s\n", (push->stackbb[j]));
+    }
+    cmd_pb(push);
+    cmd_pb(push);
+    cmd_pb(push);
+    cmd_pb(push);
+    cmd_pb(push);
+    cmd_pb(push);
+    cmd_rb(push, 1);
+    printf("\nafter\n");
+    printf("stack a\n");
+    j = push->asize;
+    while (j--)
+    {
+        printf("%s\n", (push->stackaa[j]));
+    }
+    printf("stack b\n");
+    j = push->bsize;
+    while (j--)
+    {
+        printf("%s\n", (push->stackbb[j]));
+    }

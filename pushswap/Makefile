@@ -4,7 +4,7 @@ SRCS = ps_asg.c \
       ps_cmd.c \
       ps_err.c \
       ps_solve.c \
-      ps_insertion_sort.c \
+      ps_radix_sort.c \
       pushswap.c
 
 OBJS = $(SRCS:.c=.o)

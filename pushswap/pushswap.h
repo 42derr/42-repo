@@ -5,6 +5,8 @@ typedef struct s_push
 {
     int *stacka;
     int *stackb;
+    char **stackaa;
+    char **stackbb;
     int asize;
     int bsize;
 } t_push;
@@ -38,7 +40,16 @@ void    solve_stack_3num(t_push *push);
 void    solve_stack_4num(t_push *push);
 void    solve_stack_5num(t_push *push);
 
-int find_loc(t_push *push, int num);
-void    insertion_sort(t_push *push);
+// void    radix_sort(t_push *push);
+// int     max_base2(int num);
+// int     isthere_bytes(t_push *push, int num, int c);
+// int     howmany_bytes(t_push *push, int num, int c);
+
+char    *base4_string(int num);
+char    **base4_array(t_push *push);
+int     isthere(t_push *push, int num, char c);
+int     max_base4(int num);
+void    radix_base4(t_push *push);
+
 
 # endif
