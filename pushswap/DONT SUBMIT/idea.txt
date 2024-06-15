@@ -1,0 +1,10 @@
+Reduce the Number of Rotations:
+
+Avoid unnecessary rotations by grouping elements that need to stay together.
+Use rotation counters and only perform the rotations when necessary.
+Batch Operations:
+
+Instead of moving elements one by one, try to identify groups of elements that can be moved together in fewer operations.
+Track Elements' Final Position:
+
+Use additional data structures to keep track of where elements need to be moved, reducing the need for multiple passes over the data.

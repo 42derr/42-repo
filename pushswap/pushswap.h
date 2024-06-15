@@ -1,20 +1,34 @@
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 
+typedef struct s_buffer
+{
+    char    *buffer;
+    int     size;
+} t_buffer;
+
 typedef struct s_push
 {
     int *stacka;
     int *stackb;
+    int agroupsize;
+    int asize;
+    int bgroupsize;
+    int bsize;
     char **stackaa;
     char **stackbb;
-    int asize;
-    int bsize;
+    t_buffer **stackaaa;
+    t_buffer **stackbbb;
 } t_push;
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
 
 int     check_argv_helper(int argc , char **argv);
 int    check_argv(int argc, char **argv);
@@ -40,16 +54,17 @@ void    solve_stack_3num(t_push *push);
 void    solve_stack_4num(t_push *push);
 void    solve_stack_5num(t_push *push);
 
-// void    radix_sort(t_push *push);
-// int     max_base2(int num);
-// int     isthere_bytes(t_push *push, int num, int c);
-// int     howmany_bytes(t_push *push, int num, int c);
-
 char    *base4_string(int num);
-char    **base4_array(t_push *push);
+t_buffer    **base4_array(t_push *push);
 int     isthere(t_push *push, int num, char c);
+int     isthereb(t_push *push, int num, char c);
+int     howmany(t_push *push, int num, char c);
+int     howmanyb(t_push *push, int num, char c);
 int     max_base4(int num);
 void    radix_base4(t_push *push);
+
+int base4ToDecimal(char *base4);
+void    resize_array(t_push *push);
 
 
 # endif

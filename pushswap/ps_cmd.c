@@ -2,26 +2,26 @@
 
 void   cmd_sa(t_push *push , int p)
 {
-   char *temp;
+   t_buffer *temp;
    
-   if (push->asize < 2)
+   if (push->agroupsize < 2)
       return ;
-   temp = push->stackaa[push->asize - 1];
-   push->stackaa[push->asize - 1] = push->stackaa[push->asize - 2];
-   push->stackaa[push->asize - 2] = temp;
+   temp = push->stackaaa[push->agroupsize - 1];
+   push->stackaaa[push->agroupsize - 1] = push->stackaaa[push->agroupsize - 2];
+   push->stackaaa[push->agroupsize - 2] = temp;
    if (p)
       printf("sa\n");
 }
 
 void   cmd_sb(t_push *push, int p)
 {
-   char *temp;
+   t_buffer *temp;
    
-   if (push->bsize < 2)
+   if (push->bgroupsize < 2)
       return ;
-   temp = push->stackbb[push->bsize - 1];
-   push->stackbb[push->bsize - 1] = push->stackbb[push->bsize - 2];
-   push->stackbb[push->bsize - 2] = temp;
+   temp = push->stackbbb[push->bgroupsize - 1];
+   push->stackbbb[push->bgroupsize - 1] = push->stackbbb[push->bgroupsize - 2];
+   push->stackbbb[push->bgroupsize - 2] = temp;
    if (p)
       printf("sb\n");
 }
@@ -34,63 +34,86 @@ void   cmd_ss(t_push *push)
 }
 
 void   cmd_pa(t_push *push)
-{   
-   if (push->bsize < 1)
+{
+   int count;
+
+   if (push->bgroupsize < 1)
       return ;
-   push->stackaa[push->asize] = push->stackbb[push->bsize - 1];
-   push->stackbb[push->bsize - 1] = 0;
-   push->asize = push->asize + 1;
-   push->bsize = push->bsize - 1;
-   printf("pa\n");
+   push->stackaaa[push->agroupsize] = push->stackbbb[push->bgroupsize - 1];
+   count = push->stackaaa[push->agroupsize]->size;
+   while (count--)
+   {
+      printf("pa\n");
+   }
+   push->stackbbb[push->bgroupsize - 1] = 0;
+   push->agroupsize = push->agroupsize + 1;
+   push->bgroupsize = push->bgroupsize - 1;
 }
 
 void   cmd_pb(t_push *push)
-{   
-   if (push->asize < 1)
+{
+   int count;
+   if (push->agroupsize < 1)
       return ;
-   push->stackbb[push->bsize] = push->stackaa[push->asize - 1];
-   push->stackaa[push->asize - 1] = 0;
-   push->bsize++;
-   push->asize--;
-   printf("pb\n");
+   push->stackbbb[push->bgroupsize] = push->stackaaa[push->agroupsize - 1];
+   count = push->stackbbb[push->bgroupsize]->size;
+   while (count--)
+   {
+      printf("pb\n");
+   }
+   push->stackaaa[push->agroupsize - 1] = 0;
+   push->bgroupsize++;
+   push->agroupsize--;
 }
 
 void   cmd_ra(t_push *push, int p)
 {
-   char *temp;
+   t_buffer *temp;
    int i;
+   int count;
 
-   if (push->asize < 1)
+   if (push->agroupsize < 1)
       return ;
-   i = push->asize - 1;
-   temp = push->stackaa[i];
+
+   count = push->stackaaa[push->agroupsize - 1]->size;
+   i = push->agroupsize - 1;
+   temp = push->stackaaa[i];
    while (i > 0)
    {
-      push->stackaa[i] = push->stackaa[i - 1];
+      push->stackaaa[i] = push->stackaaa[i - 1];
       i--;
    }
-   push->stackaa[0] = temp;
-   if (p)
-      printf("ra\n");
+   push->stackaaa[0] = temp;
+   while (count--)
+   {
+      if (p)
+         printf("ra\n");
+   }
 }
 
 void   cmd_rb(t_push *push, int p)
 {
-   char *temp;
+   t_buffer *temp;
    int i;
+   int count;
 
-   if (push->bsize < 1)
+   if (push->bgroupsize < 1)
       return ;
-   i = push->bsize - 1;
-   temp = push->stackbb[i];
-   while (i)
+
+   count = push->stackbbb[push->bgroupsize - 1]->size;
+   i = push->bgroupsize - 1;
+   temp = push->stackbbb[i];
+   while (i > 0)
    {
-      push->stackbb[i] = push->stackbb[i - 1];
+      push->stackbbb[i] = push->stackbbb[i - 1];
       i--;
    }
-   push->stackbb[0] = temp;
-   if (p)
-      printf("rb\n");
+   push->stackbbb[0] = temp;
+   while (count--)
+   {
+      if (p)
+         printf("rb\n");
+   }
 }
 
 void   cmd_rr(t_push *push)
@@ -102,40 +125,50 @@ void   cmd_rr(t_push *push)
 
 void   cmd_rra(t_push *push, int p)
 {
-   char *temp;
+   t_buffer *temp;
    int i;
+   int count;
 
-   if (push->asize < 1)
+   if (push->agroupsize < 1)
       return ;
+   count = push->stackaaa[0]->size;
    i = 0;
-   temp = push->stackaa[0];
-   while (i < push->asize - 1)
+   temp = push->stackaaa[0];
+   while (i < push->agroupsize - 1)
    {
-      push->stackaa[i] = push->stackaa[i + 1];
+      push->stackaaa[i] = push->stackaaa[i + 1];
       i++;
    }
-   push->stackaa[push->asize - 1] = temp;
-   if (p)
-      printf("rra\n");
+   push->stackaaa[push->agroupsize - 1] = temp;
+   while (count--)
+   {
+      if (p)
+         printf("rra\n");
+   }
 }
 
 void   cmd_rrb(t_push *push, int p)
 {
-   char *temp;
+   t_buffer *temp;
    int i;
+   int count;
 
-   if (push->bsize < 1)
+   if (push->bgroupsize < 1)
       return ;
+   count = push->stackbbb[0]->size;
    i = 0;
-   temp = push->stackbb[0];
-   while (i < push->bsize - 1)
+   temp = push->stackbbb[0];
+   while (i < push->bgroupsize - 1)
    {
-      push->stackbb[i] = push->stackbb[i + 1];
+      push->stackbbb[i] = push->stackbbb[i + 1];
       i++;
    }
-   push->stackbb[push->bsize - 1] = temp;
-   if (p)
-      printf("rrb\n");
+   push->stackbbb[push->bgroupsize - 1] = temp;
+   while (count--)
+   {
+      if (p)
+         printf("rrb\n");
+   }
 }
 
 void   cmd_rrr(t_push *push)
