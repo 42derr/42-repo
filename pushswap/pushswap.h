@@ -64,7 +64,6 @@ int     max_base4(int num);
 void    radix_base4(t_push *push);
 
 int base4ToDecimal(char *base4);
-void    resize_array(t_push *push);
-
+int    check_stack_f(t_push *push);
 
 # endif

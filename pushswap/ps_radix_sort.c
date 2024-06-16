@@ -23,65 +23,26 @@ int base4ToDecimal(char *base4) {
     return decimal;
 }
 
-void    new_array(t_push *push, int num)
+int    check_stack_f(t_push *push)
 {
     int i;
-
-    i = push->agroupsize;
-    while (i--)
-    {
-        if (base4ToDecimal(push->stackaaa[i]->buffer) > num)
-        {
-            push->stackaaa[i]->buffer = base4_string((base4ToDecimal(push->stackaaa[i]->buffer) - 1));
-        }
-    }
-    resize_array(push);
-}
-
-void    resize_array(t_push *push)
-{
-    int i;
-    int j;
-    int k;
     int first;
     int second;
 
-    i = push->agroupsize - 1;
-    j = i - 1;
-    while (j--)
+    if (push->bgroupsize != 0)
+        return (0);
+
+    i = 0;
+    while (i < push->agroupsize - 1)
     {
         first = base4ToDecimal(push->stackaaa[i]->buffer);
-        second = base4ToDecimal(push->stackaaa[i - 1]->buffer);
-        if (first + 1 == second)
-        {
-            push->agroupsize = push->agroupsize - 1;
-            push->stackaaa[i]->size =  push->stackaaa[i]->size + 1;
-            push->stackaaa[i - 1] =  push->stackaaa[i];
-            while (i < push->agroupsize)
-            {
-                push->stackaaa[i] =  push->stackaaa[i + 1];
-                i++;
-            }
-            new_array(push,second);
-            break;
-        }
-        k++;
-        i--;
+        second = base4ToDecimal(push->stackaaa[i + 1]->buffer);
+        if (first < second)
+            return (0);
+        i++;
     }
+    return (1);
 }
-
-
-// void    radix_base4(t_push *push)
-// {
-
-    // push->stackaaa = base4_array(push);
-    // push->stackbbb = (t_buffer **) malloc (sizeof(t_buffer *));
-    // push->bgroupsize = 0;
-
-
-// }
-
-
 
 void    radix_base4(t_push *push)
 {
@@ -89,7 +50,6 @@ void    radix_base4(t_push *push)
     int max;
     int o;
     int k;
-    // int j;
     int spes;
 
     push->stackaaa = base4_array(push);
@@ -98,23 +58,10 @@ void    radix_base4(t_push *push)
 
     i = 0;
     max = max_base4(push->agroupsize - 1);
-        // j = push->agroupsize;
-        // while (j--)
-        // {
-        //     printf("%s\n", (push->stackaaa[j])->buffer);
-        //     printf("%d\n", (push->stackaaa[j])->size);
-        // }    
-        // printf("\n\n");
     while (i < max)
     {
-        // resize_array(push);
-        // j = push->agroupsize;
-        // while (j--)
-        // {
-        //     printf("%s\n", (push->stackaaa[j])->buffer);
-        //     printf("%d\n", (push->stackaaa[j])->size);
-        // }
-        max = max_base4(push->agroupsize - 1);
+        if (check_stack_f(push))
+            return ;
         if (push->agroupsize > 0 && (isthere(push, 15 - i, '0') && (isthere(push, 15 - i, '1') 
         && !(isthere(push, 15 - i, '2')) && !(isthere(push, 15 - i, '3')))))
         {
@@ -187,9 +134,6 @@ void    radix_base4(t_push *push)
 
         k = howmany(push, 15 - i, '3');
         o = 0;
-        // printf("\nstack b , %d\n", push->bgroupsize);
-        // printf("%s\n", (push->stackbbb[2])->buffer);
-        // printf("%d\n", (push->stackbbb[2])->size);
         while (push->agroupsize > 0 && isthere(push, 15 - i, '2'))
         {
             if (((push->stackaaa[push->agroupsize - 1])->buffer)[15 - i] == '2')
@@ -203,29 +147,90 @@ void    radix_base4(t_push *push)
             }
         }
 
-        if (push->agroupsize > 1 && o != 0  && i != 0)
+        if (push->agroupsize > 1 && o != 0  && i != 0 && spes == 0)
         {
             k = k % o;
             while (k--)
                 cmd_ra(push, 1); 
         }
 
-        // printf("stack a\n");
-        // j = push->agroupsize;
-        // while (j--)
-        // {
-        //     printf("%s\n", (push->stackaaa[j])->buffer);
-        //     printf("%d\n", (push->stackaaa[j])->size);
-        // }
-        // printf("stack b , %d\n", push->bgroupsize);
-        // printf("%s\n", (push->stackbbb[3])->buffer);
-        // printf("%d\n", (push->stackbbb[3])->size);
+        if (i == 0)
+        {
+            while (push->agroupsize != 0)
+            {
+                    cmd_pb(push);
+            }
+            i++;
+            k = howmanyb(push, 15 - i, '2') + howmanyb(push, 15 - i, '1') + howmanyb(push, 15 - i, '0');
+            o = 0;
+            while (push->bgroupsize > 0 && isthereb(push, 15 - i, '3'))
+            {
+                if (((push->stackbbb[push->bgroupsize - 1])->buffer)[15 - i] == '3')
+                {
+                    cmd_pa(push);
+                }
+                else
+                {
+                    o++;
+                    cmd_rb(push, 1);
+                }
+            }
+            if (push->bgroupsize > 1 && o != 0)
+            {
+                k = k % o;
+                while (k--)
+                    cmd_rb(push, 1); 
+            }
 
-        // while (j--)
-        // {
-        // }
+            k = howmanyb(push, 15 - i, '1') + howmanyb(push, 15 - i, '0');
+            o = 0;
+            while (push->bgroupsize > 0 && isthereb(push, 15 - i, '2'))
+            {
+                if (((push->stackbbb[push->bgroupsize - 1])->buffer)[15 - i] == '2')
+                {
+                    cmd_pa(push);
+                }
+                else
+                {
+                    o++;
+                    cmd_rb(push, 1);
+                }
+            }
+            if (push->bgroupsize > 1 && o != 0)
+            {
+                k = k % o;
+                while (k--)
+                    cmd_rb(push, 1); 
+            }
 
-        while (push->bgroupsize != 0)
+            k = howmanyb(push, 15 - i, '0');
+            o = 0;
+            while (push->bgroupsize > 0 && isthereb(push, 15 - i, '1'))
+            {
+                if (((push->stackbbb[push->bgroupsize - 1])->buffer)[15 - i] == '1')
+                {
+                    cmd_pa(push);
+                }
+                else
+                {
+                    o++;
+                    cmd_rb(push, 1);
+                }
+            }
+            if (push->bgroupsize > 1 && o != 0)
+            {
+                k = k % o;
+                while (k--)
+                    cmd_rb(push, 1); 
+            }
+
+            while (push->bgroupsize != 0)
+            {
+                cmd_pa(push);
+            }
+        }
+
+        while (push->bgroupsize != 0 && i != 0)
         {
             if ((isthereb(push, 15 - i, '1') || isthereb(push, 15 - i, '2')) || spes == 1)
             {
@@ -240,6 +245,11 @@ void    radix_base4(t_push *push)
             {
                 cmd_pa(push);
             }
+        }
+
+        while (push->bgroupsize != 0 && i == 0)
+        {
+                cmd_pa(push);
         }
         spes = 0;
         i++;
