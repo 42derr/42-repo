@@ -6,14 +6,14 @@ char    *base4_string(int num)
     char    *str;
     int i;
 
-    i = 15;
+    i = 19;
 
-    str = (char *)malloc (sizeof(char) * 17);
-    str[16] = '\0';
+    str = (char *)malloc (sizeof(char) * 21);
+    str[20] = '\0';
     while (num > 0 && i >= 0)
     {
-        str[i] = (num % 4) + '0';
-        num = num / 4;
+        str[i] = (num % 3) + '0';
+        num = num / 3;
         i--;
     }
     while (i >= 0)
@@ -110,7 +110,7 @@ int     max_base4(int num)
 
     while (num > 0)
     {
-        num = num / 4;
+        num = num / 3;
         i++;
     }
     return (i);

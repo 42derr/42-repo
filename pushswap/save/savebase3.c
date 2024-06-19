@@ -19,18 +19,19 @@ void    radix_base4(t_push *push)
         //     return ;
 
         o = 0;
-        k = howmany(push, 15 - i, '3') + howmany(push, 15 - i, '2');
+        k = howmany(push, 19 - i, '2');
 
-            while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
+            while (push->asize > 0 && (isthere(push, 19 - i, '0') || isthere(push, 19 - i, '1')))
             {
-                if (((push->stacka[push->asize - 1]))[15 - i] == '1')
+                if (((push->stacka[push->asize - 1]))[19 - i] == '1')
                 {
                     cmd_pb(push);
                 }
-                if (((push->stacka[push->asize - 1]))[15 - i] == '0')
+                if (((push->stacka[push->asize - 1]))[19 - i] == '0')
                 {
                     cmd_pb(push);
-                    if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')) && (((push->stacka[push->asize - 1]))[15 - i] == '3' || ((push->stacka[push->asize - 1]))[15 - i] == '2'))
+                    if ((isthere(push, 19 - i, '0') || isthere(push, 19 - i, '1'))
+                     && (((push->stacka[push->asize - 1]))[19 - i] == '2'))
                     {
                         cmd_rr(push);
                         o++;
@@ -43,10 +44,9 @@ void    radix_base4(t_push *push)
                         }
                     }
                 }
-                if (push->asize == 0 || !((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1'))))
+                if (push->asize == 0 || !((isthere(push, 19 - i, '0') || isthere(push, 19 - i, '1'))))
                     break ;
-                if (((push->stacka[push->asize - 1]))[15 - i] == '3' 
-                || ((push->stacka[push->asize - 1]))[15 - i] == '2')
+                if (((push->stacka[push->asize - 1]))[19 - i] == '2')
                 {
                     cmd_ra(push, 1);        
                     o++;
@@ -60,35 +60,11 @@ void    radix_base4(t_push *push)
                     cmd_ra(push, 1); 
             }
 
-        //
-
-        k = howmany(push, 15 - i, '3');
-        o = 0;
-        while (push->asize > 0 && isthere(push, 15 - i, '2'))
-        {
-            if (((push->stacka[push->asize - 1]))[15 - i] == '2')
-            {
-                cmd_pb(push);
-            }
-            else
-            {
-                o++;
-                cmd_ra(push, 1);
-            }
-        }
-
-        if (push->asize > 1 && o != 0  && i != 0)
-        {
-            k = k % o;
-            while (k--)
-                cmd_ra(push, 1); 
-        }
-
         if (i == 0)
         {
-            while ((isthere(push, 15 - i, '3')))
+            while ((isthere(push, 19 - i, '2')))
             {
-                if (((push->stacka[push->asize - 1]))[15 - (i + 1)] == '3')
+                if (((push->stacka[push->asize - 1]))[19 - (i + 1)] == '2')
                 {
                     cmd_ra(push, 1);
                 }
@@ -96,18 +72,19 @@ void    radix_base4(t_push *push)
                 {
                     cmd_pb(push);
                 }
-                if (!(isthere(push, 15 - (i + 1), '2')) && !(isthere(push, 15 - (i + 1), '1')) && !(isthere(push, 15 - (i + 1), '0')) )
+                if (!(isthere(push, 19 - (i + 1), '1')) && !(isthere(push, 19 - (i + 1), '0')) )
                 {
                     break ;
                 }
             }
 
-            i++;
-            k = howmanyb(push, 15 - i, '2') + howmanyb(push, 15 - i, '1') + howmanyb(push, 15 - i, '0');
+            i++;   
+
+            k = howmanyb(push, 19 - i, '1') + howmanyb(push, 19 - i, '0');
             o = 0;
-            while (push->bsize > 0 && isthereb(push, 15 - i, '3'))
+            while (push->bsize > 0 && isthereb(push, 19 - i, '2'))
             {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '3')
+                if (((push->stackb[push->bsize - 1]))[19 - i] == '2')
                 {
                     cmd_pa(push);
                 }
@@ -124,32 +101,11 @@ void    radix_base4(t_push *push)
                     cmd_rb(push, 1); 
             }
 
-            k = howmanyb(push, 15 - i, '1') + howmanyb(push, 15 - i, '0');
+            k = howmanyb(push, 19 - i, '0');
             o = 0;
-            while (push->bsize > 0 && isthereb(push, 15 - i, '2'))
+            while (push->bsize > 0 && isthereb(push, 19 - i, '1'))
             {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '2')
-                {
-                    cmd_pa(push);
-                }
-                else
-                {
-                    o++;
-                    cmd_rb(push, 1);
-                }
-            }
-            if (push->bsize > 1 && o != 0)
-            {
-                k = k % o;
-                while (k--)
-                    cmd_rb(push, 1); 
-            }
-
-            k = howmanyb(push, 15 - i, '0');
-            o = 0;
-            while (push->bsize > 0 && isthereb(push, 15 - i, '1'))
-            {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                if (((push->stackb[push->bsize - 1]))[19 - i] == '1')
                 {
                     cmd_pa(push);
                 }
@@ -167,9 +123,9 @@ void    radix_base4(t_push *push)
             }
 
             o = 0;
-            while ((isthereb(push, 15 - i, '0')))
+            while ((isthereb(push, 19 - i, '0')))
             {
-                if (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '1')
+                if (((push->stackb[push->bsize - 1]))[19 - (i + 1)] == '1')
                 {
                     cmd_rb(push, 1);
                     o++;
@@ -178,7 +134,7 @@ void    radix_base4(t_push *push)
                 {
                     cmd_pa(push);
                 }
-                if (!(isthereb(push, 15 - (i + 1), '2')) && !(isthereb(push, 15 - (i + 1), '3')) && !(isthereb(push, 15 - (i + 1), '0')) )
+                if (!(isthereb(push, 19 - (i + 1), '2')) && !(isthereb(push, 19 - (i + 1), '0')) )
                 {
                     break ;
                 }
@@ -193,19 +149,19 @@ void    radix_base4(t_push *push)
             }
         }
 
-        if (i == max - 2 && push->asize > 0 && !(isthere(push, 15 - (max - 1), '2')) && !(isthere(push, 15 - (max - 1), '3')))
+        if (i == max - 2 && push->asize > 0 && !(isthere(push, 19 - (max - 1), '2')))
         {
             i++;
-            k = howmany(push, 15 - i, '1');
+            k = howmany(push, 19 - i, '1');
             o = 0;
             hun = 0;
-            if (!isthere(push, 15 - i, '1'))
+            if (!isthere(push, 19 - i, '1'))
             {
                 hun = push->asize;
             }
-            while (push->asize > 0 && isthere(push, 15 - i, '0') && hun == 0)
+            while (push->asize > 0 && isthere(push, 19 - i, '0') && hun == 0)
             {
-                if (((push->stacka[push->asize - 1]))[15 - i] == '0')
+                if (((push->stacka[push->asize - 1]))[19 - i] == '0')
                 {
                     cmd_pb(push);
                 }
@@ -222,13 +178,13 @@ void    radix_base4(t_push *push)
                     cmd_ra(push, 1); 
             }
 
-            while (push->bsize > 0 && isthereb(push, 15 - i, '1'))
+            while (push->bsize > 0 && isthereb(push, 19 - i, '1'))
             {
-                if (((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0')
+                if (((push->stackb[push->bsize - 1]))[19 - (i - 1)] == '0')
                 {
                     break ;
                 }
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                if (((push->stackb[push->bsize - 1]))[19 - i] == '1')
                 {
                     cmd_pa(push);
                 }
@@ -239,19 +195,19 @@ void    radix_base4(t_push *push)
             }
 
             o = 0;
-            while (push->bsize > 0 && ((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0')
+            while (push->bsize > 0 && ((push->stackb[push->bsize - 1]))[19 - (i - 1)] == '0')
             {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                if (((push->stackb[push->bsize - 1]))[19 - i] == '1')
                 {
                     cmd_pa(push);
-                    if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                    if (((push->stackb[push->bsize - 1]))[19 - i] == '1')
                     {
                         cmd_ra(push, 1);
                         o++;
                     }
                     else
                     {
-                        if (!(((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0'))
+                        if (!(((push->stackb[push->bsize - 1]))[19 - (i - 1)] == '0'))
                             break ;
                         cmd_rr(push);
                         o++;
@@ -272,13 +228,13 @@ void    radix_base4(t_push *push)
                 cmd_rra(push, 1);
             }
 
-            while (push->bsize > 0 && isthereb(push, 15 - i, '0'))
+            while (push->bsize > 0 && isthereb(push, 19 - i, '0'))
             {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '0')
+                if (((push->stackb[push->bsize - 1]))[19 - i] == '0')
                 {
                     cmd_pa(push);
                 }
-                if (((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0')
+                if (((push->stackb[push->bsize - 1]))[19 - (i - 1)] == '0')
                 {
                     break ;
                 }
@@ -302,15 +258,15 @@ void    radix_base4(t_push *push)
         if (i < max - 2 && i >= 2)
         {
             o = 0;
-            while ((isthereb(push, 15 - i, '0')) || (isthereb(push, 15 - i, '1')) || (isthereb(push, 15 - i, '2')))
+            while ((isthereb(push, 19 - i, '0')) || (isthereb(push, 19 - i, '1')))
             {
-                if ((isthereb(push, 15 - i, '1') || isthereb(push, 15 - i, '2')))
+                if ((isthereb(push, 19 - i, '1')))
                 {
                     cmd_pa(push);
                 }
                 else
                 {
-                    if (((push->stackb[0]))[15 - (i + 1)] == '0')
+                    if (((push->stackb[0]))[19 - (i + 1)] == '0')
                     {
                         o++;
                         cmd_rrb(push,1);
@@ -320,7 +276,7 @@ void    radix_base4(t_push *push)
                         cmd_rrb(push,1);
                         cmd_pa(push);
                     }
-                    if (!(isthereb(push, 15 - (i + 1), '1')) && !(isthereb(push, 15 - (i + 1), '2')) && !(isthereb(push, 15 - (i + 1), '3')))
+                    if (!(isthereb(push, 19 - (i + 1), '1')) && !(isthereb(push, 19 - (i + 1), '2')))
                     {
                         break ;
                     }
@@ -339,7 +295,7 @@ void    radix_base4(t_push *push)
         {
             while (push->bsize != 0 && i != 0 && i != 1)
             {
-                if ((isthereb(push, 15 - i, '1') || isthereb(push, 15 - i, '2')))
+                if ((isthereb(push, 19 - i, '1')))
                 {
                     cmd_pa(push);
                 }

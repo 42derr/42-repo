@@ -9,16 +9,12 @@ typedef struct s_buffer
 
 typedef struct s_push
 {
-    int *stacka;
-    int *stackb;
-    int agroupsize;
+    int *astart;
+    int *bstart;
+    char **stacka;
+    char **stackb;
     int asize;
-    int bgroupsize;
     int bsize;
-    char **stackaa;
-    char **stackbb;
-    t_buffer **stackaaa;
-    t_buffer **stackbbb;
 } t_push;
 
 #include <stdio.h>
@@ -55,7 +51,7 @@ void    solve_stack_4num(t_push *push);
 void    solve_stack_5num(t_push *push);
 
 char    *base4_string(int num);
-t_buffer    **base4_array(t_push *push);
+char    **base4_array(t_push *push);
 int     isthere(t_push *push, int num, char c);
 int     isthereb(t_push *push, int num, char c);
 int     howmany(t_push *push, int num, char c);

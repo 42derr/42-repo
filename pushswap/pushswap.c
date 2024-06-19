@@ -5,11 +5,11 @@ int check_stack(t_push *push)
     int i;
 
     i = 0;
-    if (push->bsize != 0 || push == NULL || push->stacka == NULL)
+    if (push->bsize != 0 || push == NULL || push->astart == NULL)
         return(0);
     while (i < push->asize - 1)
     {
-        if (push->stacka[i] < push->stacka[i + 1])
+        if (push->astart[i] < push->astart[i + 1])
             return (0);
         i++;
     }
@@ -27,8 +27,8 @@ int main(int argc, char **argv)
         return (0);
     if (check_stack(&push) || argc == 2)
     {
-        free(push.stacka);
-        free(push.stackb);
+        free(push.astart);
+        free(push.bstart);
         return (0);
     }
     solve_stack(&push, argc);
