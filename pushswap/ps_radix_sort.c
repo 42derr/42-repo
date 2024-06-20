@@ -18,179 +18,319 @@ void    radix_base4(t_push *push)
         // if (check_stack_f(push))
         //     return ;
 
-        o = 0;
-        k = howmany(push, 15 - i, '3') + howmany(push, 15 - i, '2');
-
-            while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
-            {
-                if (((push->stacka[push->asize - 1]))[15 - i] == '1')
+        if (i == 0)
+        {
+                i++;
+                while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
                 {
-                    cmd_pb(push);
-                }
-                if (((push->stacka[push->asize - 1]))[15 - i] == '0')
-                {
-                    cmd_pb(push);
-                    if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')) && (((push->stacka[push->asize - 1]))[15 - i] == '3' || ((push->stacka[push->asize - 1]))[15 - i] == '2'))
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '1')
                     {
-                        cmd_rr(push);
-                        o++;
+                        cmd_pb(push);
                     }
-                    else
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '0')
                     {
-                        if (push->bsize > 0)
+                        cmd_pb(push);
+                        if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')) && (((push->stacka[push->asize - 1]))[15 - i] == '3' || ((push->stacka[push->asize - 1]))[15 - i] == '2') && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
                         {
-                            cmd_rb(push, 1);
+                            cmd_rr(push);
+                        }
+                        else
+                        {
+                            if (push->bsize > 0)
+                            {
+                                cmd_rb(push, 1);
+                            }
                         }
                     }
+                    if (push->asize == 0 || !((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1'))))
+                        break ;
+                    if ((((push->stacka[push->asize - 1]))[15 - i] == '3' 
+                    || ((push->stacka[push->asize - 1]))[15 - i] == '2') && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
+                    {
+                        cmd_ra(push, 1);        
+                    }
                 }
-                if (push->asize == 0 || !((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1'))))
-                    break ;
-                if (((push->stacka[push->asize - 1]))[15 - i] == '3' 
-                || ((push->stacka[push->asize - 1]))[15 - i] == '2')
+
+            while (push->asize > 0 && isthere(push, 15 - i, '2'))
+            {
+                if (((push->stacka[push->asize - 1]))[15 - i] == '2')
                 {
-                    cmd_ra(push, 1);        
+                    cmd_pb(push);
+                }
+                else if (isthere(push, 15 - i, '2'))
+                {
+                    cmd_ra(push, 1);
+                }
+            }
+            i--;
+        }
+        else
+        {
+            o = 0;
+            k = howmany(push, 15 - i, '3') + howmany(push, 15 - i, '2');
+
+                while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
+                {
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '1')
+                    {
+                        cmd_pb(push);
+                    }
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '0')
+                    {
+                        cmd_pb(push);
+                        if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')) && (((push->stacka[push->asize - 1]))[15 - i] == '3' || ((push->stacka[push->asize - 1]))[15 - i] == '2'))
+                        {
+                            cmd_rr(push);
+                            o++;
+                        }
+                        else
+                        {
+                            if (push->bsize > 0)
+                            {
+                                cmd_rb(push, 1);
+                            }
+                        }
+                    }
+                    if (push->asize == 0 || !((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1'))))
+                        break ;
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '3' 
+                    || ((push->stacka[push->asize - 1]))[15 - i] == '2')
+                    {
+                        cmd_ra(push, 1);        
+                        o++;
+                    }
+                }
+
+                if (push->asize > 1 && o != 0 && i != 0)
+                {
+                    k = k % o;
+                    while (k--)
+                        cmd_ra(push, 1); 
+                }
+            k = howmany(push, 15 - i, '3');
+            o = 0;
+            while (push->asize > 0 && isthere(push, 15 - i, '2'))
+            {
+                if (((push->stacka[push->asize - 1]))[15 - i] == '2')
+                {
+                    cmd_pb(push);
+                }
+                else
+                {
                     o++;
+                    cmd_ra(push, 1);
                 }
             }
 
-            if (push->asize > 1 && o != 0 && i != 0)
+            if (push->asize > 1 && o != 0  && i != 0)
             {
                 k = k % o;
                 while (k--)
                     cmd_ra(push, 1); 
             }
-
-        //
-
-        k = howmany(push, 15 - i, '3');
-        o = 0;
-        while (push->asize > 0 && isthere(push, 15 - i, '2'))
-        {
-            if (((push->stacka[push->asize - 1]))[15 - i] == '2')
-            {
-                cmd_pb(push);
-            }
-            else
-            {
-                o++;
-                cmd_ra(push, 1);
-            }
         }
 
-        if (push->asize > 1 && o != 0  && i != 0)
-        {
-            k = k % o;
-            while (k--)
-                cmd_ra(push, 1); 
-        }
 
         if (i == 0)
         {
-            while ((isthere(push, 15 - i, '3')))
+            o = 0;
+            k = 0;
+            while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
+                {
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '1')
+                    {
+                        cmd_pb(push);
+                        o++;
+                    }
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '0')
+                    {
+                        k++;
+                        cmd_pb(push);
+                        if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')) && (((push->stacka[push->asize - 1]))[15 - i] == '3' || ((push->stacka[push->asize - 1]))[15 - i] == '2'))
+                        {
+                            cmd_rr(push);
+                        }
+                        else
+                        {
+                            if (push->bsize > 0)
+                            {
+                                cmd_rb(push, 1);
+                            }
+                        }
+                    }
+                    if (push->asize == 0 || !((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1'))))
+                        break ;
+                    if ((((push->stacka[push->asize - 1]))[15 - i] == '3' 
+                    || ((push->stacka[push->asize - 1]))[15 - i] == '2') && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
+                    {
+                        cmd_ra(push, 1);        
+                    }
+                }
+
+            while (push->asize > 0 && isthere(push, 15 - i, '2'))
             {
-                if (((push->stacka[push->asize - 1]))[15 - (i + 1)] == '3')
+                if (((push->stacka[push->asize - 1]))[15 - i] == '2')
+                {
+                    cmd_pb(push);
+                    o++;
+                }
+                else if (isthere(push, 15 - i, '2'))
                 {
                     cmd_ra(push, 1);
                 }
-                else
-                {
-                    cmd_pb(push);
-                }
-                if (!(isthere(push, 15 - (i + 1), '2')) && !(isthere(push, 15 - (i + 1), '1')) && !(isthere(push, 15 - (i + 1), '0')) )
-                {
-                    break ;
-                }
             }
 
-            i++;
-            k = howmanyb(push, 15 - i, '2') + howmanyb(push, 15 - i, '1') + howmanyb(push, 15 - i, '0');
+            while (o--)
+            {
+                cmd_pa(push);
+            }
+
+            while (k--)
+            {
+                cmd_rrb(push, 1);
+                cmd_pa(push);
+            }
+
+            k = 0;
             o = 0;
-            while (push->bsize > 0 && isthereb(push, 15 - i, '3'))
+            while (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '2')
             {
                 if (((push->stackb[push->bsize - 1]))[15 - i] == '3')
                 {
                     cmd_pa(push);
                 }
-                else
+                else if (((push->stackb[push->bsize - 1]))[15 - i] == '2')
                 {
-                    o++;
-                    cmd_rb(push, 1);
+                    cmd_pa(push);
+                    if ((((push->stackb[push->bsize - 1]))[15 - i] == '1' || ((push->stackb[push->bsize - 1]))[15 - i] == '0') && (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '2') )
+                    {
+                        cmd_rr(push);
+                        o++;
+                        k++;
+                    }
+                    else
+                    {
+                        cmd_ra(push,1);
+                        o++;
+                    }
+                }
+                else if ((((push->stackb[push->bsize - 1]))[15 - i] == '1' || ((push->stackb[push->bsize - 1]))[15 - i] == '0') && (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '2'))
+                {
+                    cmd_rb (push, 1);
+                    k++;
                 }
             }
-            if (push->bsize > 1 && o != 0)
-            {
-                k = k % o;
+                while(o--)
+                {
+                    cmd_rra(push, 1);
+                }
+                o = 0;
                 while (k--)
-                    cmd_rb(push, 1); 
-            }
-
-            k = howmanyb(push, 15 - i, '1') + howmanyb(push, 15 - i, '0');
-            o = 0;
-            while (push->bsize > 0 && isthereb(push, 15 - i, '2'))
-            {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '2')
+                {
+                    cmd_rrb(push, 1);
+                    if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                        cmd_pa(push);
+                    else
+                        o++;
+                }
+                while (o--)
                 {
                     cmd_pa(push);
                 }
-                else
-                {
-                    o++;
-                    cmd_rb(push, 1);
-                }
-            }
-            if (push->bsize > 1 && o != 0)
-            {
-                k = k % o;
-                while (k--)
-                    cmd_rb(push, 1); 
-            }
 
-            k = howmanyb(push, 15 - i, '0');
+                //1
+
+            k = 0;
             o = 0;
-            while (push->bsize > 0 && isthereb(push, 15 - i, '1'))
+            while (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '1')
             {
-                if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                if (((push->stackb[push->bsize - 1]))[15 - i] == '3')
                 {
                     cmd_pa(push);
                 }
-                else
+                else if (((push->stackb[push->bsize - 1]))[15 - i] == '2')
                 {
-                    o++;
-                    cmd_rb(push, 1);
+                    cmd_pa(push);
+                    if ((((push->stackb[push->bsize - 1]))[15 - i] == '1' || ((push->stackb[push->bsize - 1]))[15 - i] == '0') && (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '1') )
+                    {
+                        cmd_rr(push);
+                        o++;
+                        k++;
+                    }
+                    else
+                    {
+                        cmd_ra(push,1);
+                        o++;
+                    }
+                }
+                else if ((((push->stackb[push->bsize - 1]))[15 - i] == '1' || ((push->stackb[push->bsize - 1]))[15 - i] == '0') && (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '1'))
+                {
+                    cmd_rb (push, 1);
+                    k++;
                 }
             }
-            if (push->bsize > 1 && o != 0)
-            {
-                k = k % o;
+                while(o--)
+                {
+                    cmd_rra(push, 1);
+                }
+                o = 0;
                 while (k--)
-                    cmd_rb(push, 1); 
-            }
-
-            o = 0;
-            while ((isthereb(push, 15 - i, '0')))
-            {
-                if (((push->stackb[push->bsize - 1]))[15 - (i + 1)] == '1')
                 {
-                    cmd_rb(push, 1);
-                    o++;
+                    cmd_rrb(push, 1);
+                    if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                        cmd_pa(push);
+                    else
+                        o++;
                 }
-                else
+                while (o--)
                 {
                     cmd_pa(push);
                 }
-                if (!(isthereb(push, 15 - (i + 1), '2')) && !(isthereb(push, 15 - (i + 1), '3')) && !(isthereb(push, 15 - (i + 1), '0')) )
+
+        //0
+            o = 0;
+            while ((isthereb(push, 15 - i, '2')) || (isthereb(push, 15 -  i, '3')))
+            {
+                if (((push->stackb[push->bsize - 1]))[15 - i] == '3')
                 {
-                    break ;
+                    cmd_pa(push);
+                }
+                else if (((push->stackb[push->bsize - 1]))[15 - i] == '2')
+                {
+                    cmd_pa(push);
+                    if ((((push->stackb[push->bsize - 1]))[15 - i] == '1' || ((push->stackb[push->bsize - 1]))[15 - i] == '0') &&  ((isthereb(push, 15 - i, '2')) || (isthereb(push, 15 -  i, '3'))))
+                    {
+                        cmd_rr(push);
+                        o++;
+                        k++;
+                    }
+                    else
+                    {
+                        cmd_ra(push,1);
+                        o++;
+                    }
+                }
+                else if ((((push->stackb[push->bsize - 1]))[15 - i] == '1' || ((push->stackb[push->bsize - 1]))[15 - i] == '0') && ((isthereb(push, 15 - i, '2')) || (isthereb(push, 15 -  i, '3'))))
+                {
+                    cmd_rb (push, 1);
                 }
             }
-
-            k = push->bsize;
-            if (push->bsize > 1 && o != 0)
-            {
-                k = k % o;
-                while (k--)
-                    cmd_rb(push, 1); 
-            }
+                while(o--)
+                {
+                    cmd_rra(push, 1);
+                }
+                while ((isthereb(push, 15 - i, '1')))
+                {
+                    if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+                        cmd_pa(push);
+                    else if ((((push->stackb[push->bsize - 1]))[15 - i] == '0') && ((isthereb(push, 15 - i, '1'))))
+                        cmd_rb(push, 1);
+                }
+                while (push->bsize != 0)
+                {
+                    cmd_pa(push);
+                }
+                i = 1;
         }
 
         if (i == max - 2 && push->asize > 0 && !(isthere(push, 15 - (max - 1), '2')) && !(isthere(push, 15 - (max - 1), '3')))
@@ -296,6 +436,7 @@ void    radix_base4(t_push *push)
                     cmd_pa(push);
                 }
             }
+            
             return ;
         }
 
