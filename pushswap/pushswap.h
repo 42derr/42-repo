@@ -1,12 +1,6 @@
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 
-typedef struct s_buffer
-{
-    char    *buffer;
-    int     size;
-} t_buffer;
-
 typedef struct s_push
 {
     int *astart;

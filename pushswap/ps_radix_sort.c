@@ -130,7 +130,6 @@ void    radix_base4(t_push *push)
             }
         }
 
-
         if (i == 0)
         {
             o = 0;
@@ -158,8 +157,6 @@ void    radix_base4(t_push *push)
                             }
                         }
                     }
-                    if (push->asize == 0 || !((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1'))))
-                        break ;
                     if ((((push->stacka[push->asize - 1]))[15 - i] == '3' 
                     || ((push->stacka[push->asize - 1]))[15 - i] == '2') && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
                     {
@@ -362,19 +359,21 @@ void    radix_base4(t_push *push)
                     cmd_ra(push, 1); 
             }
 
+            k = 0;
+
             while (push->bsize > 0 && isthereb(push, 15 - i, '1'))
             {
-                if (((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0')
-                {
-                    break ;
-                }
                 if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
                 {
                     cmd_pa(push);
                 }
-                else
+                if (((push->stackb[push->bsize - 1]))[15 - i] == '0')
                 {
                     cmd_rb(push, 1);
+                }
+                if (((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0')
+                {
+                    break ;
                 }
             }
 
@@ -402,15 +401,27 @@ void    radix_base4(t_push *push)
                     cmd_rb(push, 1);
                 }
             }
+            
+            if (max > 4)
+            {
+                while(o--)
+                {
+                    cmd_rra(push, 1);
+                }
+                while (hun--)
+                {
+                    cmd_rra(push, 1);
+                }
+            }
+            else
+            {
+                o = push->asize - o - hun;
+                while(o--)
+                {
+                    cmd_ra(push,1);
+                }
+            }
 
-            while(o--)
-            {
-                cmd_rra(push, 1);
-            }
-            while (hun--)
-            {
-                cmd_rra(push, 1);
-            }
 
             while (push->bsize > 0 && isthereb(push, 15 - i, '0'))
             {
