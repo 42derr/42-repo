@@ -157,9 +157,14 @@ void    radix_base4(t_push *push)
         {
             o = 0;
             k = 0;
-            while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1') || isthere(push, 15 - i, '3')))
+            while (push->asize > 0 && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
                 {
-                    if (((push->stacka[push->asize - 1]))[15 - i] == '1' || ((push->stacka[push->asize - 1]))[15 - i] == '3')
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '1')
+                    {
+                        cmd_pb(push);
+                        o++;
+                    }
+                    if (((push->stacka[push->asize - 1]))[15 - i] == '2' && !(isthere(push, 15 - i, '1')))
                     {
                         cmd_pb(push);
                         o++;
@@ -168,7 +173,7 @@ void    radix_base4(t_push *push)
                     {
                         k++;
                         cmd_pb(push);
-                        if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1' || isthere(push, 15 - i, '3'))) && (((push->stacka[push->asize - 1]))[15 - i] == '2'))
+                        if ((isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')) && (((push->stacka[push->asize - 1]))[15 - i] == '3' || ((push->stacka[push->asize - 1]))[15 - i] == '2'))
                         {
                             cmd_rr(push);
                         }
@@ -180,17 +185,29 @@ void    radix_base4(t_push *push)
                             }
                         }
                     }
-                    if ((((push->stacka[push->asize - 1]))[15 - i] == '2') && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1') || isthere(push, 15 - i, '3')))
+                    if ((((push->stacka[push->asize - 1]))[15 - i] == '3' 
+                    || ((push->stacka[push->asize - 1]))[15 - i] == '2') && (isthere(push, 15 - i, '0') || isthere(push, 15 - i, '1')))
                     {
                         cmd_ra(push, 1);        
                     }
                 }
 
+            while (push->asize > 0 && isthere(push, 15 - i, '2'))
+            {
+                if (((push->stacka[push->asize - 1]))[15 - i] == '2')
+                {
+                    cmd_pb(push);
+                    o++;
+                }
+                else
+                {
+                    cmd_ra(push, 1);
+                }
+            }
+
             while (o--)
             {
                 cmd_pa(push);
-                if (((push->stacka[push->asize - 1]))[15 - i] == '3')
-                    cmd_ra(push ,1);
             }
 
             while (k--)
