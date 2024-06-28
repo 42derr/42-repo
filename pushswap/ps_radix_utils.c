@@ -1,6 +1,5 @@
 #include "pushswap.h"
 
-
 char    *base4_string(int num)
 {
     char    *str;
@@ -88,6 +87,20 @@ int     isthere(t_push *push, int num, char c)
     return (0);
 }
 
+int     istheretwo(t_push *push, int num, char c, int numt, char ct)
+{
+    int i;
+
+    i = 0;
+    while (i < push->asize)
+    {
+        if ((push->stacka[i])[num] == c && (push->stacka[i])[numt] == ct)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
 int     isthereb(t_push *push, int num, char c)
 {
     int i;
@@ -96,6 +109,20 @@ int     isthereb(t_push *push, int num, char c)
     while (i < push->bsize)
     {
         if ((push->stackb[i])[num] == c)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int     istherebtwo(t_push *push, int num, char c, int numt, char ct)
+{
+    int i;
+
+    i = 0;
+    while (i < push->bsize)
+    {
+        if ((push->stackb[i])[num] == c && (push->stackb[i])[numt] == ct)
             return (1);
         i++;
     }
