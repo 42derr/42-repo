@@ -11,18 +11,13 @@ typedef struct s_push
     int bsize;
 } t_push;
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-
+#include <unistd.h>
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
 
 int     check_argv_helper(int argc , char **argv);
 int    check_argv(int argc, char **argv);
+int     check_stack(t_push *push);
 
 int    assign_stacka(int argc, char **argv, t_push *push);
 void   reassign_stacka(t_push *push);
@@ -53,11 +48,6 @@ int     howmany(t_push *push, int num, char c);
 int     howmanyb(t_push *push, int num, char c);
 int     max_base4(int num);
 void    radix_base4(t_push *push);
-
-int base4ToDecimal(char *base4);
-int    check_stack_f(t_push *push);
-int     istheretwo(t_push *push, int num, char c, int numt, char ct);
-int     istherebtwo(t_push *push, int num, char c, int numt, char ct);
 
 void iz_first_zero(t_push *push , int i);
 void iz_first_three(t_push *push , int i);
@@ -96,5 +86,45 @@ void ils_zero(t_push *push , int i, int *o);
 void ils_adjust(t_push *push , int o, int hun);
 void ils_finish(t_push *push, int i);
 void i_last_spes(t_push *push, int i, int max);
+
+long	ft_atol(const char *nptr);
+void	ft_putstr_fd(char *s, int fd);
+int	ft_strcmp(const char *s1, const char *s2);
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+typedef struct s_list
+{
+	char			*content;
+	struct s_list	*next;
+}	t_list;
+
+int		search_newline(t_list *list);
+int		string_length(t_list *list);
+char	*string_malloc(t_list *list, char *str, int len);
+void	clear_node(t_list **lst);
+int		save_string(t_list **list);
+char	*create_string(t_list **list, int fd);
+char	*get_next_line(int fd);
+char	*create_string_helper(t_list **list);
+int		addback_new_node(t_list **lst, char **content);
+int		save_string_helper(int i, int j, char *content, t_list **list);
+
+void   checker_ra(t_push *push);
+void   checker_rb(t_push *push);
+void   checker_rr(t_push *push);
+void   checker_rra(t_push *push);
+void   checker_rrb(t_push *push);
+void   checker_sa(t_push *push);
+void   checker_sb(t_push *push);
+void   checker_ss(t_push *push);
+void   checker_pa(t_push *push);
+void   checker_pb(t_push *push);
+void   checker_rrr(t_push *push);
+
+int do_cmd(char *str, t_push *push);
+void check_sort(t_push *push);
 
 # endif

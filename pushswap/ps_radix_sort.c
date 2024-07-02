@@ -1,5 +1,46 @@
 #include "pushswap.h"
 
+char    *base4_string(int num)
+{
+    char    *str;
+    int i;
+
+    i = 15;
+
+    str = (char *)malloc (sizeof(char) * 17);
+    str[16] = '\0';
+    while (num > 0 && i >= 0)
+    {
+        str[i] = (num % 4) + '0';
+        num = num / 4;
+        i--;
+    }
+    while (i >= 0)
+    {
+        str[i] = '0';
+        i--;
+    }
+    return (str);
+}
+
+char    **base4_array(t_push *push)
+{
+    char **buffer;
+    int i;
+
+    i = 0;
+    buffer = (char **) malloc (sizeof(char *) * push->asize);
+    if (!buffer)
+        return (0);
+    while (i < push->asize)
+    {
+        buffer[i] = base4_string(push->astart[i]);
+        i++;
+    }
+    buffer[i] = 0;
+    return (buffer);
+}
+
 void    radix_base4(t_push *push)
 {
     int i;

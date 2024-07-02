@@ -7,7 +7,7 @@ int    assign_stacka(int argc, char **argv, t_push *push)
 
     if (check_argv(argc, argv) == 0)
     {
-        printf("Error\n");
+        ft_putstr_fd("Error\n", 2);
         return (0);
     }
     max = argc - 1;
@@ -35,7 +35,10 @@ void   reassign_stacka(t_push *push)
     
     newstack = (int *) malloc(sizeof(int) * push->asize);
     if (!newstack)
+    {
+        free(push->astart);
         return ;
+    }
     i = 0;
     while (i < push->asize)
     {
@@ -59,7 +62,7 @@ int    assign_stackb(int argc, t_push *push)
     push->bstart = (int *) malloc(sizeof(int) * (argc - 1));
     if (!push->bstart)
     {
-        free(push->bstart);
+        free(push->astart);
         return (0);
     }
     push->bsize = 0;
