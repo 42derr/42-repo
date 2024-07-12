@@ -60,6 +60,13 @@ void free_pipex(t_pipex *pipex)
     }
 }
 
+void error_handler(char *err, t_pipex *pipex)
+{
+    free_pipex(pipex);
+    perror(err);
+    exit (1);
+}
+
 void	free_array(char	**buffer)
 {
 	int	i;
@@ -71,12 +78,21 @@ void	free_array(char	**buffer)
 		i++;
 	}
 	free(buffer);
+}
 
-}
-void error_handler(char *err, t_pipex *pipex)
+void pipe_exit(t_pipex *pipex, int *fd, int pid2)
 {
+    int  status;
+
+    status = 0;
+    close(fd[0]);
+    close(fd[1]);
+    if (waitpid(pid2, &status, 0) == -1)
+        error_handler("waitpid", pipex);
+    // if (waitpid(pid, &status, 0) == -1)
+    //     error_handler("waitpid", pipex);
     free_pipex(pipex);
-    perror(err);
-    exit (1);
+    exit(status >> 8);
 }
+
 

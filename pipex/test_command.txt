@@ -1,0 +1,7 @@
+< source.txt grep Now | grep shine | grep boys | wc -l > out
+./pipex source.txt "grep Now" "grep shine" "grep boys" "wc -l" out
+
+./pipex here_doc EOF cat "grep hello" output.txt
+cat << EOF | grep hello >> output.txt
+
+//before pipe it return 0

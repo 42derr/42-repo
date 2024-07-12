@@ -10,6 +10,10 @@ SRCS = pipex.c \
 	   libft/ft_strcpy.c \
 	   libft/ft_strchr.c \
 	   libft/ft_putstr_fd.c \
+	   libft/ft_strcmp.c \
+	   libft/ft_strncmp.c \
+	   get_next_line/get_next_line.c \
+	   get_next_line/get_next_line_utils.c \
 
 OBJS = ${SRCS:.c=.o}
 
