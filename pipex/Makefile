@@ -2,6 +2,7 @@ NAME = pipex
 
 SRCS = pipex.c \
 	   pipex_utils.c \
+	   pipex_helper.c \
 	   libft/ft_strdup.c \
 	   libft/ft_split.c \
 	   libft/ft_strjoin.c \

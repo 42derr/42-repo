@@ -1,49 +1,45 @@
 #include "pipex.h"
 
-char *final_path(char *dir, char *cmd, t_pipex *pipex) 
+void doc_child(t_pipex *pipex, int fd[2], char *lim)
 {
-    char *full_path;
-    int dir_len;
-    int cmd_len;
+    char *buffer;
+    size_t len;
 
-    dir_len = (int)ft_strlen(dir);
-    cmd_len = (int)ft_strlen(cmd);
-    full_path =(char *) malloc(sizeof(char) * (dir_len + cmd_len + 2));
-    if (!full_path) 
-        error_handler("malloc", pipex);
-    ft_strcpy(full_path, dir);
-    full_path[dir_len] = '/';
-    ft_strcpy(full_path + dir_len + 1, cmd);
-    return (full_path);
+    len = ft_strlen(lim);
+    close (fd[0]);
+    if (dup2(fd[1],STDOUT_FILENO) == -1)
+        error_handler("dup2", pipex);
+    close (fd[1]);
+    while (1)
+    {
+        buffer = get_next_line(0);
+        if (ft_strncmp(buffer, lim, len) == 0 && buffer[len] == '\n')
+            break;
+        ft_putstr_fd(buffer, STDOUT_FILENO);
+        free(buffer);
+    }
+    free(buffer);
+    exit(0);
 }
 
-char *find_full_path(char *command, char **env, t_pipex *pipex) 
+void handle_doc(char *lim, t_pipex *pipex)
 {
-    int i;
-    char *path;
-    char **dir;
+    int fd[2];
+    int pid;
 
-    i = 0;
-    while (env[i])
+    pipe(fd);
+    pid = fork();
+    if (pid == 0)
     {
-        if (ft_strnstr(env[i], "PATH=", 5) != 0)
-            path = ft_strnstr(env[i], "PATH=", 5);
-        i++;
+        doc_child(pipex, fd, lim);
     }
-    dir = ft_split(path + 5, ':');
-    i = 0;
-    while (dir[i])
+    else
     {
-        path = final_path(dir[i++], command, pipex);
-        if (access(path, X_OK) == 0) 
-        {
-            free_array(dir);
-            return path;
-        }
-        free(path);
+        close (fd[1]);
+        if (dup2(fd[0],STDIN_FILENO) == -1)
+            error_handler("dup2", pipex);
+        close (fd[0]);
     }
-    free_array(dir);
-    return NULL;
 }
 
 void free_pipex(t_pipex *pipex)
@@ -73,6 +69,7 @@ void	free_array(char	**buffer)
 	free(buffer);
 
 }
+
 void error_handler(char *err, t_pipex *pipex)
 {
     free_pipex(pipex);

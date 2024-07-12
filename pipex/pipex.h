@@ -4,8 +4,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
 #include <sys/wait.h> 
 
 typedef struct s_pipex
@@ -49,16 +49,17 @@ char	*create_string_helper(t_list **list);
 int		addback_new_node(t_list **lst, char **content);
 int		save_string_helper(int i, int j, char *content, t_list **list);
 
-char *final_path(char *dir, char *cmd, t_pipex *pipex) ;
-char *find_full_path(char *command, char **env, t_pipex *pipex) ;
-void exec_cmd(char *cmd, char **env, t_pipex *pipex);
 int asg_cmd(t_pipex *pipex, int argc, char **argv);
+void child_pipe(t_pipex *pipex, int fd[2], int i, char **env);
+void    proceed_output(t_pipex *pipex, char **env);
+void create_pipe(t_pipex *pipex, char **env, int i, pid_t **pid);
+void doc_child(t_pipex *pipex, int fd[2], char *lim);
+void handle_doc(char *lim, t_pipex *pipex);
 void free_pipex(t_pipex *pipex);
-void error_handler(char *err, t_pipex *pipex);
 void	free_array(char	**buffer);
-void pipe_child(t_pipex *pipex, int *fd ,char **env);
-void pipe_parent (t_pipex *pipex, int *fd ,char **env);
-void pipe_exit(t_pipex *pipex, int *fd, int pid2);
-
+void error_handler(char *err, t_pipex *pipex);
+void exec_cmd(char *cmd, char **env, t_pipex *pipex);
+char *final_path(char *dir, char *cmd, t_pipex *pipex);
+char *find_full_path(char *command, char **env, t_pipex *pipex);
 
 #endif

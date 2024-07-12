@@ -1,5 +1,34 @@
 #include "pipex.h"
 
+void exec_cmd(char *cmd, char **env, t_pipex *pipex)
+{
+    char **args;
+    char *command;
+    char *full_path;
+
+    args = ft_split(cmd, ' ');
+    command = args[0];
+    if (ft_strchr(command, '/') != NULL)
+    {
+        if (access(command, X_OK) == 0)
+            full_path = command;
+        else
+            error_handler("access", pipex);
+    }
+    else
+        full_path = find_full_path(command, env, pipex);
+    if (!full_path)
+    {
+        ft_putstr_fd(command, 2);
+        ft_putstr_fd(": Command not found\n", 2);
+        exit(127);
+    }
+    if (execve(full_path, args, env) == -1)
+        error_handler("execve", pipex);
+    free(full_path);
+    free_array(args);
+}
+
 char *final_path(char *dir, char *cmd, t_pipex *pipex) 
 {
     char *full_path;
@@ -45,54 +74,3 @@ char *find_full_path(char *command, char **env, t_pipex *pipex)
     free_array(dir);
     return NULL;
 }
-
-void free_pipex(t_pipex *pipex)
-{
-    int i;
-
-    i = 0;
-    free(pipex->file1);
-    free(pipex->file2);
-    while (pipex->cmd[i])
-    {
-        free(pipex->cmd[i]);
-        i++;
-    }
-}
-
-void error_handler(char *err, t_pipex *pipex)
-{
-    free_pipex(pipex);
-    perror(err);
-    exit (1);
-}
-
-void	free_array(char	**buffer)
-{
-	int	i;
-
-	i = 0;
-	while (buffer[i])
-	{
-		free(buffer[i]);
-		i++;
-	}
-	free(buffer);
-}
-
-void pipe_exit(t_pipex *pipex, int *fd, int pid2)
-{
-    int  status;
-
-    status = 0;
-    close(fd[0]);
-    close(fd[1]);
-    if (waitpid(pid2, &status, 0) == -1)
-        error_handler("waitpid", pipex);
-    // if (waitpid(pid, &status, 0) == -1)
-    //     error_handler("waitpid", pipex);
-    free_pipex(pipex);
-    exit(status >> 8);
-}
-
-
