@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ps_cmd_helper.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/25 19:02:14 by dfasius           #+#    #+#             */
+/*   Updated: 2024/07/25 19:02:28 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswap.h"
 
-void   cmd_rrr(t_push *push)
+void	cmd_rrr(t_push *push)
 {
-   cmd_rra(push, 0);
-   cmd_rrb(push, 0);
-   ft_putstr_fd("rrr\n",1);
+	cmd_rra(push, 0);
+	cmd_rrb(push, 0);
+	ft_putstr_fd("rrr\n", 1);
 }

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_help.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/25 18:15:24 by dfasius           #+#    #+#             */
+/*   Updated: 2024/07/25 18:15:33 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pushswap.h"
 
-void   checker_rrr(t_push *push)
+void	checker_rrr(t_push *push)
 {
-   checker_rra(push);
-   checker_rrb(push);
+	checker_rra(push);
+	checker_rrb(push);
 }

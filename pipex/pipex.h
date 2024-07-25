@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/22 20:24:11 by dfasius           #+#    #+#             */
+/*   Updated: 2024/07/25 17:20:18 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <sys/wait.h> 
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <stdio.h>
+# include <sys/wait.h> 
 
 typedef struct s_pipex
 {
@@ -15,6 +27,7 @@ typedef struct s_pipex
 	int				hd;
 	char			**cmd;
 	int				cmdsize;
+	int				loop;
 }	t_pipex;
 
 char	*ft_strdup(const char *s);
@@ -25,8 +38,9 @@ size_t	ft_strlen(const char *s);
 char	*ft_strcpy(char *dst, char *src);
 char	*ft_strchr(const char *s, int c);
 void	ft_putstr_fd(char *s, int fd);
-int	ft_strcmp(const char *s1, const char *s2);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -49,17 +63,21 @@ char	*create_string_helper(t_list **list);
 int		addback_new_node(t_list **lst, char **content);
 int		save_string_helper(int i, int j, char *content, t_list **list);
 
-int asg_cmd(t_pipex *pipex, int argc, char **argv);
-void child_pipe(t_pipex *pipex, int fd[2], int i, char **env);
-void    proceed_output(t_pipex *pipex, char **env);
-void create_pipe(t_pipex *pipex, char **env, int i, pid_t **pid);
-void doc_child(t_pipex *pipex, int fd[2], char *lim);
-void handle_doc(char *lim, t_pipex *pipex);
-void free_pipex(t_pipex *pipex);
+int		asg_cmd(t_pipex *pipex, int argc, char **argv);
+void	child_pipe(t_pipex *pipex, int fd[2], int i, char **env);
+void	proceed_output(t_pipex *pipex, char **env);
+void	create_pipe(t_pipex *pipex, char **env, int i);
+void	doc_child(t_pipex *pipex, int fd[2], char *lim);
+void	handle_doc(char *lim, t_pipex *pipex);
+void	free_pipex(t_pipex *pipex);
 void	free_array(char	**buffer);
-void error_handler(char *err, t_pipex *pipex);
-void exec_cmd(char *cmd, char **env, t_pipex *pipex);
-char *final_path(char *dir, char *cmd, t_pipex *pipex);
-char *find_full_path(char *command, char **env, t_pipex *pipex);
+void	error_handler(char *err, t_pipex *pipex);
+void	exec_cmd(char *cmd, char **env, t_pipex *pipex);
+char	*final_path(char *dir, char *cmd, t_pipex *pipex);
+char	*find_full_path(char *command, char **env, t_pipex *pipex);
+void	free_special(t_pipex *pipex, char **args);
+int		read_open(t_pipex *pipex, char *buffer);
+void	is_loop(t_pipex *pipex);
+void	fullpath_error(char *command, t_pipex *pipex, char **args);
 
 #endif

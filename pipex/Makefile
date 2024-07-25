@@ -3,12 +3,14 @@ NAME = pipex
 SRCS = pipex.c \
 	   pipex_utils.c \
 	   pipex_helper.c \
+	   pipex_loop.c \
 	   libft/ft_strdup.c \
 	   libft/ft_split.c \
 	   libft/ft_strjoin.c \
 	   libft/ft_strnstr.c \
 	   libft/ft_strlen.c \
 	   libft/ft_strcpy.c \
+	   libft/ft_memcmp.c \
 	   libft/ft_strchr.c \
 	   libft/ft_putstr_fd.c \
 	   libft/ft_strcmp.c \
