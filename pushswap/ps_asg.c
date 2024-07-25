@@ -34,7 +34,8 @@ int	assign_stacka(int argc, char **argv, t_push *push)
 		i++;
 	}
 	push->asize = argc - 1;
-	reassign_stacka(push);
+	if (!reassign_stacka(push))
+		return (0);
 	return (1);
 }
 

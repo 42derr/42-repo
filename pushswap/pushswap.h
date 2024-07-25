@@ -138,5 +138,9 @@ void	checker_rrr(t_push *push);
 
 int		do_cmd(char *str, t_push *push);
 void	check_sort(t_push *push);
+void	free_array(char	**buffer);
+void	free_all(t_push *push);
+void	stackb_array(t_push *push);
+void	cmd_gnl(t_push *push);
 
 #endif

@@ -19,6 +19,8 @@ char	*base4_string(int num)
 
 	i = 15;
 	str = (char *)malloc (sizeof(char) * 17);
+	if (!str)
+		return (NULL);
 	str[16] = '\0';
 	while (num > 0 && i >= 0)
 	{
@@ -40,16 +42,35 @@ char	**base4_array(t_push *push)
 	int		i;
 
 	i = 0;
-	buffer = (char **) malloc (sizeof(char *) * (push->asize + 1)); //this
+	buffer = (char **) malloc (sizeof(char *) * (push->asize + 1));
 	if (!buffer)
-		return (0);
+	{
+		free_all(push);
+		exit (1);
+	}
 	while (i < push->asize)
 	{
 		buffer[i] = base4_string(push->astart[i]);
+		if (!buffer[i])
+		{
+			free_all(push);
+			free_array(buffer);
+			exit (1);
+		}
 		i++;
 	}
 	buffer[i] = 0;
 	return (buffer);
+}
+
+void	stackb_array(t_push *push)
+{
+	push->stackb = (char **) malloc (sizeof(char *) * (push->asize + 1));
+	if (!push->stackb)
+	{
+		free_all(push);
+		exit (1) ;
+	}
 }
 
 void	radix_base4(t_push *push)
@@ -58,7 +79,7 @@ void	radix_base4(t_push *push)
 	int	max;
 
 	push->stacka = base4_array(push);
-	push->stackb = (char **) malloc (sizeof(char *) * (push->asize + 1));
+	stackb_array(push);
 	i = 0;
 	max = max_base4(push->asize - 1);
 	while (i < max)

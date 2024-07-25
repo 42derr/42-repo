@@ -76,3 +76,26 @@ int	check_stack(t_push *push)
 	}
 	return (1);
 }
+
+void	free_array(char	**buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i])
+	{
+		free(buffer[i]);
+		i++;
+	}
+	free(buffer);
+}
+
+void	free_all(t_push *push)
+{
+	free(push->astart);
+	free(push->bstart);
+	if (push->stacka)
+		free_array(push->stacka);
+	if (push->stackb)
+		free_array(push->stackb);
+}

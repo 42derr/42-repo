@@ -58,10 +58,29 @@ void	check_sort(t_push *push)
 	ft_putstr_fd("OK\n", 1);
 }
 
+void	cmd_gnl(t_push *push)
+{
+	char	*cmd;
+
+	cmd = get_next_line(0);
+	while (cmd != NULL)
+	{
+		if (!do_cmd(cmd, push))
+		{
+			free(cmd);
+			free(push->astart);
+			free(push->bstart);
+			ft_putstr_fd("Error\n", 2);
+			exit (1);
+		}
+		free(cmd);
+		cmd = get_next_line(0);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_push	push;
-	char	*cmd;
 
 	push = (t_push){0};
 	if (!assign_stacka(argc, argv, &push))
@@ -73,14 +92,9 @@ int	main(int argc, char **argv)
 		free(push.astart);
 		return (free(push.bstart), 0);
 	}
-	cmd = get_next_line(0);
-	while (cmd != NULL)
-	{
-		if (!do_cmd(cmd, &push))
-			return (ft_putstr_fd("Error\n", 2), 0);
-		free(cmd);
-		cmd = get_next_line(0);
-	}
+	cmd_gnl(&push);
 	check_sort(&push);
+	free(push.astart);
+	free(push.bstart);
 	return (0);
 }
