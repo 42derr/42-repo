@@ -40,7 +40,7 @@ char	**base4_array(t_push *push)
 	int		i;
 
 	i = 0;
-	buffer = (char **) malloc (sizeof(char *) * push->asize);
+	buffer = (char **) malloc (sizeof(char *) * (push->asize + 1)); //this
 	if (!buffer)
 		return (0);
 	while (i < push->asize)
@@ -58,7 +58,7 @@ void	radix_base4(t_push *push)
 	int	max;
 
 	push->stacka = base4_array(push);
-	push->stackb = (char **) malloc (sizeof(char *) * push->asize);
+	push->stackb = (char **) malloc (sizeof(char *) * (push->asize + 1));
 	i = 0;
 	max = max_base4(push->asize - 1);
 	while (i < max)

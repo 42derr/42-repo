@@ -12,6 +12,27 @@
 
 #include "pushswap.h"
 
+void	free_array(char	**buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i])
+	{
+		free(buffer[i]);
+		i++;
+	}
+	free(buffer);
+}
+
+void	free_all(t_push *push)
+{
+	free(push->astart);
+	free(push->bstart);
+	free_array(push->stacka);
+	free_array(push->stackb);
+}
+
 int	main(int argc, char **argv)
 {
 	t_push	push;
@@ -30,7 +51,6 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	solve_stack(&push, argc);
-	free(push.astart);
-	free(push.bstart);
+	free_all(&push);
 	return (0);
 }
