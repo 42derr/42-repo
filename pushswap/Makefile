@@ -1,5 +1,7 @@
 NAME = push_swap
 
+CHECKER = checker
+
 SRCS = ps_asg.c \
       ps_cmd.c \
       ps_cmd_help.c \
@@ -22,44 +24,42 @@ SRCS = ps_asg.c \
       bonus/checker.c \
       bonus/checker_help.c \
       bonus/checker_helper.c \
-      pushswap.c
+      bonus/get_next_line/get_next_line.c \
+      bonus/get_next_line/get_next_line_utils.c \
 
-SRCS_BONUS = bonus/get_next_line/get_next_line.c \
-             bonus/get_next_line/get_next_line_utils.c \
-             bonus/checker.c \
-             bonus/checker_help.c \
-             bonus/checker_helper.c \
-             bonus/main_checker.c \
-             libft/ft_atol.c \
-             libft/ft_putstr_fd.c \
-             libft/ft_strcmp.c \
-             ps_err.c \
-             ps_asg.c \
+SRCS_BONUS = bonus/main_checker.c
+
+SRCS_NORMAL = pushswap.c
 
 OBJS = $(SRCS:.c=.o)
 
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
+OBJS_NORMAL = $(SRCS_NORMAL:.c=.o)
+
 CC = cc
+
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
+bonus: $(CHECKER)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(OBJS_BONUS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) -o checker
+$(CHECKER): $(OBJS_BONUS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(OBJS) -o $(CHECKER)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o push_swap
+$(NAME): $(OBJS) $(OBJS_NORMAL)
+	$(CC) $(CFLAGS) $(OBJS) $(OBJS_NORMAL) -o $(NAME)
 
 clean:
-	rm -f $(OBJS) $(OBJS_BONUS) $(NAME)
+	rm -f $(OBJS) $(OBJS_BONUS) $(OBJS_NORMAL)
 
 fclean: clean
-	$(RM) push_swap
-	$(RM) checker
+	rm -f $(NAME)
+	rm -f $(CHECKER)
 
 re: fclean all
 
