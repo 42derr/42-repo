@@ -87,8 +87,9 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!assign_stackb(argc, &push))
 		return (0);
-	if (check_stack(&push) || argc == 2)
+	if (check_stack(&push))
 	{
+		ft_putstr_fd("OK\n", 1);
 		free(push.astart);
 		return (free(push.bstart), 0);
 	}
