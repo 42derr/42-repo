@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	asg_cmd(t_pipex *pipex, int argc, char **argv)
 {
@@ -20,6 +20,12 @@ int	asg_cmd(t_pipex *pipex, int argc, char **argv)
 	cmd = (char **) malloc (sizeof(char *) * (argc));
 	if (!cmd)
 		error_handler("malloc", pipex);
+	if (ft_strcmp(argv[1], "here_doc") == 0)
+	{
+		pipex->hd = 1;
+		argv++;
+		argc--;
+	}
 	i = 2;
 	pipex->file1 = ft_strdup(argv[1]);
 	pipex->file2 = ft_strdup(argv[argc -1]);
@@ -38,7 +44,7 @@ void	child_pipe(t_pipex *pipex, int fd[2], int i, char **env)
 {
 	int	openfd;
 
-	if (i == 0)
+	if (i == 0 && !pipex->hd)
 	{
 		openfd = open(pipex->file1, O_RDONLY);
 		if (openfd == -1)
@@ -59,9 +65,18 @@ void	proceed_output(t_pipex *pipex, char **env)
 {
 	int	closefd;
 
-	closefd = open(pipex->file2, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (closefd == -1)
-		error_handler(pipex->file2, pipex);
+	if (pipex->hd)
+	{
+		closefd = open(pipex->file2, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		if (closefd == -1)
+			error_handler(pipex->file2, pipex);
+	}
+	else
+	{
+		closefd = open(pipex->file2, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (closefd == -1)
+			error_handler(pipex->file2, pipex);
+	}
 	if (dup2(closefd, STDOUT_FILENO) == -1)
 		error_handler("dup2", pipex);
 	close(closefd);
@@ -98,11 +113,13 @@ int	main(int argc, char **argv, char **env)
 
 	pipex = (t_pipex){0};
 	i = 0;
-	if (argc != 5)
+	if (argc < 5)
 		return (ft_putstr_fd("./pipex file1 cmd1 cmd2 file2\n", 2), 1);
 	if (!asg_cmd(&pipex, argc, argv))
 		return (1);
 	is_loop(&pipex);
+	if (pipex.hd)
+		handle_doc(argv[2], &pipex);
 	while (i < pipex.cmdsize - 1)
 		create_pipe(&pipex, env, i++);
 	proceed_output(&pipex, env);

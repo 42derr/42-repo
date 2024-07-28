@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -24,6 +24,7 @@ typedef struct s_pipex
 {
 	char			*file1;
 	char			*file2;
+	int				hd;
 	char			**cmd;
 	int				cmdsize;
 	int				loop;
@@ -66,6 +67,8 @@ int		asg_cmd(t_pipex *pipex, int argc, char **argv);
 void	child_pipe(t_pipex *pipex, int fd[2], int i, char **env);
 void	proceed_output(t_pipex *pipex, char **env);
 void	create_pipe(t_pipex *pipex, char **env, int i);
+void	doc_child(t_pipex *pipex, int fd[2], char *lim);
+void	handle_doc(char *lim, t_pipex *pipex);
 void	free_pipex(t_pipex *pipex);
 void	free_array(char	**buffer);
 void	error_handler(char *err, t_pipex *pipex);
