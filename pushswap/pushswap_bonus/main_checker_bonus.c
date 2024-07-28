@@ -82,18 +82,20 @@ int	main(int argc, char **argv)
 {
 	t_push	push;
 
+	if (argc < 2)
+		return (0);
 	push = (t_push){0};
 	if (!assign_stacka(argc, argv, &push))
 		return (0);
 	if (!assign_stackb(argc, &push))
 		return (0);
-	if (check_stack(&push))
+	cmd_gnl(&push);
+	if (push.bsize != 0)
 	{
-		ft_putstr_fd("OK\n", 1);
+		ft_putstr_fd("KO\n", 1);
 		free(push.astart);
 		return (free(push.bstart), 0);
 	}
-	cmd_gnl(&push);
 	check_sort(&push);
 	free(push.astart);
 	free(push.bstart);
