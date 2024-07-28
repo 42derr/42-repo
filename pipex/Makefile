@@ -1,6 +1,6 @@
 NAME = pipex
 
-NAME_BONUS = relink
+NAME_BONUS = pipex_bonus
 
 SRCS = libft/ft_strdup.c \
 	   libft/ft_split.c \
@@ -53,7 +53,7 @@ $(NAME): $(OBJS) $(OBJS_NORMAL)
 	$(CC) $(CFLAGS) $(OBJS) $(OBJS_NORMAL) -o $(NAME)
 
 clean:
-	rm -f $(OBJS) $(OBJS_BONUS) $(OBJS_NORMAL) $(NAME_BONUS)
+	rm -f $(OBJS) $(OBJS_BONUS) $(OBJS_NORMAL)
 
 fclean: clean
 	rm -f $(NAME)
