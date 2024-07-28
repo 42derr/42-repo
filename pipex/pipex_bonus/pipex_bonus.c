@@ -114,7 +114,7 @@ int	main(int argc, char **argv, char **env)
 	pipex = (t_pipex){0};
 	i = 0;
 	if (argc < 5)
-		return (ft_putstr_fd("./pipex file1 cmd1 cmd2 file2\n", 2), 1);
+		return (ft_putstr_fd("./pipex file1 cmd1 cmd2 ... file2\n", 2), 1);
 	if (!asg_cmd(&pipex, argc, argv))
 		return (1);
 	is_loop(&pipex);
