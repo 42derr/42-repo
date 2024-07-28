@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSHSWAP_H
-# define PUSHSWAP_H
+#ifndef PUSHSWAP_BONUS_H
+# define PUSHSWAP_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -103,10 +103,26 @@ long	ft_atol(const char *nptr);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 
-void	check_sort(t_push *push);
-void	free_array(char	**buffer);
-void	free_all(t_push *push);
-void	stackb_array(t_push *push);
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+typedef struct s_list
+{
+	char			*content;
+	struct s_list	*next;
+}	t_list;
+
+int		search_newline(t_list *list);
+int		string_length(t_list *list);
+char	*string_malloc(t_list *list, char *str, int len);
+void	clear_node(t_list **lst);
+int		save_string(t_list **list);
+char	*create_string(t_list **list, int fd);
+char	*get_next_line(int fd);
+char	*create_string_helper(t_list **list);
+int		addback_new_node(t_list **lst, char **content);
+int		save_string_helper(int i, int j, char *content, t_list **list);
 
 void	checker_ra(t_push *push);
 void	checker_rb(t_push *push);
@@ -119,5 +135,12 @@ void	checker_ss(t_push *push);
 void	checker_pa(t_push *push);
 void	checker_pb(t_push *push);
 void	checker_rrr(t_push *push);
+
+int		do_cmd(char *str, t_push *push);
+void	check_sort(t_push *push);
+void	free_array(char	**buffer);
+void	free_all(t_push *push);
+void	stackb_array(t_push *push);
+void	cmd_gnl(t_push *push);
 
 #endif

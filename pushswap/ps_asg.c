@@ -29,7 +29,7 @@ int	assign_stacka(int argc, char **argv, t_push *push)
 		return (0);
 	while (max)
 	{
-		push->astart[max - 1] = atol(argv[i]);
+		push->astart[max - 1] = ft_atol(argv[i]);
 		max--;
 		i++;
 	}

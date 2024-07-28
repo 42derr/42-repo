@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pushswap.h"
+#include "pushswap_bonus.h"
 
 int	do_cmd(char *str, t_push *push)
 {

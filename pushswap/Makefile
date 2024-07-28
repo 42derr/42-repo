@@ -21,13 +21,13 @@ SRCS = ps_asg.c \
       libft/ft_atol.c \
       libft/ft_strcmp.c \
       libft/ft_putstr_fd.c \
-      bonus/checker.c \
-      bonus/checker_help.c \
-      bonus/checker_helper.c \
-      bonus/get_next_line/get_next_line.c \
-      bonus/get_next_line/get_next_line_utils.c \
+      pushswap_bonus/checker_one_bonus.c \
+      pushswap_bonus/checker_two_bonus.c \
+      pushswap_bonus/checker_three_bonus.c \
 
-SRCS_BONUS = bonus/main_checker.c
+SRCS_BONUS = pushswap_bonus/main_checker_bonus.c \
+             pushswap_bonus/get_next_line/get_next_line_bonus.c \
+             pushswap_bonus/get_next_line/get_next_line_utils_bonus.c \
 
 SRCS_NORMAL = pushswap.c
 
@@ -41,6 +41,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
+CFLAGS_BONUS = -Wall -Wextra -Werror -I./pushswap_bonus
+
 all: $(NAME)
 
 bonus: $(CHECKER)
@@ -49,7 +51,7 @@ bonus: $(CHECKER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(CHECKER): $(OBJS_BONUS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(OBJS) -o $(CHECKER)
+	$(CC) $(CFLAGS_BONUS) $(OBJS_BONUS) $(OBJS) -o $(CHECKER)
 
 $(NAME): $(OBJS) $(OBJS_NORMAL)
 	$(CC) $(CFLAGS) $(OBJS) $(OBJS_NORMAL) -o $(NAME)

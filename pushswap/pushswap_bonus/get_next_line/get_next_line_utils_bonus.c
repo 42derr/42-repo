@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../pushswap.h"
+#include "../pushswap_bonus.h"
 
 void	clear_node(t_list **lst)
 {

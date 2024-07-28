@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../pushswap.h"
+#include "../pushswap_bonus.h"
 
 char	*string_malloc(t_list *list, char *str, int len)
 {

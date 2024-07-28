@@ -69,7 +69,7 @@ void	stackb_array(t_push *push)
 	if (!push->stackb)
 	{
 		free_all(push);
-		exit (1) ;
+		exit (1);
 	}
 }
 
