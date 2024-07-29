@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/14 11:51:48 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/20 17:12:35 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
-
-int	main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	t_push	push;
+	char	*str;
+	int		cm;
+	int		i;
 
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
-	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
-	}
-	solve_stack(&push, argc);
-	free_all(&push);
+	cm = c % 256;
+	str = (char *) s;
+	i = 0;
+	while (s[i] != cm && s[i] != '\0')
+		i++;
+	if (s[i] == cm)
+		return (str + i);
 	return (0);
 }
+/*
+#include <stdio.h>
+#include <string.h>
+int	main(void)
+{
+	const char *s = "hello";
+	printf("%d", (strchr(s, '\0')[0]));
+	printf("\n%s", s);
+	printf("\n%d", (ft_strchr(s, '\0')[0]));
+	printf("\n%s", s);
+}
+*/

@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/13 16:52:25 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/19 19:22:40 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
-
-int	main(int argc, char **argv)
+int	ft_isdigit(int c)
 {
-	t_push	push;
-
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
-	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
-	}
-	solve_stack(&push, argc);
-	free_all(&push);
+	if (c >= '0' && c <= '9')
+		return (2048);
 	return (0);
 }
+/*
+#include <stdio.h>
+#include <ctype.h>
+int	main(void)
+{
+	printf("%d\n",ft_isdigit('a'));
+	printf("%d\n", isdigit('a'));
+	printf("%d\n",ft_isdigit('0'));
+        printf("%d\n", isdigit('9'));
+
+}
+*/

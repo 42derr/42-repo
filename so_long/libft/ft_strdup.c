@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/14 18:49:14 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/18 17:12:30 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stdlib.h>
 
-#include "pushswap.h"
-
-int	main(int argc, char **argv)
+char	*ft_strdup(const char *s)
 {
-	t_push	push;
+	int		i;
+	char	*str;
+	char	*copy;
 
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
+	i = 0;
+	str = (char *) s;
+	while (str[i])
+		i++;
+	copy = (char *) malloc((i + 1) * sizeof(char));
+	if (!copy)
+		return (0);
+	i = 0;
+	while (str[i])
 	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
+		copy[i] = str[i];
+		i++;
 	}
-	solve_stack(&push, argc);
-	free_all(&push);
-	return (0);
+	copy[i] = '\0';
+	return (copy);
 }
+/*
+#include <stdio.h>
+int	main(void)
+{
+	printf("%s",ft_strdup("hello"));
+}
+*/

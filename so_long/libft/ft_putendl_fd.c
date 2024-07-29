@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/15 18:08:10 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/18 17:18:40 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include <unistd.h>
 
-int	main(int argc, char **argv)
+void	ft_putendl_fd(char *s, int fd)
 {
-	t_push	push;
+	int	i;
 
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
-	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
-	}
-	solve_stack(&push, argc);
-	free_all(&push);
-	return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	write(fd, s, i);
+	write(fd, "\n", 1);
 }
+/*
+int	main(void)
+{
+	ft_putendl_fd("hello", 1);
+}
+*/

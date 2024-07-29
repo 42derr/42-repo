@@ -1,35 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/14 11:59:32 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/19 19:46:16 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
-
-int	main(int argc, char **argv)
+char	*ft_strrchr(const char *s, int c)
 {
-	t_push	push;
+	char	*str;
+	int		i;
+	int		j;
 
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
+	str = (char *) s;
+	i = 0;
+	j = 0;
+	while (s[i] != '\0')
 	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
+		if (s[i] == (c % 256))
+			j = i;
+		i++;
 	}
-	solve_stack(&push, argc);
-	free_all(&push);
+	if (j > 0)
+		return (str + j);
+	if (s[i] == (c % 256))
+		return (str + i);
+	if (s[j] == (c % 256))
+		return (str + j);
 	return (0);
 }
+/*
+#include <stdio.h>
+#include <string.h>
+
+int	main(void)
+{
+	printf("%s",strrchr("hello",'o'));
+	printf("\n%s",ft_strrchr("hello",'o'));
+}
+*/

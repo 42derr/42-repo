@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/13 17:21:19 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/18 17:05:54 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include <stdio.h>
 
-int	main(int argc, char **argv)
+size_t	ft_strlen(const char *s)
 {
-	t_push	push;
+	int	i;
 
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
-	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
-	}
-	solve_stack(&push, argc);
-	free_all(&push);
-	return (0);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
+
+/*
+#include <string.h>
+int	main(void)
+{
+ 	printf("%zu", ft_strlen("lolol"));
+	printf("\n%zu",strlen("lolol"));
+}
+*/

@@ -1,35 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.c                                         :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 20:41:06 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by dfasius          ###   ########.fr       */
+/*   Created: 2024/05/13 19:03:32 by dfasius           #+#    #+#             */
+/*   Updated: 2024/05/18 17:10:00 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include <string.h>
 
-int	main(int argc, char **argv)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	t_push	push;
+	size_t	i;
+	size_t	k;
 
-	push = (t_push){0};
-	if (argc == 1)
-		return (1);
-	if (!assign_stacka(argc, argv, &push))
-		return (1);
-	if (!assign_stackb(argc, &push))
-		return (1);
-	if (check_stack(&push))
+	i = 0;
+	k = 0;
+	while (src[k])
+		k++;
+	if (size < 1)
 	{
-		free(push.astart);
-		free(push.bstart);
-		return (1);
+		return (k);
 	}
-	solve_stack(&push, argc);
-	free_all(&push);
-	return (0);
+	while (src[i] != '\0' && i < size - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (k);
 }
+/*
+#include <stdio.h>
+int	main(void)
+{
+	char dest[50];
+	char src[50] = "42 is the best school";
+
+	ft_strlcpy (dest,src,0);
+	printf("%s",dest);
+}
+*/

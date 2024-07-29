@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "get_next_line.h": "c",
+        "unistd.h": "c",
+        "llist.h": "c"
+    }
+}
