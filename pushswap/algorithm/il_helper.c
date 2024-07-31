@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 21:50:48 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/22 21:52:49 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:49:27 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	i_last_spes(t_push *push, int i, int max)
 	ils_zero(push, i, &o);
 	ils_adjust(push, o, hun);
 	ils_finish(push, i);
-	free(push->stacka);
-	free(push->stackb);
+	free_all(push);
 	exit(0);
 }

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "so_long.h"
 
+
 void print_content(void *content)
 {
     // Assuming content is a string for this example
@@ -37,6 +38,18 @@ void    check_map(t_map *map)
                 j++;
             }
         }
+        else
+        {
+            j = 0;
+            while (j < map->width)
+            {
+                if (((char *)maplist->content)[j] == 'E')
+                    map->exit++;
+                if (((char *)maplist->content)[j] == 'E')
+                    map->start++;
+                j++;
+            }
+        }
         if (((char *)maplist->content)[0] != '1' || ((char *)maplist->content)[map->width - 1] != '1')
         {
             printf("len");
@@ -44,6 +57,12 @@ void    check_map(t_map *map)
         }
         maplist = maplist->next;
     }
+    if (map->start != 1 || map->exit != 1)
+    {
+        printf("len");
+        return ;
+    }
+    //check if it valid
 }
 
 void    read_map(t_map *map, int fd)
@@ -81,4 +100,5 @@ int main(int agrc, char **argv)
     if (!mapfd)
         return (0);
     read_map(&map, mapfd);
+    visual((map.width * 32),(map.height * 32), &map);
 }

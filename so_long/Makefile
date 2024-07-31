@@ -5,7 +5,9 @@ NAME = so_long
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = so_long.c \
+SRC = visual.c \
+	  so_long.c \
+	  swap.c \
       get_next_line/get_next_line.c \
       get_next_line/get_next_line_utils.c \
       

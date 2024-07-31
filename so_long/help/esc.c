@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 #define MLX_ERROR       1
-#define WINDOW_WIDTH    400
-#define WINDOW_HEIGHT   400
+#define WINDOW_WIDTH    960
+#define WINDOW_HEIGHT   590
 
 
 /*
