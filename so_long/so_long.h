@@ -21,7 +21,16 @@
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 
-void    read_map(t_list *map, int fd);
+typedef struct s_map {
+    struct s_list *map_lst;
+    int height;
+    int width;
+    int exit;
+    int start;
+    int collectible;
+} t_map;
+
+void    read_map(t_map *map, int fd);
 
 
 #endif
