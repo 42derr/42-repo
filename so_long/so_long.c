@@ -13,10 +13,11 @@ void    check_map(t_map *map)
     int i;
     int j;
     t_list *maplist;
+    
 
     maplist = map->map_lst;
-    i = map->height;
-    while (i--)
+    i = 0;
+    while (i < map->height)
     {
         if (ft_strlen(maplist->content) != map->width)
         {
@@ -30,8 +31,8 @@ void    check_map(t_map *map)
             {
                 if (((char *)maplist->content)[j] != '1')
                 {
-                    printf("%s\n", ((char *)maplist->content));
                     printf("%d\n", i);
+                    printf("%s\n", ((char *)maplist->content));
                     printf("wall");
                     return ;
                 }
@@ -45,8 +46,14 @@ void    check_map(t_map *map)
             {
                 if (((char *)maplist->content)[j] == 'E')
                     map->exit++;
-                if (((char *)maplist->content)[j] == 'E')
+                if (((char *)maplist->content)[j] == 'C')
+                    map->collectible++;
+                if (((char *)maplist->content)[j] == 'P')
+                {
                     map->start++;
+                    map->playerx = j;
+                    map->playery = i;
+                }
                 j++;
             }
         }
@@ -55,9 +62,10 @@ void    check_map(t_map *map)
             printf("len");
             return ;
         }
+        i++;
         maplist = maplist->next;
     }
-    if (map->start != 1 || map->exit != 1)
+    if (map->start != 1 || map->exit != 1 || map->collectible < 1)
     {
         printf("len");
         return ;

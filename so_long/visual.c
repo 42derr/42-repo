@@ -45,17 +45,23 @@ int     key_hook(int keysym, t_var *data)
 {
     if (keysym == XK_Escape)
         exit(1);
-    // if (keysym == XK_w)
-    //     w_move(map->map_lst);
-    // else if (keysym == XK_a)
-    //     a_move(map->map_lst);
-    // else if (keysym == XK_s)
-    //     s_move(map->map_lst);
-    // else if (keysym == XK_d)
-    //     d_move(map->map_lst);
+    if (keysym == XK_w)
+        w_move((data->map));
+    else if (keysym == XK_a)
+        a_move((data->map));
+    else if (keysym == XK_s)
+        s_move((data->map));
+    else if (keysym == XK_d)
+        d_move((data->map));
 
+    draw_random_images(data, data->map);
+}
 
-    printf("The %d key (ESC) has been pressed\n\n", keysym);
+int close_window(t_var *data)
+{
+	mlx_destroy_window(data->mlx, data->win);
+	exit(0);
+	return (0);
 }
 
 int visual(int width, int height, t_map *map)
@@ -67,12 +73,11 @@ int visual(int width, int height, t_map *map)
 
     vars.hedge_img = mlx_xpm_file_to_image(vars.mlx, "xpm/hedge.xpm", &vars.img.line_len, &vars.img.line_len);
     vars.portal_img = mlx_xpm_file_to_image(vars.mlx, "xpm/portal.xpm", &vars.img.line_len, &vars.img.line_len);
-    vars.spike_img = mlx_xpm_file_to_image(vars.mlx, "xpm/spike.xpm", &vars.img.line_len, &vars.img.line_len);
     vars.wood_img = mlx_xpm_file_to_image(vars.mlx, "xpm/woodback.xpm", &vars.img.line_len, &vars.img.line_len);
     vars.calf_img = mlx_xpm_file_to_image(vars.mlx, "xpm/calf.xpm", &vars.img.line_len, &vars.img.line_len);
     vars.rose_img = mlx_xpm_file_to_image(vars.mlx, "xpm/rose.xpm", &vars.img.line_len, &vars.img.line_len);
 
-    if (!vars.hedge_img || !vars.portal_img || !vars.spike_img || !vars.wood_img || !vars.calf_img || !vars.rose_img)
+    if (!vars.hedge_img || !vars.portal_img || !vars.wood_img || !vars.calf_img || !vars.rose_img)
     {
         fprintf(stderr, "Failed to load XPM files.\n");
         return 1;
@@ -80,8 +85,8 @@ int visual(int width, int height, t_map *map)
 
 
     draw_random_images(&vars, map);
-        printf("%s\n",(char *)(( map->map_lst)->content));
-
+    vars.map = map;
+    mlx_hook(vars.win, 33, 1L << 17, close_window, &vars);
     mlx_key_hook(vars.win, key_hook, &vars);
     mlx_loop(vars.mlx);
 

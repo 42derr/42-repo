@@ -29,6 +29,8 @@ typedef struct s_map {
     int exit;
     int start;
     int collectible;
+    int playery;
+    int playerx;
 } t_map;
 
 #define SIDE_LEN 416
@@ -51,10 +53,10 @@ typedef struct s_var
     t_img   img;
     void    *hedge_img;
     void    *portal_img;
-    void    *spike_img;
     void    *calf_img;
     void    *rose_img;
     void    *wood_img;
+    t_map *map;
 }               t_var;
 
 
@@ -66,11 +68,9 @@ void    draw_random_images(t_var *data, t_map *map);
 void    draw_edges(t_var *data);
 void    draw_image(t_var *data, void *img, int x, int y);
 
-void w_move(t_list *maplist);
-void a_move(t_list *maplist);
-void s_move(t_list *maplist);
-void w_move(t_list *maplist);
-
-
+void w_move(t_map *map);
+void a_move(t_map *map);
+void s_move(t_map *map);
+void d_move(t_map *map);
 
 #endif

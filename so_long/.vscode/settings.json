@@ -1,11 +1,6 @@
 {
     "files.associations": {
-        "stdio.h": "c",
-        "get_next_line.h": "c",
-        "unistd.h": "c",
-        "llist.h": "c",
-        "libft.h": "c",
-        "stdlib.h": "c",
-        "mlx.h": "c"
+        "fcntl.h": "c",
+        "typeinfo": "c"
     }
 }
