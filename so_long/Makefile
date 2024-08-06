@@ -8,6 +8,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC = visual.c \
 	  so_long.c \
 	  swap.c \
+	  error.c \
+	  parse_map.c \
+	  validate_map.c \
       get_next_line/get_next_line.c \
       get_next_line/get_next_line_utils.c \
 
