@@ -9,8 +9,8 @@ SRC = visual.c \
 	  so_long.c \
 	  swap.c \
 	  error.c \
-	  parse_map.c \
-	  validate_map.c \
+	  load_map/parse_map.c \
+	  load_map/validate_map.c \
       get_next_line/get_next_line.c \
       get_next_line/get_next_line_utils.c \
 

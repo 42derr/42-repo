@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "../llist.h"
+# include "../list.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10

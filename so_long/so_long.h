@@ -16,9 +16,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-# include "llist.h"
+# include "list.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <X11/X.h>
+#include <X11/keysym.h>
 
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -26,6 +28,7 @@
 typedef struct s_map {
     struct s_list *map_lst;
     char **amap;
+    bool **visited;
     int height;
     int width;
     int exit;
@@ -36,56 +39,38 @@ typedef struct s_map {
     int playerx;
 } t_map;
 
-#define SIDE_LEN 416
-#define NUM_SPIKES 5
-#define HEDGE_SIZE 32
-
-typedef struct s_img
-{
-    void    *img_ptr;
-    char    *img_pixels_ptr;
-    int     bits_per_pixel;
-    int     endian;
-    int     line_len;
-}               t_img;
-
 typedef struct s_var
 {
-    void    *mlx;
-    void    *win;
-    t_img   img;
-    void    *hedge_img;
-    void    *portal_img;
-    void    *calf_img;
-    void    *rose_img;
-    void    *wood_img;
-    t_map *map;
-}               t_var;
-
+	void		*mlx;
+	void		*win;
+	void		*textures[5];
+    int         texture_length;
+	t_map		*map;
+}	t_var;
 
 int    read_map(t_map *map, char *map_name);
 void    map_info(t_map *map, t_list *maplist, int i);
 int    check_map(t_map *map);
-int    read_map(t_map *map, char *map_name);
 
 void    generate_arraymap(t_map *map);
 bool    validate_map(t_map *map);
 bool    **generate_visited(t_map *map);
-bool    run_map(int x, int y, t_map *map, bool **visited);
+bool    run_map(int x, int y, t_map *map);
 
-
-int visual(int width, int height, t_map *map);
+int visual( t_map *map);
 int     key_hook(int keysym, t_var *data);
-void    draw_random_images(t_var *data, t_map *map);
+void    draw_textures(t_var *data, t_map *map);
 void    draw_edges(t_var *data);
 void    draw_image(t_var *data, void *img, int x, int y);
+int close_window(t_var *data);
 
 void    handle_error(char *error);
 void	free_array(char	**buffer);
+void	free_bool(bool	**buffer, int j);
 
-void w_move(t_map *map);
-void a_move(t_map *map);
-void s_move(t_map *map);
-void d_move(t_map *map);
+void w_move(t_map *map, t_var *data);
+void a_move(t_map *map, t_var *data);
+void s_move(t_map *map, t_var *data);
+void d_move(t_map *map, t_var *data);
 
 #endif

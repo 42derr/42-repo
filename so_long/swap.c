@@ -13,8 +13,8 @@ int handle_ws(char *before, char *after, t_map *map)
         else if ((after[map->playerx] == 'E'))
         {
             if (map->collectible == 0)
-                exit(0);
-                return (printf("Collect all collectable !"), 1);
+                return (-1);
+            return (printf("Collect all collectable !"), 1);
         }
         else
         {
@@ -39,8 +39,8 @@ int handle_ad(char *current, t_map *map, int j, int i)
         else if ((current[j] == 'E'))
         {
             if (map->collectible == 0)
-                exit(0);
-                return (printf("Collect all collectable !"), 1);
+                return (-1);
+            return (printf("Collect all collectable !"), 1);
         }
         else
         {
@@ -52,7 +52,7 @@ int handle_ad(char *current, t_map *map, int j, int i)
     return (1);
 }
 
-void w_move(t_map *map)
+void w_move(t_map *map, t_var *data)
 {
     int i;
     char *temp_content;
@@ -70,9 +70,14 @@ void w_move(t_map *map)
     i = handle_ws((char *)templist->content, temp_content, map);
     if (!i)
         map->playery--;
+    if (i == -1)
+    {
+        close_window(data);
+        exit (1);
+    }
 }
 
-void s_move(t_map *map)
+void s_move(t_map *map, t_var *data)
 {
     int i;
     char *temp_content;
@@ -89,10 +94,15 @@ void s_move(t_map *map)
     }
     i = handle_ws(temp_content, (char *)templist->content, map);
     if (!i)
-        map->playery++;     
+        map->playery++; 
+    if (i == -1)
+    {
+        close_window(data);
+        exit (1);
+    }
 }
 
-void a_move(t_map *map)
+void a_move(t_map *map, t_var *data)
 {
     int i;
     char *temp_content;
@@ -107,10 +117,15 @@ void a_move(t_map *map)
     }
     i = handle_ad((char *)templist->content, map, map->playerx - 1, map->playerx);
     if (!i)
-        map->playerx--;     
+        map->playerx--;   
+    if (i == -1)
+    {
+        close_window(data);
+        exit (1);
+    }  
 }
 
-void d_move(t_map *map)
+void d_move(t_map *map, t_var *data)
 {
     int i;
     char *temp_content;
@@ -125,5 +140,10 @@ void d_move(t_map *map)
     }
     i = handle_ad((char *)templist->content, map, map->playerx + 1, map->playerx);
     if (!i)
-        map->playerx++;     
+        map->playerx++; 
+    if (i == -1)
+    {
+        close_window(data);
+        exit (1);
+    }    
 }

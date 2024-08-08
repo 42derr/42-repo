@@ -9,5 +9,6 @@ int main(int agrc, char **argv)
         return (ft_putstr_fd("./so_long mapname\n", 2), 1);
     if (read_map(&map, argv[1]))
         return (1);
-    visual((map.width * 32),(map.height * 32), &map);
+    //check visual now map parse is ok
+    visual (&map);
 }

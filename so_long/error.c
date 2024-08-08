@@ -18,3 +18,16 @@ void	free_array(char	**buffer)
 	}
 	free(buffer);
 }
+
+void	free_bool(bool	**buffer, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < j)
+	{
+		free(buffer[i]);
+		i++;
+	}
+	free(buffer);
+}
