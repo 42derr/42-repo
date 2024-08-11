@@ -9,6 +9,7 @@ SRC = visual.c \
 	  so_long.c \
 	  swap.c \
 	  error.c \
+	  display_move.c \
 	  load_map/parse_map.c \
 	  load_map/validate_map.c \
       get_next_line/get_next_line.c \

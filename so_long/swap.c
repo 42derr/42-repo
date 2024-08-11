@@ -69,7 +69,10 @@ void w_move(t_map *map, t_var *data)
     }
     i = handle_ws((char *)templist->content, temp_content, map);
     if (!i)
+    {
         map->playery--;
+        data->move++;
+    }
     if (i == -1)
     {
         close_window(data);
@@ -94,7 +97,10 @@ void s_move(t_map *map, t_var *data)
     }
     i = handle_ws(temp_content, (char *)templist->content, map);
     if (!i)
+    {
         map->playery++; 
+        data->move++;
+    }
     if (i == -1)
     {
         close_window(data);
@@ -117,7 +123,10 @@ void a_move(t_map *map, t_var *data)
     }
     i = handle_ad((char *)templist->content, map, map->playerx - 1, map->playerx);
     if (!i)
+    {
         map->playerx--;   
+        data->move++;
+    }
     if (i == -1)
     {
         close_window(data);
@@ -140,7 +149,10 @@ void d_move(t_map *map, t_var *data)
     }
     i = handle_ad((char *)templist->content, map, map->playerx + 1, map->playerx);
     if (!i)
+    {
         map->playerx++; 
+        data->move++;
+    }
     if (i == -1)
     {
         close_window(data);
