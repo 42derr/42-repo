@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   il_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 21:56:02 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/22 22:03:08 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/12 20:00:04 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	ils_one(t_push *push, int i, int *hun, int max)
 void	ils_zero(t_push *push, int i, int *o)
 {
 	while (push->bsize > 0
-		&& ((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0')
+		&& ((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0'
+		&& (isthereb(push, 15 - i, '1')))
 	{
 		if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
 		{
@@ -79,17 +80,18 @@ void	ils_zero(t_push *push, int i, int *o)
 			cmd_rb(push, 1);
 	}
 }
+//this one error because need finnish all rb if no 1 
 
 void	ils_adjust(t_push *push, int o, int hun)
 {
-	if (push->asize - (o + hun) > (o + hun))
+	if (push->asize - (o + hun) > (o + hun) && push->bsize != 0)
 	{
 		while (o--)
 			cmd_rra(push, 1);
 		while (hun--)
 			cmd_rra(push, 1);
 	}
-	else
+	else if (push->bsize != 0)
 	{
 		o = push->asize - o - hun;
 		while (o--)

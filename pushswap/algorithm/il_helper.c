@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   il_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 21:50:48 by dfasius           #+#    #+#             */
-/*   Updated: 2024/07/31 20:49:27 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/12 19:51:25 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ils_finish(t_push *push, int i)
 			cmd_pa(push);
 	}
 }
+#include <stdio.h>
 
 void	i_last_spes(t_push *push, int i, int max)
 {
@@ -43,8 +44,36 @@ void	i_last_spes(t_push *push, int i, int max)
 	o = 0;
 	ils_start(push, i, &hun);
 	ils_one(push, i, &hun, max);
+	int d = 0;
+	while (d < push->asize)
+	{
+		printf("%s\n", push->stacka[d]);
+		d++;
+	}
+	printf("\n");
+	 d = 0;
+	while (d < push->bsize)
+	{
+		printf("%s\n", push->stackb[d]);
+		d++;
+	}
+	printf("\n");
+	printf("\n");
 	ils_zero(push, i, &o);
 	ils_adjust(push, o, hun);
+		 d = 0;
+	while (d < push->asize)
+	{
+		printf("%s\n", push->stacka[d]);
+		d++;
+	}
+	printf("\n");
+	 d = 0;
+	while (d < push->bsize)
+	{
+		printf("%s\n", push->stackb[d]);
+		d++;
+	}
 	ils_finish(push, i);
 	free_all(push);
 	exit(0);
