@@ -31,6 +31,7 @@ int update(t_var *game) {
     return 0;
 }
 
+
 void    draw_textures(t_var *data, t_map *map)
 {
     int x;

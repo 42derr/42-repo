@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:13:35 by dfasius           #+#    #+#             */
-/*   Updated: 2024/08/12 15:49:30 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/12 16:38:32 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "get_next_line/get_next_line.h"
 
 #define SPRITE_SIZE 32
-#define ANIMATION_DELAY 100000
+#define ANIMATION_DELAY 75000
 
 typedef enum {
     FRONT,
