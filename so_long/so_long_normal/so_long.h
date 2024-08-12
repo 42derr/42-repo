@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:13:35 by dfasius           #+#    #+#             */
-/*   Updated: 2024/08/12 15:49:30 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/12 14:05:37 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,9 @@ typedef struct s_var
     int move;
     int         texture_length;
 	t_map		*map;
-    char **amap;
     t_direction direction;
     int is_moving;
     int current_sprite;
-    int playery;
-    int playerx;
     int x;
     int y;
 }	t_var;

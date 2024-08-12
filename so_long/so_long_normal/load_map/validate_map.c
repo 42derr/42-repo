@@ -33,7 +33,7 @@ bool    validate_map(t_map *map)
     path_found = run_map(map->playerx, map->playery, map);
     path_valid = path_found && map->valid_col == 0 && map->exit == 0;
     free_bool(map->visited, map->height);
-    // free_array(map->amap);
+    free_array(map->amap);
     return path_valid;
 }
 

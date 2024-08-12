@@ -1,6 +1,10 @@
-Add some sprite animation
+cant press fast the char not move
 
 Make the player lose when they touch an enemy patrol
+
+
+
+
 
 Your program has to take as parameter a map description file ending with the .ber extension
 
