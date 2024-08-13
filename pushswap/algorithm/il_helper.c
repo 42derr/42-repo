@@ -32,49 +32,46 @@ void	ils_finish(t_push *push, int i)
 			cmd_pa(push);
 	}
 }
-#include <stdio.h>
+
+int	ils_zero_helper(t_push *push, int i, int *o, int *max)
+{
+	if (((push->stackb[push->bsize - 1]))[15 - i] == '1')
+	{
+		cmd_ra(push, 1);
+		(*o)++;
+		(*max)--;
+	}
+	else
+	{
+		if (!(((push->stackb[push->bsize - 1]))[15 - (i - 1)] == '0'))
+			return (1);
+		if (*max == 0)
+			return (1);
+		cmd_rr(push);
+		(*o)++;
+		(*max)--;
+	}
+	return (0);
+}
 
 void	i_last_spes(t_push *push, int i, int max)
 {
 	int	hun;
 	int	o;
 
-	i++;
-	hun = 0;
-	o = 0;
-	ils_start(push, i, &hun);
-	ils_one(push, i, &hun, max);
-	int d = 0;
-	while (d < push->asize)
+	if (push->asize + push->bsize <= 128
+		|| (push->asize + push->bsize >= 177
+			&& push->asize + push->bsize <= 512))
 	{
-		printf("%s\n", push->stacka[d]);
-		d++;
+		i++;
+		hun = 0;
+		o = 0;
+		ils_start(push, i, &hun);
+		ils_one(push, i, &hun, max);
+		ils_zero(push, i, &o);
+		ils_adjust(push, o, hun);
+		ils_finish(push, i);
+		free_all(push);
+		exit(0);
 	}
-	printf("\n");
-	 d = 0;
-	while (d < push->bsize)
-	{
-		printf("%s\n", push->stackb[d]);
-		d++;
-	}
-	printf("\n");
-	printf("\n");
-	ils_zero(push, i, &o);
-	ils_adjust(push, o, hun);
-		 d = 0;
-	while (d < push->asize)
-	{
-		printf("%s\n", push->stacka[d]);
-		d++;
-	}
-	printf("\n");
-	 d = 0;
-	while (d < push->bsize)
-	{
-		printf("%s\n", push->stackb[d]);
-		d++;
-	}
-	ils_finish(push, i);
-	free_all(push);
-	exit(0);
 }

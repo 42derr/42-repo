@@ -98,6 +98,8 @@ void	ils_adjust(t_push *push, int o, int hun);
 void	ils_finish(t_push *push, int i);
 void	i_last_spes(t_push *push, int i, int max);
 void	print_5num(t_push *push);
+void	ils_one_helper(t_push *push, int i, int *hun, int max);
+int		ils_zero_helper(t_push *push, int i, int *o, int *max);
 
 long	ft_atol(const char *nptr);
 void	ft_putstr_fd(char *s, int fd);

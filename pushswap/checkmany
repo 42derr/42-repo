@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Initialize counters
+total_failed_tests=0
+total_tests=1000
+
+# Loop through 10 iterations
+for j in $(seq 1 11); do
+  echo "Iteration $j"
+
+  # Initialize counters for this iteration
+  failed_tests=0
+
+  # Loop through all numbers from 1 to 1000
+  for i in $(seq 0 $total_tests); do
+    # Generate a random sequence of numbers between 1 and 1000 with length i
+    ARG=$(shuf -i 1-1000 -n $i | tr '\n' ' ')
+
+    # Run push_swap with a timeout of 2 seconds and capture the output
+    push_swap_output=$(timeout 2s ./push_swap $ARG)
+
+    # Check if push_swap timed out
+    if [ $? -eq 124 ]; then
+      echo "Test $i: Timeout - Failed"
+      ((failed_tests++))
+      continue
+    fi
+
+    # Run checker_linux with the generated numbers
+    result=$(echo "$push_swap_output" | timeout 2s ./checker_linux $ARG)
+
+    # Check if checker_linux timed out
+    if [ $? -eq 124 ]; then
+      echo "Test $i: Timeout - Failed"
+      ((failed_tests++))
+      continue
+    fi
+
+    # Check if the result is "KO" or "OK"
+    if [ "$result" == "KO" ]; then
+      echo "Test $i: KO - Failed"
+      ((failed_tests++))
+    else
+      echo "Test $i: OK - Success"
+    fi
+  done
+
+  # Output iteration summary
+  echo "Iteration $j summary:"
+  echo "Total tests: $total_tests"
+  echo "Failed tests: $failed_tests"
+
+  # Accumulate total failed tests
+  ((total_failed_tests += failed_tests))
+done
+
+# Output final summary
+echo "Final summary:"
+echo "Total iterations: 10"
+echo "Total tests: $((total_tests * 10))"
+echo "Total failed tests: $total_failed_tests"
