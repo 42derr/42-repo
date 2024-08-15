@@ -1,74 +1,45 @@
 #include "../so_long.h"
 
-
-void    map_info(t_map *map, t_list *maplist, int i)
+void check_name (char *name)
 {
-    int j;
+    int len;
+    int cmp;
 
-    j = 0;
-    while (j < map->width)
-    {
-        if (((char *)maplist->content)[j] == 'E')
-            map->exit++;
-        if (((char *)maplist->content)[j] == 'C')
-            map->collectible++;
-        if (((char *)maplist->content)[j] == 'P')
-        {
-            map->start++;
-            map->playerx = j;
-            map->playery = i;
-        }
-        j++;
-    }
+    len = ft_strlen(name);
+    cmp = ft_strncmp(".ber", name + (len - 4), 4);
+    if (cmp != 0)
+        map_err(0, 0, 0, "Map name should end with '.ber'\n");
 }
 
-int    check_map(t_map *map)
+void check_inside (t_map *map)
 {
     int i;
-    int j;
-    t_list *maplist;
-    
+    t_list *list;
 
-    maplist = map->map_lst;
-    i = 0;
-    while (i < map->height)
+    list = map->map_lst;
+    while (list)
     {
-        if (ft_strlen(maplist->content) != map->width)
-            return (ft_putstr_fd("The map must be rectangular.\n", 2), 1);
-        if (i == (map->height - 1) || i == 0)
+        i = 0;
+        while (((char *)list->content)[i])
         {
-            j = 0;
-            while (j < map->width)
-            {
-                if (((char *)maplist->content)[j] != '1')
-                    return (ft_putstr_fd("The map must be surrounded by walls.\n", 2), 1);
-                j++;
-            }
+            if (ft_strchr("01EPC", ((char *)list->content)[i]) == 0)
+                map_err(map, 0, 0, "Map only can contain 0, 1, E, C, P\n");
+            i++;
         }
-        else
-            map_info(map, maplist, i);
-        if (((char *)maplist->content)[0] != '1' || ((char *)maplist->content)[map->width - 1] != '1')
-            return (ft_putstr_fd("The map must be surrounded by walls.\n", 2), 1);
-        i++;
-        maplist = maplist->next;
+        list = list->next;
     }
-    if (map->start != 1 || map->exit != 1 || map->collectible < 1)
-        return (ft_putstr_fd("The map must contain 1 exit, at least 1 "
-        "collectible, and 1 starting position.\n", 2), 1);
-    if (validate_map(map) == false)
-        return (ft_putstr_fd("There is no valid path.\n", 2), 1);
-    return (0);
 }
 
-int    read_map(t_map *map, char *map_name)
+void    read_map(t_map *map, char *map_name)
 {
     char   *buffer;
     t_list *new;
     int mapfd;
 
+    check_name(map_name);
     mapfd = open(map_name, O_RDONLY);
     if (mapfd == -1)
-        return (handle_error(map_name), 1);
+        map_err(0, 0, map_name, 0);
     buffer = get_next_line(mapfd);
     while (buffer != NULL)
     {
@@ -76,13 +47,14 @@ int    read_map(t_map *map, char *map_name)
             buffer[ft_strlen(buffer) - 1] = '\0';
         new = ft_lstnew(buffer);
         if (!new)
-            return(ft_lstclear(&map->map_lst, &free), free(buffer), 1);// if this fail leaks in gnl
+            map_err(map, buffer, 0, "ft_lstnew\n"); //gnl lost
         ft_lstadd_back(&map->map_lst, new);
         buffer = get_next_line(mapfd);
     }
     map->height = ft_lstsize(map->map_lst);
     map->width = ft_strlen((char *)((map->map_lst)->content));
-    if (check_map(map))
-        return(ft_lstclear(&map->map_lst, &free), 1);
-    return (0);
+    if (map->height < 3 || map->width < 3)
+         map_err(map, 0, 0, "Minimal valid height and width is 3\n");
+    check_inside(map);
+    check_map(map);
 }

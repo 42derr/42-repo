@@ -13,8 +13,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "list.h"
-#include "minilibx-linux/mlx.h"
+#include "../list.h"
+#include "../minilibx-linux/mlx.h"
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include <unistd.h>
@@ -24,8 +24,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 
 #define SPRITE_SIZE 32
 #define ANIMATION_DELAY 100000
@@ -39,16 +39,16 @@ typedef enum {
 
 typedef struct s_map {
     struct s_list *map_lst;
-    char **amap;
     bool **visited;
-    int height;
-    int width;
-    int exit;
-    int start;
-    int collectible;
-    int valid_col;
+    char **amap;
     int playery;
     int playerx;
+    int height;
+    int width;
+    int start;
+    int exit;
+    int collectible;
+    int valid_col;
 } t_map;
 
 typedef struct s_var
@@ -68,9 +68,13 @@ typedef struct s_var
     int y;
 }	t_var;
 
-int    read_map(t_map *map, char *map_name);
 void    map_info(t_map *map, t_list *maplist, int i);
-int    check_map(t_map *map);
+void check_name (char *name);
+void check_inside (t_map *map);
+void check_map_helper(t_map * map, t_list *maplist, int i);
+void    check_map(t_map *map);
+void    read_map(t_map *map, char *map_name);
+
 
 void    generate_arraymap(t_map *map);
 bool    validate_map(t_map *map);
@@ -86,6 +90,7 @@ int close_window(t_var *data);
 void    handle_error(char *error);
 void	free_array(char	**buffer);
 void	free_bool(bool	**buffer, int j);
+void    map_err(t_map *map, char *buffer, char *err, char *str_err);
 
 void w_move(t_map *map, t_var *data);
 void a_move(t_map *map, t_var *data);

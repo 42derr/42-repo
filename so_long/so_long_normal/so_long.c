@@ -6,8 +6,7 @@ int main(int agrc, char **argv)
 
     map = (t_map) {0};
     if (agrc != 2)
-        return (ft_putstr_fd("./so_long mapname\n", 2), 1);
-    if (read_map(&map, argv[1]))
-        return (1);
+        return (ft_putstr_fd("Error\n./so_long mapname.ber\n", 2), 1);
+    read_map(&map, argv[1]);
     visual (&map);
 }

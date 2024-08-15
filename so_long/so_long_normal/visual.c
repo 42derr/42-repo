@@ -99,7 +99,6 @@ int load_textures(t_var *data)
     data->textures[4] = mlx_xpm_file_to_image(data->mlx, "textures/rose.xpm", &data->texture_length, &data->texture_length);
     if (!data->textures[4])
         return (ft_putstr_fd("Failed to load textures/rose.xpm", 2), 1);
-    load_sprites(data);
     return (0);
 }
 

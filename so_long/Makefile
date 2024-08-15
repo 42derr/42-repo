@@ -5,14 +5,14 @@ NAME = so_long
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = visual.c \
-	  so_long.c \
-	  swap.c \
-	  error.c \
-	  display_move.c \
-	  load_sprites.c \
-	  load_map/parse_map.c \
-	  load_map/validate_map.c \
+SRC = so_long_normal/visual.c \
+	  so_long_normal/so_long.c \
+	  so_long_normal/swap.c \
+	  so_long_normal/error.c \
+	  so_long_normal/display_move.c \
+	  so_long_normal/load_map/parse_map.c \
+	  so_long_normal/load_map/parse_map_help.c \
+	  so_long_normal/load_map/validate_map.c \
       get_next_line/get_next_line.c \
       get_next_line/get_next_line_utils.c \
 

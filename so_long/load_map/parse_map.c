@@ -57,7 +57,59 @@ int    check_map(t_map *map)
         "collectible, and 1 starting position.\n", 2), 1);
     if (validate_map(map) == false)
         return (ft_putstr_fd("There is no valid path.\n", 2), 1);
+    create_enemy(map);
     return (0);
+}
+
+int create_enemy(t_map *map)
+{
+    int max_enemy;
+    int cur_enemy;
+    int y;
+    int x;
+    int i;
+
+    max_enemy = (map->height / 2);
+    srand(time(0));
+    cur_enemy = 0;
+    i = 0;
+    while (cur_enemy < max_enemy && i < (map->height * map->width))
+    {
+        x = (rand() % (map->width - 1));
+        y = (rand() % (map->height - 1));
+        if (map->amap[y][x] == '0' && map->amap[y][x] != '1' &&  map->amap[y][x] !='C' &&  map->amap[y][x] != 'E' && !(y == map->playery && x == map->playerx))
+        {
+            map->amap[y][x] = 'X';
+            if (validate_enemy(map))
+            {
+                cur_enemy++;
+            }
+            else
+            {
+                map->amap[y][x] = '0';
+            }
+        }
+        i++;
+    }
+}
+
+int clean_enemy(t_map *map)
+{
+    int y;
+    int x;
+
+    y = 0;
+    while (map->amap[y])
+    {
+        x = 0;
+        while (map->amap[y][x])
+        {
+            if (map->amap[y][x] == 'X')
+                map->amap[y][x] = '0';
+            x++;
+        }
+        y++;
+    }
 }
 
 int    read_map(t_map *map, char *map_name)
