@@ -15,7 +15,7 @@ int num_len(int num)
     return (i);
 }
 
-void count_movement(t_var *data)
+void display_move(t_var *data)
 {
     char *number;
     int last;
@@ -25,10 +25,11 @@ void count_movement(t_var *data)
         free(data->string_move);
     move = data->move;
     last = num_len(move);
-    number = (char *)malloc(sizeof(char) * (last + 1));
+    number = (char *)malloc(sizeof(char) * (last + 2));
     if (!number)
         close_window(data) ;
-    number[last] = '\0';
+    number[last + 1] = '\0';
+    number[last] = '\n';
     last--;
     while (last >= 0)
     {
@@ -40,21 +41,5 @@ void count_movement(t_var *data)
     free(number);
     if (!data->string_move)
         close_window(data) ;
-}
-
-void display_move(t_var *data)
-{
-    int x;
-    int j;
-
-    x = 0;
-    j = 0;
-    while (j < (data->map)->width)
-    {
-        draw_image(data, data->textures[2], x, ((data->map)->height * 32));
-        j++;
-        x += 32;
-    }
-    count_movement(data);
-    mlx_string_put(data->mlx, data->win, 16, ((data->map)->height) * 32 + 20, 16777215, data->string_move);
+    ft_putstr_fd(data->string_move, 1);
 }

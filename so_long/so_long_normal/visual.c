@@ -1,57 +1,30 @@
 #include "so_long.h"
 
-void    draw_image(t_var *data, void *img, int x, int y)
-{
-    mlx_put_image_to_window(data->mlx, data->win, img, x, y);
-}
-
-void    draw_textures(t_var *data, t_map *map)
-{
-    int x;
-    int y;
-    int j;
-    t_list *maplist;
-
-    maplist = map->map_lst;
-    y = 0;
-    while (maplist)
-    {
-        j = 0;
-        x = 0;
-        while (j < map->width)
-        {
-            if (((char *)maplist->content)[j] == '1')
-                draw_image(data, data->textures[0], x, y);
-            else if (((char *)maplist->content)[j] == '0')
-                draw_image(data, data->textures[2], x, y);
-            else if (((char *)maplist->content)[j] == 'P')
-                draw_image(data, data->textures[3], x, y);
-            else if (((char *)maplist->content)[j] == 'E')
-                draw_image(data, data->textures[1], x, y);
-            else if (((char *)maplist->content)[j] == 'C')
-                draw_image(data, data->textures[4], x, y);
-            j++;
-            x += 32;
-        }
-        y += 32;
-        maplist = maplist->next;
-    }
-    display_move(data);
-}
-
 int     key_hook(int keysym, t_var *data)
 {
     if (keysym == XK_Escape)
         close_window(data);
-    if (keysym == XK_w)
-        w_move((data->map), data);
-    else if (keysym == XK_a)
-        a_move((data->map), data);
-    else if (keysym == XK_s)
-        s_move((data->map), data);
-    else if (keysym == XK_d && !data->is_moving)
-        d_move((data->map), data);
-    draw_textures(data, data->map);
+    if (data->playery - 1 != 0 && data->amap[data->playery - 1][data->playerx] != '1' && keysym == XK_w)
+    {
+        hook_handler(data, data->playery - 1, data->playerx);
+        data->playery--;
+    }
+    else if (data->playerx - 1 != 0 && data->amap[data->playery][data->playerx - 1] != '1'  && keysym == XK_a)
+    {
+        hook_handler(data, data->playery, data->playerx - 1);
+        data->playerx--;
+    }
+    else if (data->playery + 1 != data->map->height - 1 && data->amap[data->playery + 1][data->playerx] != '1'  && keysym == XK_s)
+    {
+        hook_handler(data, data->playery + 1, data->playerx);
+        data->playery++;
+    }
+    else if (data->playerx + 1 != data->map->width - 1 && data->amap[data->playery][data->playerx + 1] != '1' && keysym == XK_d)
+    {
+        hook_handler(data, data->playery, data->playerx + 1);
+        data->playerx++;
+    }
+    render(data);
     return (0);
 }
 
@@ -78,6 +51,8 @@ int close_window(t_var *data)
         free(data->string_move);
     if ((data->map)->map_lst)
         ft_lstclear(&((data->map)->map_lst), &free);
+    if (data->map->amap)
+        free_array(data->map->amap);
     exit(1);
     return (0);
 }
@@ -108,17 +83,23 @@ int visual( t_map *map)
 
     data = (t_var){0};
     data.map = map;
+    data.x = map->playerx * 32;
+    data.y = map->playery * 32;
+    data.playerx = map->playerx;
+    data.playery = map->playery;
+    data.amap = map->amap;
     data.mlx = mlx_init();
     if (!data.mlx)
         return (close_window(&data), 1);
-    data.win = mlx_new_window(data.mlx, map->width * 32, (map->height + 1) * 32, "so_long");
+    data.win = mlx_new_window(data.mlx, map->width * 32, map->height * 32, "so_long");
     if (!data.win)
         return (close_window(&data), 1);
     if (load_textures(&data))
         return (close_window(&data), 1);
-    draw_textures(&data, map);
+    draw_textures (&data, map);
+    mlx_put_image_to_window(data.mlx, data.win, data.textures[3], data.x, data.y);
     mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &close_window, &data);
-    mlx_key_hook(data.win, key_hook, &data);
+    mlx_hook(data.win, KeyPress, KeyPressMask, &key_hook, &data);
     mlx_loop(data.mlx);
-    return 0;
+    return (0);
 }
