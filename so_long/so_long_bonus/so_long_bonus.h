@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
-#include "list.h"
-#include "minilibx-linux/mlx.h"
+#include "../list.h"
+#include "../minilibx-linux/mlx.h"
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include <unistd.h>
@@ -25,8 +25,8 @@
 #include <stdio.h>
 #include <time.h>
 
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 
 #define SPRITE_SIZE 32
 #define ANIMATION_DELAY 65000
@@ -74,43 +74,49 @@ typedef struct s_var
     int y;
 }	t_var;
 
-int    read_map(t_map *map, char *map_name);
-void    map_info(t_map *map, t_list *maplist, int i);
-int    check_map(t_map *map);
+int num_len(int num);
+void count_movement(t_var *data);
+void display_move(t_var *data);
 
-void    generate_arraymap(t_map *map);
-bool    validate_map(t_map *map);
-bool    **generate_visited(t_map *map);
-bool    run_map(int x, int y, t_map *map);
-bool    validate_enemy(t_map *map);
-int create_enemy(t_map *map);
-bool    run_enemy(int x, int y, t_map *map);
-
-int visual( t_map *map);
-int     key_hook(int keysym, t_var *data);
-void    draw_textures(t_var *data, t_map *map);
-void    draw_image(t_var *data, void *img, int x, int y);
-int close_window(t_var *data);
-
-void    handle_error(char *error);
+void    map_err(t_map *map, char *buffer, char *err, char *str_err);
 void	free_array(char	**buffer);
 void	free_bool(bool	**buffer, int j);
 
-void w_move(t_map *map, t_var *data);
-void a_move(t_map *map, t_var *data);
-void s_move(t_map *map, t_var *data);
-void d_move(t_map *map, t_var *data);
-
-void count_movement(t_var *data);
-int num_len(int num);
-void display_move(t_var *data);
-int clean_enemy(t_map *map);
-
+int load_sprites_front(t_var *data);
 int load_sprites_back(t_var *data);
 int load_sprites_right(t_var *data);
 int load_sprites_left(t_var *data);
-int load_sprites_front(t_var *data);
 int load_sprites(t_var *data);
 
+void    map_info(t_map *map, t_list *maplist, int i);
+void check_map_helper(t_map * map, t_list *maplist, int i);
+void    check_map(t_map *map);
+
+void create_enemy(t_map *map);
+int clean_enemy(t_map *map);
+void check_name (char *name);
+void    read_map(t_map *map, char *map_name);
+
+bool    run_map(int x, int y, t_map *map);
+bool    validate_map(t_map *map);
+bool    run_enemy(int x, int y, t_map *map);
+bool    validate_enemy(t_map *map);
+bool    **generate_visited(t_map *map);
+void    generate_arraymap(t_map *map);
+
+void    draw_image(t_var *data, void *img, int x, int y);
+void render(t_var *game) ;
+void    draw_textures_helper(t_var *data, t_map *map, int i, int y);
+void    draw_textures(t_var *data, t_map *map);
+void     hook_handler(t_var *data, int y, int x);
+
+int close_window(t_var *data);
+int load_textures(t_var *data);
+
+int update(t_var *game);
+void update_helper(t_var *game);
+int visual( t_map *map);
+int     key_hook(int keysym, t_var *data);
+void    key_handler(t_var *data, int i);
 
 #endif

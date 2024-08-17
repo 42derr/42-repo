@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void    draw_image(t_var *data, void *img, int x, int y)
 {
@@ -9,9 +9,7 @@ void render(t_var *game)
 {
     draw_textures(game, game->map);
     display_move(game);
-    game->y = game->playery * 32;
-    game->x = game->playerx * 32;
-    mlx_put_image_to_window(game->mlx, game->win, game->textures[3], game->x, game->y);
+    mlx_put_image_to_window(game->mlx, game->win, game->sprites[game->direction][game->current_sprite], game->x, game->y);
 }
 
 void    draw_textures_helper(t_var *data, t_map *map, int i, int y)
@@ -31,10 +29,11 @@ void    draw_textures_helper(t_var *data, t_map *map, int i, int y)
             draw_image(data, data->textures[1], x, y);
         else if (data->amap[i][j] == 'C')
             draw_image(data, data->textures[4], x, y);
+        else if (data->amap[i][j] == 'X')
+            draw_image(data, data->textures[5], x, y);
         j++;
         x += 32;
     }
-
 }
 
 void    draw_textures(t_var *data, t_map *map)
@@ -65,6 +64,11 @@ void     hook_handler(t_var *data, int y, int x)
     {
         data->map->collectible--;
         data->amap[y][x] = '0';
+    }
+    if (data->amap[y][x] == 'X')
+    {
+        ft_putstr_fd("YOU LOSE !\n", 1);
+        close_window(data);
     }
 }
 

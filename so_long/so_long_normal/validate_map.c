@@ -69,7 +69,6 @@ void    generate_arraymap(t_map *map)
     t_list *maplist;
     char *buffer;
     char *new;
-    char **amap;
 
     maplist = map->map_lst;
     buffer = ft_strdup("");

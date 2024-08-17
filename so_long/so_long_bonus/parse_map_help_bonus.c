@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void    map_info(t_map *map, t_list *maplist, int i)
 {
@@ -49,7 +49,6 @@ void    check_map(t_map *map)
     int i;
     t_list *maplist;
     
-
     maplist = map->map_lst;
     i = 0;
     while (i < map->height)
@@ -63,4 +62,5 @@ void    check_map(t_map *map)
         "collectible, and 1 starting position.\n");
     if (validate_map(map) == false)
         map_err(map, 0, 0, "There is no valid path.\n");
+    create_enemy(map);
 }

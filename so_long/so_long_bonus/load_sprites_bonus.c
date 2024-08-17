@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int load_sprites_front(t_var *data)
 {
@@ -68,7 +68,6 @@ int load_sprites_left(t_var *data)
     return (0);
 }
 
-
 int load_sprites(t_var *data)
 {
     if (load_sprites_front(data))
@@ -81,4 +80,3 @@ int load_sprites(t_var *data)
         return (1);
     return (0);
 }
-//destroy sprites

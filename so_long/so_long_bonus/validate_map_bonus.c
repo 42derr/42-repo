@@ -1,4 +1,4 @@
-#include "../so_long.h"
+#include "so_long_bonus.h"
 
 
 bool    run_map(int x, int y, t_map *map)
@@ -34,7 +34,6 @@ bool    validate_map(t_map *map)
     path_found = run_map(map->playerx, map->playery, map);
     path_valid = path_found && map->valid_col == 0 && map->valid_exit == 0;
     free_bool(map->visited, map->height);
-    // free_array(map->amap);
     return path_valid;
 }
 
@@ -105,7 +104,6 @@ void    generate_arraymap(t_map *map)
     t_list *maplist;
     char *buffer;
     char *new;
-    char **amap;
 
     maplist = map->map_lst;
     buffer = ft_strdup("");
