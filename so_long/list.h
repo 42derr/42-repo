@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   llist.h                                            :+:      :+:    :+:   */
+/*   list.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,3 +20,5 @@ typedef struct s_list
 }	t_list;
 
 #endif
+
+// still having enemy when map cant be valid :)

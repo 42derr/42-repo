@@ -17,6 +17,7 @@ SRCS =        get_next_line/get_next_line.c \
 
 SRCS_NORMAL = so_long_normal/visual.c \
 	  		  so_long_normal/visual_helper.c \
+	  		  so_long_normal/visual_utils.c \
 	  		  so_long_normal/so_long.c \
 	  		  so_long_normal/error.c \
 	          so_long_normal/display_move.c \
@@ -27,12 +28,15 @@ SRCS_NORMAL = so_long_normal/visual.c \
 SRCS_BONUS =  so_long_bonus/visual_bonus.c \
 	  		  so_long_bonus/visual_helper_bonus.c \
 	  		  so_long_bonus/visual_sprites_bonus.c \
+	  		  so_long_bonus/visual_utils_bonus.c \
+	  		  so_long_bonus/destroy_sprites_bonus.c \
 	  		  so_long_bonus/so_long_bonus.c \
 	  		  so_long_bonus/error_bonus.c \
 	          so_long_bonus/display_move_bonus.c \
 	          so_long_bonus/parse_map_bonus.c \
 	          so_long_bonus/parse_map_help_bonus.c \
 	          so_long_bonus/validate_map_bonus.c \
+			  so_long_bonus/validate_map_utils_bonus.c \
 	          so_long_bonus/load_sprites_bonus.c \
 
 OBJS = $(SRCS:.c=.o) $(SRCS_NORMAL:.c=.o)
