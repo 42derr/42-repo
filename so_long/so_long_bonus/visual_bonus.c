@@ -44,6 +44,8 @@ int	update(t_var *game)
 	time(&current_time);
 	if (difftime(current_time, game->last_update) >= 10.0)
 	{
+		game->map->playerx = game->playerx;
+		game->map->playery = game->playery;
 		clean_enemy(game->map);
 		create_enemy(game->map);
 		if (!game->is_moving)
