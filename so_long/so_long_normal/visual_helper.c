@@ -60,17 +60,14 @@ void	draw_textures(t_var *data, t_map *map)
 
 int	hook_handler(t_var *data, int y, int x)
 {
+	data->move++;
 	if (data->amap[y][x] == 'E')
 	{
 		if (data->map->collectible != 0)
-		{
 			ft_putstr_fd("Collect all collectable !\n", 1);
-			return (1);
-		}
 		else
 			close_window(data);
 	}
-	data->move++;
 	if (data->amap[y][x] == 'C')
 	{
 		data->map->collectible--;

@@ -103,7 +103,8 @@ int	key_hook(int keysym, t_var *data)
 		key_handler(data, 1);
 	}
 	key_hook_helper(keysym, data);
-	render(data);
+	if (keysym == XK_w || keysym == XK_a || keysym == XK_s || keysym == XK_d)
+		render(data);
 	return (0);
 }
 
