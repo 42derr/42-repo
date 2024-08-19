@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_map_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 18:30:14 by dfasius           #+#    #+#             */
+/*   Updated: 2024/08/19 18:34:55 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
 bool	run_map(int x, int y, t_map *map)
@@ -34,7 +46,10 @@ bool	validate_map(t_map *map)
 	if (!map->visited)
 		return (free_array(map->amap), false);
 	path_found = run_map(map->playerx, map->playery, map);
-	path_valid = path_found && map->valid_col == 0 && map->valid_exit == 0;
+	if (path_found && map->valid_col == 0 && map->valid_exit == 0)
+		path_valid = true;
+	else
+		path_valid = false;
 	free_bool(map->visited, map->height);
 	return (path_valid);
 }
@@ -70,7 +85,10 @@ bool	validate_enemy(t_map *map)
 	if (!map->visited)
 		return (free_array(map->amap), false);
 	path_found = run_enemy(map->playerx, map->playery, map);
-	path_valid = path_found && map->valid_col == 0 && map->valid_exit == 0;
+	if (path_found && map->valid_col == 0 && map->valid_exit == 0)
+		path_valid = true;
+	else
+		path_valid = false;
 	free_bool(map->visited, map->height);
 	return (path_valid);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 15:57:20 by dfasius           #+#    #+#             */
+/*   Updated: 2024/08/19 18:55:09 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	check_name(char *name)
@@ -16,6 +28,10 @@ void	check_inside(t_map *map)
 	int		i;
 	t_list	*list;
 
+	map->height = ft_lstsize(map->map_lst);
+	map->width = ft_strlen((char *)((map->map_lst)->content));
+	if (map->height < 3 || map->width < 3)
+		map_err(map, 0, 0, "Minimal valid height and width is 3\n");
 	list = map->map_lst;
 	while (list)
 	{
@@ -51,10 +67,7 @@ void	read_map(t_map *map, char *map_name)
 		ft_lstadd_back(&map->map_lst, new);
 		buffer = get_next_line(mapfd);
 	}
-	map->height = ft_lstsize(map->map_lst);
-	map->width = ft_strlen((char *)((map->map_lst)->content));
-	if (map->height < 3 || map->width < 3)
-		map_err(map, 0, 0, "Minimal valid height and width is 3\n");
+	close (mapfd);
 	check_inside(map);
 	check_map(map);
 }
