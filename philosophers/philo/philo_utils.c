@@ -8,8 +8,6 @@ void    log_change (t_phil *phil, int nphil, int cur)
 
     gettimeofday(&tv, NULL);
     cur_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-    if (!phil->start_time)
-        phil->start_time = cur_time;
     timestamp = cur_time - phil->start_time;
     if (cur == 1)
         printf("%ldms %d has taken a fork\n", timestamp, nphil);
@@ -27,16 +25,16 @@ int   init_state(t_phil *phil)
 {
     int i;
 
-    i = 0;
     phil->eat_state = (int *) malloc (sizeof(int) * phil->num_phil);
     if (!phil->eat_state)
         return (1);
     phil->fork_state = (int *) malloc (sizeof(int) * phil->num_phil);
     if (!phil->fork_state)
         return (1);
-    phil->sleep_state = (int *) malloc (sizeof(int) * phil->num_phil);
-    if (!phil->sleep_state)
+    phil->eat_accu = (int *) malloc (sizeof(int) * phil->num_phil);
+    if (!phil->eat_accu)
         return (1);
+    i = 0;
     while (i < phil->num_phil)
     {
         phil->eat_state[i] = 0;
@@ -51,7 +49,7 @@ int   init_state(t_phil *phil)
     i = 0;
     while (i < phil->num_phil)
     {
-        phil->sleep_state[i] = 0;
+        phil->eat_accu[i] = 0;
         i++;
     }
     return (0);
@@ -61,6 +59,7 @@ int    init_phil(t_phil *phil, char *argv[])
 {
     int i;
     int j;
+    struct timeval tv;
 
     i = 1;
     while (argv[i])
@@ -79,8 +78,9 @@ int    init_phil(t_phil *phil, char *argv[])
     phil->time_eat =  ft_atoi(argv[3]);
     phil->time_sleep =  ft_atoi(argv[4]);
     phil->num_eat =  ft_atoi(argv[5]);
-    phil->start_time = 0;
-    phil->last_eat = 0;
+    gettimeofday(&tv, NULL);
+    phil->start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+    phil->die = 0;
     if (init_state(phil))
         return (printf("malloc error on init_state"), 1);
     return (0);
