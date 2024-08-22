@@ -8,7 +8,8 @@ OBJS = ${SRCS:.c=.o}
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = 
+# CFLAGS = -Wall -Werror -Wextra
 
 all : $(NAME)
 

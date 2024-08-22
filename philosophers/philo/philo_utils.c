@@ -1,17 +1,60 @@
 #include "philo.h"
 
-void    log_change (long time, int phil, int cur)
+void    log_change (t_phil *phil, int nphil, int cur)
 {
+    struct timeval tv;
+    long cur_time;
+    long timestamp;
+
+    gettimeofday(&tv, NULL);
+    cur_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+    if (!phil->start_time)
+        phil->start_time = cur_time;
+    timestamp = cur_time - phil->start_time;
     if (cur == 1)
-        printf("%ld %d has taken a fork\n", time, phil);
+        printf("%ldms %d has taken a fork\n", timestamp, nphil);
     else if (cur == 2)
-        printf("%ld %d is eating\n", time, phil);
+        printf("%ldms %d is eating\n", timestamp, nphil);
     else if (cur == 3)
-        printf("%ld %d is sleeping\n", time, phil);
+        printf("%ldms %d is sleeping\n", timestamp, nphil);
     else if (cur == 4)
-        printf("%ld %d is thinking\n", time, phil);
+        printf("%ldms %d is thinking\n", timestamp, nphil);
     else if (cur == 5)
-        printf("%ld %d died\n", time, phil);
+        printf("%ldms %d died\n", timestamp, nphil);
+}
+
+int   init_state(t_phil *phil)
+{
+    int i;
+
+    i = 0;
+    phil->eat_state = (int *) malloc (sizeof(int) * phil->num_phil);
+    if (!phil->eat_state)
+        return (1);
+    phil->fork_state = (int *) malloc (sizeof(int) * phil->num_phil);
+    if (!phil->fork_state)
+        return (1);
+    phil->sleep_state = (int *) malloc (sizeof(int) * phil->num_phil);
+    if (!phil->sleep_state)
+        return (1);
+    while (i < phil->num_phil)
+    {
+        phil->eat_state[i] = 0;
+        i++;
+    }
+    i = 0;
+    while (i < phil->num_phil)
+    {
+        phil->fork_state[i] = 0;
+        i++;
+    }
+    i = 0;
+    while (i < phil->num_phil)
+    {
+        phil->sleep_state[i] = 0;
+        i++;
+    }
+    return (0);
 }
 
 int    init_phil(t_phil *phil, char *argv[])
@@ -26,7 +69,7 @@ int    init_phil(t_phil *phil, char *argv[])
         while (argv[i][j])
         {
             if (!ft_strchr("0123456789", argv[i][j]))
-                return (1);
+                return (printf("There is a non number in args"), 1);
             j++;
         }
         i++;
@@ -36,5 +79,9 @@ int    init_phil(t_phil *phil, char *argv[])
     phil->time_eat =  ft_atoi(argv[3]);
     phil->time_sleep =  ft_atoi(argv[4]);
     phil->num_eat =  ft_atoi(argv[5]);
+    phil->start_time = 0;
+    phil->last_eat = 0;
+    if (init_state(phil))
+        return (printf("malloc error on init_state"), 1);
     return (0);
 }
