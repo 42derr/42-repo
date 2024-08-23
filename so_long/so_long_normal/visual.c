@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:57:50 by dfasius           #+#    #+#             */
-/*   Updated: 2024/08/19 16:44:33 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/23 09:27:05 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,19 @@ int	load_textures(t_var *data)
 {
 	data->textures[0] = xpm_image(data, "textures/hedge.xpm");
 	if (!data->textures[0])
-		return (ft_putstr_fd("Failed to load textures/headge.xpm", 2), 1);
+		return (tex_err("Failed to load textures/headge.xpm"), 1);
 	data->textures[1] = xpm_image(data, "textures/portal.xpm");
 	if (!data->textures[1])
-		return (ft_putstr_fd("Failed to load textures/portal.xpm", 2), 1);
+		return (tex_err("Failed to load textures/portal.xpm"), 1);
 	data->textures[2] = xpm_image(data, "textures/background.xpm");
 	if (!data->textures[2])
-		return (ft_putstr_fd("Failed to load textures/background.xpm", 2), 1);
+		return (tex_err("Failed to load textures/background.xpm"), 1);
 	data->textures[3] = xpm_image(data, "textures/mainchar.xpm");
 	if (!data->textures[3])
-		return (ft_putstr_fd("Failed to load textures/mainchar.xpm", 2), 1);
+		return (tex_err("Failed to load textures/mainchar.xpm"), 1);
 	data->textures[4] = xpm_image(data, "textures/rose.xpm");
 	if (!data->textures[4])
-		return (ft_putstr_fd("Failed to load textures/rose.xpm", 2), 1);
+		return (tex_err("Failed to load textures/rose.xpm"), 1);
 	return (0);
 }
 

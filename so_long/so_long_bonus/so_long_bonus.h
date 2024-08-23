@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:13:35 by dfasius           #+#    #+#             */
-/*   Updated: 2024/08/12 16:38:32 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/23 09:32:01 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	display_move(t_var *data);
 void	map_err(t_map *map, char *buffer, char *err, char *str_err);
 void	free_array(char	**buffer);
 void	free_bool(bool	**buffer, int j);
+void	tex_err(char *buffer);
 
 int		load_sprites_front(t_var *data);
 int		load_sprites_back(t_var *data);

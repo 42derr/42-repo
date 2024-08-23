@@ -52,3 +52,6 @@ pthread_mutex_init,
 pthread_mutex_destroy
 pthread_mutex_lock,
 pthread_mutex_unlock
+
+./philo 5 800 200 200 7
+// check memory leak

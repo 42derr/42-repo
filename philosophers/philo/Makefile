@@ -3,6 +3,7 @@ NAME = philo
 SRCS = philo.c \
        philo_function.c \
        philo_utils.c \
+       philo_execute.c \
 
 OBJS = ${SRCS:.c=.o}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 18:28:54 by dfasius           #+#    #+#             */
-/*   Updated: 2024/08/19 18:28:55 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/23 09:31:54 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@ void	map_err(t_map *map, char *buffer, char *err, char *str_err)
 		ft_lstclear(&map->map_lst, &free);
 	if (buffer)
 		free(buffer);
+	if (map && map->amap)
+		free_array(map->amap);
 	exit (1);
+}
+
+void	tex_err(char *buffer)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(buffer, 2);
+	ft_putstr_fd("\n", 2);
 }
 
 void	free_array(char	**buffer)

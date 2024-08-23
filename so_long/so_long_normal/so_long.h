@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:13:35 by dfasius           #+#    #+#             */
-/*   Updated: 2024/08/19 15:57:39 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/08/23 09:26:09 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	display_move(t_var *data);
 void	map_err(t_map *map, char *buffer, char *err, char *str_err);
 void	free_array(char	**buffer);
 void	free_bool(bool	**buffer, int j);
+void	tex_err(char *buffer);
 
 void	map_info(t_map *map, t_list *maplist, int i);
 void	check_map_helper(t_map *map, t_list *maplist, int i);

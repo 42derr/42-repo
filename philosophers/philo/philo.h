@@ -13,8 +13,7 @@ typedef struct s_phil
     pthread_t *thread;
     pthread_mutex_t lock;
     int *fork_state;
-    int *eat_state;
-    int *eat_accu;
+    long *last_time;
     long start_time;
     int num_phil;
     int time_die;
@@ -30,15 +29,23 @@ typedef struct s_update
     int cur_phil;
     int total_eat;
     int eating;
-    int last_eat;
+    long last_eat;
 } t_update ;
 
 char	*ft_strchr(const char *s, int c);
 int	ft_atoi(const char *nptr);
 
 void    log_change (t_phil *phil, int nphil, int cur);
+int    should_eat(t_update *update);
+t_update *init_update(t_phil *phil);
+int   init_phil_helper(t_phil *phil);
 int    init_phil(t_phil *phil, char *argv[]);
+
 int    check_death(t_update *update);
-int should_eat(t_update *update);
+void    philo_eat(t_update *update, int firstfork, int secondfork);
+int    philo_think(t_update *update, int firstfork, int secondfork);
+void    *process_activity(void *args);
+
+void    handle_thread(t_phil *phil, t_update *update);
 
 #endif
