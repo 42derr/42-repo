@@ -69,7 +69,7 @@ int   init_phil_helper(t_phil *phil)
     phil->start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     phil->fork_state = (int *) malloc (sizeof(int) * phil->num_phil);
     if (!phil->fork_state)
-        return (printf("malloc error on phil->fork_state"), 1);
+        return(error_handler("malloc error on phil->fork_state", NULL, NULL), 1);
     i = 0;
     while (i < phil->num_phil)
     {
@@ -78,7 +78,7 @@ int   init_phil_helper(t_phil *phil)
     }
     phil->last_time = (long *) malloc (sizeof(long) * phil->num_phil);
     if (!phil->last_time)
-        return (printf("malloc error on phil->last_time"), 1);
+       return (error_handler("malloc error on phil->last_time", phil, NULL), 1);
     i = 0;
     while (i < phil->num_phil)
     {

@@ -34,6 +34,7 @@ typedef struct s_update
 
 char	*ft_strchr(const char *s, int c);
 int	ft_atoi(const char *nptr);
+void   error_handler(char *buffer, t_phil *phil, t_update *update);
 
 void    log_change (t_phil *phil, int nphil, int cur);
 int    should_eat(t_update *update);

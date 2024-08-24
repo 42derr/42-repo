@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
 {
     t_phil phil;
     t_update *update;
-    int j;
 
+    phil = (t_phil){0};
     pthread_mutex_init(&(phil.lock), NULL);
     if (argc != 6)
         return (printf("./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
@@ -31,12 +31,15 @@ int main(int argc, char* argv[])
     if (init_phil(&phil, argv))
         return (1);
     if (phil.num_phil == 1)
-        return (printf("Philosophers can't eat! there only 1 fork\n"), 1); 
+        return (error_handler("Philosophers can't eat! there only 1 fork", &phil, NULL), 1); 
     phil.thread = (pthread_t *) malloc (sizeof(pthread_t) * phil.num_phil);
     if (!phil.thread)
-        return (printf("Error in init_thread\n"), 1);
+        return (error_handler("malloc error on thread",&phil,NULL), 1);
     update = init_update(&phil);
+    if (!update)
+        return (error_handler("malloc error on update",&phil, NULL), 1);
     handle_thread(&phil, update);
     pthread_mutex_destroy(&phil.lock);
+    error_handler(NULL, &phil, update);
     return (0);
 }

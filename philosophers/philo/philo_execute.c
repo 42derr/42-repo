@@ -26,6 +26,8 @@ int    philo_think(t_update *update, int firstfork, int secondfork)
     if (update->eating == 1 && !update->phil->die)
     {
         usleep(update->phil->time_eat * 1000);
+        if (update->phil->die)
+            return (1);
         pthread_mutex_lock(&update->phil->lock);
         update->phil->fork_state[firstfork] = 0;
         update->phil->fork_state[secondfork] = 0;
@@ -34,6 +36,8 @@ int    philo_think(t_update *update, int firstfork, int secondfork)
             return (1);
         log_change(update->phil, update->cur_phil + 1, 3);
         usleep(update->phil->time_sleep * 1000);
+        if (update->phil->die)
+            return (1);
         log_change(update->phil, update->cur_phil + 1, 4);
         update->eating = 0;
     }
@@ -45,7 +49,6 @@ void    *process_activity(void *args)
     int firstfork;
     int secondfork;
     t_update *update;
-    struct timeval tv;
 
     update = (t_update *) args;
     firstfork = update->cur_phil - 1;

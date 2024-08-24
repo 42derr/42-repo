@@ -43,3 +43,17 @@ int	ft_atoi(const char *nptr)
 		return ((int)s);
 	return (0);
 }
+
+void   error_handler(char *buffer, t_phil *phil, t_update *update)
+{
+    if (phil && phil->fork_state)
+        free(phil->fork_state);
+    if (phil && phil->last_time)
+        free(phil->last_time);
+    if (update)
+        free(update);
+    if (phil && phil->thread)
+		free(phil->thread);
+	if (buffer)
+		printf("%s\n", buffer);
+}
