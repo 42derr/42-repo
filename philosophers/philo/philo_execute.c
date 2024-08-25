@@ -15,7 +15,7 @@ void    philo_eat(t_update *update, int firstfork, int secondfork)
         log_change(update->phil, update->cur_phil + 1, 2);
         gettimeofday(&tv, NULL);
         update->last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-        update->phil->last_time[update->cur_phil] = update->last_eat;
+        update->phil->last_time[update->cur_phil] = update->last_eat; // not too elegeant & i can use same concept with sem_take_fork
         update->eating = 1;
         update->total_eat++;
     }
@@ -77,7 +77,7 @@ int    check_death(t_update *update)
     if (((int)(cur_time - update->last_eat)) > update->phil->time_die)
     {
         log_change(update->phil, update->cur_phil + 1, 5);
-        update->phil->die = 1;
+        update->phil->die = 1; // if die 1 ms issue
         return (1);
     }
     return (0);

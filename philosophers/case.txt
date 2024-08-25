@@ -1,0 +1,10 @@
+all philo is alive
+./philo 5 800 200 200 7
+
+someone died
+./philo 5 300 200 200 3
+
+impossible auto die
+./philo 5 100 200 200 3
+
+// you might want philo to think at first

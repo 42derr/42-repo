@@ -21,45 +21,6 @@ void    log_change (t_phil *phil, int nphil, int cur)
         printf("%ldms %d died\n", timestamp, nphil);
 }
 
-// int    should_eat(t_update *update)
-// {
-//     int i;
-//     long min;
-
-//     i = 0;
-//     if (update->total_eat == 0)
-//         return (1);
-//     min =  update->phil->last_time[update->cur_phil];
-//     while (i < update->phil->num_phil)
-//     {
-//         if (min > update->phil->last_time[i])
-//             return (0);
-//         i++;
-//     }
-//     return (1);
-// }
-
-t_update *init_update(t_phil *phil)
-{
-    t_update *update;
-    int i;
-
-    i = 0;
-    update = (t_update *) malloc (sizeof(t_update) * phil->num_phil);
-    if (!update)
-        return (NULL);
-    while (i < phil->num_phil)
-    {
-        update[i].phil = phil;
-        update[i].cur_phil = i;
-        update[i].eating = 0;
-        update[i].last_eat = phil->start_time;
-        update[i].total_eat = 0;
-        i++;
-    }
-    return (update);
-}
-
 int   init_phil_helper(t_phil *phil)
 {
     int i;
