@@ -10,7 +10,6 @@ int    check_death(t_phil *phil, int nphil)
     if (((int)(cur_time - phil->last_time[nphil])) > phil->time_die)
     {
         log_change(phil, nphil + 1, 5);
-        sem_post(phil->sem_die);
         return (1);
     }
     return (0);

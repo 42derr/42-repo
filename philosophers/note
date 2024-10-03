@@ -1,0 +1,6 @@
+make struct -> die or no die
+and return 1 or 0 based pon that
+
+Monitor Child Processes: Use a parent process to monitor the child processes. You can call waitpid() to check if any child has exited. If one does, you can then iterate through the other child process IDs and terminate them using kill().
+
+set sem to 0 and make it wait num philo * times eat for detect how many have it eat // dont think needs

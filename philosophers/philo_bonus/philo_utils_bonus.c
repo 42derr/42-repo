@@ -40,6 +40,9 @@ int   init_phil_helper(t_phil *phil)
     phil->phil_pid = (pid_t *) malloc (sizeof(pid_t) * phil->num_phil);
     if (!phil->phil_pid)
         return (printf("malloc error on phil->phild_pid"), 1);
+    phil->status = (int *) malloc (sizeof(int) * phil->num_phil);
+    if (!phil->status)
+        return (printf("malloc error on phil->status"), 1);
     i = 0;
     while (i < phil->num_phil)
     {
@@ -71,7 +74,31 @@ int    init_phil(t_phil *phil, char *argv[])
     phil->time_eat =  ft_atoi(argv[3]);
     phil->time_sleep =  ft_atoi(argv[4]);
     phil->num_eat =  ft_atoi(argv[5]);
+    phil->die = 0;
+    phil->eaten = 0;
+    phil->done = 0;
     if (init_phil_helper(phil))
         return (1);
     return (0);
+}
+
+t_update *init_update(t_phil *phil)
+{
+    t_update *update;
+    int i;
+
+    i = 0;
+    update = (t_update *) malloc (sizeof(t_update) * phil->num_phil);
+    if (!update)
+        return (NULL);
+    while (i < phil->num_phil)
+    {
+        update[i].phil = phil;
+        update[i].cur_phil = i;
+        update[i].eating = 0;
+        update[i].last_eat = phil->start_time;
+        update[i].total_eat = 0;
+        i++;
+    }
+    return (update);
 }
