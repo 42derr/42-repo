@@ -40,9 +40,6 @@ int   init_phil_helper(t_phil *phil)
     phil->phil_pid = (pid_t *) malloc (sizeof(pid_t) * phil->num_phil);
     if (!phil->phil_pid)
         return (printf("malloc error on phil->phild_pid"), 1);
-    phil->status = (int *) malloc (sizeof(int) * phil->num_phil);
-    if (!phil->status)
-        return (printf("malloc error on phil->status"), 1);
     i = 0;
     while (i < phil->num_phil)
     {

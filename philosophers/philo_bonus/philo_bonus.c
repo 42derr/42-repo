@@ -25,9 +25,9 @@ void    *check_die(void *args)
             }
             if (phil->eaten == 0)
             {
-                phil->die = 1;
+                sem_wait(phil->sem_die);
                 log_change(phil, nphil + 1, 5);
-                return (NULL);
+                exit (1);
             }
             else
                 phil->eaten = 0;
@@ -62,10 +62,8 @@ void    *do_routine(void *args)
         sem_post(phil->sem_fork);
         phil->eaten = 1;
         update->total_eat++;
-        if (update->total_eat == phil->num_eat || phil->die == 1)
-        {
-            return (NULL);
-        }
+        if (update->total_eat == phil->num_eat)
+            exit (0);
         log_change(phil, nphil + 1, 3);
         usleep(phil->time_sleep * 1000);
         log_change(phil, nphil + 1, 4);
@@ -80,6 +78,7 @@ int    create_process(t_phil *phil, int nphil, t_update update)
     int eaten;
     pthread_t thread1;
     pthread_t thread2;
+    pthread_t thread3;
     
     eaten = 0;
     pid = fork();
@@ -91,15 +90,6 @@ int    create_process(t_phil *phil, int nphil, t_update update)
         pthread_create(&thread2, NULL, &do_routine, &update);
         pthread_join(thread1, NULL);
         pthread_join(thread2, NULL);
-        // check die or no return 0 or 1 , use the struct kinda to tell?
-        if (phil->die == 1)
-        {
-            exit(1);
-        }
-        else
-        {
-            exit(0);
-        }
     }
     else
     {
@@ -108,36 +98,27 @@ int    create_process(t_phil *phil, int nphil, t_update update)
     return (0);
 }
 
-// -1 if sem_wait is fail & how to take care who take the fork
-// if all eaten stop and how i know all eaten? i want stop pringting
-// if something die i wanna stop
-// using sem as death watcher is impossible 
-// using sem as a eaten counter also impossible
-
 void    wait_child(t_phil *phil)
 {
-    int i ;
+    int i;
     int exitcode;
+    int status;
 
-    i = 0;
-    while (i < phil->num_phil)
+    if (waitpid(-1, &status, 0) > 0)
     {
-        if (waitpid(phil->phil_pid[i], &phil->status[i], 0) > 0)
+        exitcode = status >> 8;
+        if (exitcode != 1)
         {
-            exitcode = phil->status[i] >> 8;
-
-            if (exitcode == 1)
-            {
-                i = 0;
-                while (i < phil->num_phil)
-                {
-                    kill(phil->phil_pid[i], SIGKILL);
-                    i++;
-                }
-                return ;
-            }
+            wait_child (phil);
+            return ;
         }
-        i++;
+        i = 0;
+        while (i < phil->num_phil)
+        {
+            kill(phil->phil_pid[i], SIGKILL);
+            i++;
+        }
+        return ;
     }
 }
 
@@ -152,6 +133,7 @@ int main(int argc, char* argv[])
             " [time_to_sleep] [number_of_times_each_philosopher_must_eat]\n"), 1);
     sem_unlink(SEM_FORK);
     sem_unlink(SEM_TAKE_FORK);
+    sem_unlink(SEM_DIE);
     if (init_phil(&phil, argv))
         return (1);
     if (phil.num_phil == 1)
@@ -162,6 +144,7 @@ int main(int argc, char* argv[])
     phil.sem_take_fork = sem_open(SEM_TAKE_FORK, O_CREAT, 0660, 1);
     if (phil.sem_take_fork == SEM_FAILED)
         return (printf("sem/philo_take_fork"), 1);
+    phil.sem_die = sem_open(SEM_DIE, O_CREAT, 0660, 1);
     update = init_update(&phil);
     if (!update)
         return (1);
@@ -172,15 +155,8 @@ int main(int argc, char* argv[])
         i++;
     }
     wait_child(&phil);
-
-    //no need semaphone
-    // created mutiple child
-    // how to make sure if one child die then all child is die
-    // you cant kill it inside the process because it doesnt have the kill pid right
-    // if finish eat then return
-    //  
-
     sem_close(phil.sem_take_fork);
     sem_close(phil.sem_fork);
+    sem_close(phil.sem_die);
     return (0);
 }

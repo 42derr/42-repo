@@ -14,15 +14,14 @@
 
 # define SEM_FORK "fork"
 # define SEM_TAKE_FORK "take_fork"
-# define SEM_EAT "eat"
+# define SEM_DIE "die"
 
 typedef struct s_phil
 {
     sem_t *sem_take_fork;
     sem_t *sem_fork;
-    sem_t *sem_eat;
+    sem_t *sem_die;
     pid_t *phil_pid;
-    int *status;
     long *last_time;
     long start_time;
     int num_phil;
