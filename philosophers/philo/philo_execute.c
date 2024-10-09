@@ -74,11 +74,14 @@ int    check_death(t_update *update)
 
     gettimeofday(&tv, NULL);
     cur_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-    if (((int)(cur_time - update->last_eat)) > update->phil->time_die)
+    pthread_mutex_lock (&update->phil->lock);
+    if (((int)(cur_time - update->last_eat)) > update->phil->time_die && update->phil->die != 1)
     {
         log_change(update->phil, update->cur_phil + 1, 5);
-        update->phil->die = 1; // if die 1 ms issue
+        update->phil->die = 1; // 3 die same time
+        pthread_mutex_unlock (&update->phil->lock);
         return (1);
     }
+    pthread_mutex_unlock (&update->phil->lock);
     return (0);
 }
