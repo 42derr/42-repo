@@ -9,7 +9,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 all : $(NAME)
 
@@ -28,3 +28,4 @@ fclean : clean
 re : fclean all
 
 .PHONY : all clean fclean re
+
