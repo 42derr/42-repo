@@ -40,7 +40,7 @@ void    log_change (t_phil *phil, int nphil, int cur);
 int    should_eat(t_update *update);
 t_update *init_update(t_phil *phil);
 int   init_phil_helper(t_phil *phil);
-int    init_phil(t_phil *phil, char *argv[]);
+int    init_phil(t_phil *phil, int argc, char *argv[]);
 
 int    check_death(t_update *update);
 void    philo_eat(t_update *update, int firstfork, int secondfork);

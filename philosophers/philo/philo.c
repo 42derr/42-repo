@@ -25,13 +25,11 @@ int main(int argc, char* argv[])
 
     phil = (t_phil){0};
     pthread_mutex_init(&(phil.lock), NULL);
-    if (argc != 6)
+    if (argc < 5 || argc > 6)
         return (printf("./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
             " [time_to_sleep] [number_of_times_each_philosopher_must_eat]\n"), 1);
-    if (init_phil(&phil, argv))
+    if (init_phil(&phil, argc, argv))
         return (1);
-    if (phil.num_phil == 1)
-        return (error_handler("Philosophers can't eat! there only 1 fork", &phil, NULL), 1); 
     phil.thread = (pthread_t *) malloc (sizeof(pthread_t) * phil.num_phil);
     if (!phil.thread)
         return (error_handler("malloc error on thread",&phil,NULL), 1);

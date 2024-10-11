@@ -10,15 +10,15 @@ void    log_change (t_phil *phil, int nphil, int cur)
     cur_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     timestamp = cur_time - phil->start_time;
     if (cur == 1)
-        printf("%ldms %d has taken a fork\n", timestamp, nphil);
+        printf("%ld %d has taken a fork\n", timestamp, nphil);
     else if (cur == 2)
-        printf("%ldms %d is eating\n", timestamp, nphil);
+        printf("%ld %d is eating\n", timestamp, nphil);
     else if (cur == 3)
-        printf("%ldms %d is sleeping\n", timestamp, nphil);
+        printf("%ld %d is sleeping\n", timestamp, nphil);
     else if (cur == 4)
-        printf("%ldms %d is thinking\n", timestamp, nphil);
+        printf("%ld %d is thinking\n", timestamp, nphil);
     else if (cur == 5)
-        printf("%ldms %d died\n", timestamp, nphil);
+        printf("%ld %d died\n", timestamp, nphil);
 }
 
 int   init_phil_helper(t_phil *phil)
@@ -49,7 +49,7 @@ int   init_phil_helper(t_phil *phil)
     return (0);
 }
 
-int    init_phil(t_phil *phil, char *argv[])
+int    init_phil(t_phil *phil, int argc, char *argv[])
 {
     int i;
     int j;
@@ -70,7 +70,10 @@ int    init_phil(t_phil *phil, char *argv[])
     phil->time_die = ft_atoi(argv[2]);
     phil->time_eat =  ft_atoi(argv[3]);
     phil->time_sleep =  ft_atoi(argv[4]);
-    phil->num_eat =  ft_atoi(argv[5]);
+    if (argc == 6)
+        phil->num_eat =  ft_atoi(argv[5]);
+    else
+        phil->num_eat =  -1;
     phil->die = 0;
     phil->eaten = 0;
     phil->done = 0;

@@ -39,7 +39,6 @@ void    *check_die(void *args)
 
 void    *do_routine(void *args)
 {
-    int eaten;
     t_update *update;
     t_phil *phil;
     int nphil;
@@ -47,12 +46,13 @@ void    *do_routine(void *args)
     update = (t_update *)args;
     phil = update->phil;
     nphil = update->cur_phil;
-    eaten = 0;
     while (1)
     {
         sem_wait(phil->sem_take_fork);
         sem_wait(phil->sem_fork);
         log_change(phil, nphil + 1, 1);
+        if (phil->num_phil == 1)
+            return (NULL);
         sem_wait(phil->sem_fork);
         log_change(phil, nphil + 1, 1);
         sem_post(phil->sem_take_fork);
@@ -62,7 +62,7 @@ void    *do_routine(void *args)
         sem_post(phil->sem_fork);
         phil->eaten = 1;
         update->total_eat++;
-        if (update->total_eat == phil->num_eat)
+        if (phil->num_eat != -1 && update->total_eat == phil->num_eat)
             exit (0);
         log_change(phil, nphil + 1, 3);
         usleep(phil->time_sleep * 1000);
@@ -74,13 +74,9 @@ void    *do_routine(void *args)
 int    create_process(t_phil *phil, int nphil, t_update update)
 {
     pid_t pid;
-    struct timeval tv;
-    int eaten;
     pthread_t thread1;
     pthread_t thread2;
-    pthread_t thread3;
     
-    eaten = 0;
     pid = fork();
     if (pid == -1)
         return (1);
@@ -128,16 +124,14 @@ int main(int argc, char* argv[])
     int i;
     t_update *update;
 
-    if (argc != 6)
+    if (argc > 6 || argc < 5)
         return (printf("./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
             " [time_to_sleep] [number_of_times_each_philosopher_must_eat]\n"), 1);
     sem_unlink(SEM_FORK);
     sem_unlink(SEM_TAKE_FORK);
     sem_unlink(SEM_DIE);
-    if (init_phil(&phil, argv))
+    if (init_phil(&phil, argc, argv))
         return (1);
-    if (phil.num_phil == 1)
-        return (printf("Philosophers can't eat! there only 1 fork\n"), 1);
     phil.sem_fork = sem_open(SEM_FORK, O_CREAT, 0660, phil.num_phil);
     if (phil.sem_fork == SEM_FAILED)
         return (printf("sem/philo_fork"), 1);

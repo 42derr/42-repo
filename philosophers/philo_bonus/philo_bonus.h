@@ -49,11 +49,10 @@ int	ft_atoi(const char *nptr);
 void    log_change (t_phil *phil, int nphil, int cur);
 
 int   init_phil_helper(t_phil *phil);
-int    init_phil(t_phil *phil, char *argv[]);
+int    init_phil(t_phil *phil, int argc, char *argv[]);
 t_update *init_update(t_phil *phil);
 
 int    check_death(t_phil *phil, int nphil);
 void    *process_activity(void *args);
-
 
 # endif
