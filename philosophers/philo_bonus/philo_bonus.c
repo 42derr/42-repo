@@ -15,24 +15,23 @@ void    *check_die(void *args)
     start = phil->start_time;
     while (1)
     {
+        sem_wait(phil->sem_check);
         gettimeofday(&tv, NULL);
         cur = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
         if (cur - start >= phil->time_die)
         {
-            if (update->total_eat == update->phil->num_eat)
-            {
-                break;
-            }
             if (phil->eaten == 0)
             {
                 sem_wait(phil->sem_die);
                 log_change(phil, nphil + 1, 5);
+                // sem_close(phil->sem_check);
                 exit (1);
             }
             else
                 phil->eaten = 0;
             start = cur;
         }
+        sem_post(phil->sem_check);
     }
     return (NULL);
 }
@@ -52,7 +51,10 @@ void    *do_routine(void *args)
         sem_wait(phil->sem_fork);
         log_change(phil, nphil + 1, 1);
         if (phil->num_phil == 1)
-            return (NULL);
+        {
+            sem_close(phil->sem_check);
+            exit (0);
+        }
         sem_wait(phil->sem_fork);
         log_change(phil, nphil + 1, 1);
         sem_post(phil->sem_take_fork);
@@ -60,10 +62,15 @@ void    *do_routine(void *args)
         usleep(phil->time_eat * 1000);
         sem_post(phil->sem_fork);
         sem_post(phil->sem_fork);
+        sem_wait(phil->sem_check);
         phil->eaten = 1;
         update->total_eat++;
         if (phil->num_eat != -1 && update->total_eat == phil->num_eat)
+        {
+            sem_close(phil->sem_check);
             exit (0);
+        }
+        sem_post(phil->sem_check);
         log_change(phil, nphil + 1, 3);
         usleep(phil->time_sleep * 1000);
         log_change(phil, nphil + 1, 4);
@@ -82,6 +89,9 @@ int    create_process(t_phil *phil, int nphil, t_update update)
         return (1);
     if (pid == 0)
     {
+        update.phil_name = ft_itoa(nphil);
+        sem_unlink(update.phil_name);
+        phil->sem_check = sem_open(ft_itoa(nphil), O_CREAT, 0660, 1);
         pthread_create(&thread1, NULL, &check_die, &update);
         pthread_create(&thread2, NULL, &do_routine, &update);
         pthread_join(thread1, NULL);
@@ -99,22 +109,26 @@ void    wait_child(t_phil *phil)
     int i;
     int exitcode;
     int status;
+    int x;
 
-    if (waitpid(-1, &status, 0) > 0)
+    x = 0;
+    while (x < phil->num_phil)
     {
-        exitcode = status >> 8;
-        if (exitcode != 1)
+        if (waitpid(-1, &status, 0) > 0)
         {
-            wait_child (phil);
-            return ;
+            exitcode = status >> 8;
+            if (exitcode == 1)
+            {
+                i = 0;
+                while (i < phil->num_phil)
+                {
+                    kill(phil->phil_pid[i], SIGKILL);
+                    i++;
+                }
+                return ;
+            }
         }
-        i = 0;
-        while (i < phil->num_phil)
-        {
-            kill(phil->phil_pid[i], SIGKILL);
-            i++;
-        }
-        return ;
+        x++;
     }
 }
 

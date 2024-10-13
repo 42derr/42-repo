@@ -50,10 +50,10 @@ void   error_handler(char *buffer, t_phil *phil, t_update *update)
         free(phil->fork_state);
     if (phil && phil->last_time)
         free(phil->last_time);
-    if (update)
-        free(update);
     if (phil && phil->thread)
 		free(phil->thread);
+    if (update)
+		free(update);
 	if (buffer)
 		printf("%s\n", buffer);
 }

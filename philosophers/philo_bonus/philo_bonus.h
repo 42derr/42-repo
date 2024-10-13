@@ -15,12 +15,14 @@
 # define SEM_FORK "fork"
 # define SEM_TAKE_FORK "take_fork"
 # define SEM_DIE "die"
+# define SEM_CHECK "check"
 
 typedef struct s_phil
 {
     sem_t *sem_take_fork;
     sem_t *sem_fork;
     sem_t *sem_die;
+    sem_t *sem_check;
     pid_t *phil_pid;
     long *last_time;
     long start_time;
@@ -40,6 +42,7 @@ typedef struct s_update
     int cur_phil;
     int total_eat;
     int eating;
+    char *phil_name;
     long last_eat;
 } t_update ;
 
@@ -54,5 +57,7 @@ t_update *init_update(t_phil *phil);
 
 int    check_death(t_phil *phil, int nphil);
 void    *process_activity(void *args);
+
+char	*ft_itoa(int n);
 
 # endif

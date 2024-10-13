@@ -88,7 +88,7 @@ int   init_phil_helper(t_phil *phil)
     return (0);
 }
 
-int    init_phil(t_phil *phil, int argc, char *argv[])
+int    check_non_number(char **argv)
 {
     int i;
     int j;
@@ -100,19 +100,33 @@ int    init_phil(t_phil *phil, int argc, char *argv[])
         while (argv[i][j])
         {
             if (!ft_strchr("0123456789", argv[i][j]))
-                return (printf("There is a non number in args"), 1);
+                return (printf("There is a non number in args\n"), 1);
             j++;
         }
         i++;
     }
+    return (0);
+}
+
+int    init_phil(t_phil *phil, int argc, char **argv)
+{
+    if (check_non_number(argv))
+        return (1);
     phil->num_phil = ft_atoi(argv[1]);
     phil->time_die = ft_atoi(argv[2]);
     phil->time_eat =  ft_atoi(argv[3]);
     phil->time_sleep =  ft_atoi(argv[4]);
     if (argc == 6)
+    {
         phil->num_eat =  ft_atoi(argv[5]);
+        if (phil->num_eat <= 0)
+            return (printf("Args must be non-negative and non-zero\n"), 1);
+    }
     else
         phil->num_eat = -1;
+    if (phil->num_phil <= 0 || phil->time_die <= 0 
+        || phil->time_eat <= 0 || phil->time_sleep <=0)
+            return (printf("Args must be non-negative and non-zero\n"), 1);
     phil->die = 0;
     if (init_phil_helper(phil))
         return (1);

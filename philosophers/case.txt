@@ -44,3 +44,6 @@ Test with any values of your choice to verify all the requirements. Ensure philo
 
 bonus
 # fsanatzize thread
+# problem on bonus thread... it running on paparel which can make problem?
+
+after end is it still running?
