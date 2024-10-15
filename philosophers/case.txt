@@ -39,9 +39,6 @@ Test with 2 philosophers and check the different times: a death delayed by more 
 
 Test with any values of your choice to verify all the requirements. Ensure philosophers die at the right time, that they don't steal forks, and so forth.
 
-
-#valgrind --tool=helgrind --fair-sched=yes ./philo 4 410 200 200 1500
-
 bonus
 # fsanatzize thread
 # problem on bonus thread... it running on paparel which can make problem?

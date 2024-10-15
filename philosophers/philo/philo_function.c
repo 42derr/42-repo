@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_function.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/16 00:54:48 by dfasius           #+#    #+#             */
+/*   Updated: 2024/10/16 01:43:43 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 char	*ft_strchr(const char *s, int c)
@@ -44,16 +56,36 @@ int	ft_atoi(const char *nptr)
 	return (0);
 }
 
-void   error_handler(char *buffer, t_phil *phil, t_update *update)
+void	error_handler(char *buffer, t_phil *phil, t_update *update)
 {
-    if (phil && phil->fork_state)
-        free(phil->fork_state);
-    if (phil && phil->last_time)
-        free(phil->last_time);
-    if (phil && phil->thread)
+	if (phil && phil->fork_state)
+		free(phil->fork_state);
+	if (phil && phil->last_time)
+		free(phil->last_time);
+	if (phil && phil->thread)
 		free(phil->thread);
-    if (update)
+	if (update)
 		free(update);
 	if (buffer)
 		printf("%s\n", buffer);
+}
+
+int	check_non_number(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!ft_strchr("0123456789", argv[i][j]))
+				return (printf("There is a non number in args\n"), 1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

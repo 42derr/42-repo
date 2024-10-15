@@ -16,6 +16,9 @@
 # define SEM_TAKE_FORK "take_fork"
 # define SEM_DIE "die"
 # define SEM_CHECK "check"
+# define SEM_FINISH "finish"
+# define SEM_RANDOM "random"
+# define SEM_TURNS "TURNS"
 
 typedef struct s_phil
 {
@@ -23,7 +26,11 @@ typedef struct s_phil
     sem_t *sem_fork;
     sem_t *sem_die;
     sem_t *sem_check;
+    sem_t *sem_finish;
+    sem_t *sem_random;
+    sem_t *sem_turns;
     pid_t *phil_pid;
+    pid_t finish_pid;
     long *last_time;
     long start_time;
     int num_phil;
