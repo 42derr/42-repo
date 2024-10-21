@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:00:48 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/21 19:40:49 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/22 03:03:35 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ int	init_phil_helper(t_phil *phil)
 		phil->phil_pid[i] = 0;
 		i++;
 	}
+	phil->should_exit = 0;
+	phil->should_die = 0;
+	phil->eaten = 0;
 	return (0);
 }
 
@@ -90,6 +93,7 @@ t_update	*init_update(t_phil *phil)
 		update[i].phil = phil;
 		update[i].total_eat = 0;
 		update[i].cur_phil = i;
+		update[i].last_eat = ft_time();
 		i++;
 	}
 	return (update);
