@@ -3,8 +3,7 @@ NAME = philo_bonus
 SRCS = philo_bonus.c \
        philo_function_bonus.c \
        philo_utils_bonus.c \
-       philo_execute_bonus.c \
-       ft_itoa.c \
+       philo_process_bonus.c \
 
 OBJS = ${SRCS:.c=.o}
 

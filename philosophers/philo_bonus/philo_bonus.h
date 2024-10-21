@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 19:46:53 by dfasius           #+#    #+#             */
+/*   Updated: 2024/10/21 19:49:39 by dfasius          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
@@ -16,55 +28,47 @@
 # define SEM_TAKE_FORK "take_fork"
 # define SEM_DIE "die"
 # define SEM_CHECK "check"
-# define SEM_FINISH "finish"
-# define SEM_RANDOM "random"
-# define SEM_TURNS "TURNS"
 
 typedef struct s_phil
 {
-    sem_t *sem_take_fork;
-    sem_t *sem_fork;
-    sem_t *sem_die;
-    sem_t *sem_check;
-    sem_t *sem_finish;
-    sem_t *sem_random;
-    sem_t *sem_turns;
-    pid_t *phil_pid;
-    pid_t finish_pid;
-    long *last_time;
-    long start_time;
-    int num_phil;
-    int time_die;
-    int time_eat;
-    int time_sleep;
-    int num_eat;
-    int die;
-    int eaten;
-    int done;
-} t_phil ;
+	sem_t	*sem_take_fork;
+	sem_t	*sem_fork;
+	sem_t	*sem_die;
+	sem_t	*sem_check;
+	pid_t	*phil_pid;
+	long	start_time;
+	int		num_phil;
+	int		time_die;
+	int		time_eat;
+	int		time_sleep;
+	int		num_eat;
+	int		eaten;
+}	t_phil;
 
 typedef struct s_update
 {
-    t_phil *phil;
-    int cur_phil;
-    int total_eat;
-    int eating;
-    char *phil_name;
-    long last_eat;
-} t_update ;
+	t_phil	*phil;
+	int		cur_phil;
+	int		total_eat;
+}	t_update;
 
-char	*ft_strchr(const char *s, int c);
-int	ft_atoi(const char *nptr);
+int			create_process(t_phil *phil, int nphil, t_update update);
+void		create_child(t_phil *phil, t_update *update);
 
-void    log_change (t_phil *phil, int nphil, int cur);
+char		*ft_strchr(const char *s, int c);
+int			ft_atoi(const char *nptr);
+int			check_non_number(char **argv);
+void		error_handler(char *buffer, t_phil *phil, t_update *update);
+long		ft_time(void);
 
-int   init_phil_helper(t_phil *phil);
-int    init_phil(t_phil *phil, int argc, char *argv[]);
-t_update *init_update(t_phil *phil);
+void		*check_die(void *args);
+void		wait_child(t_phil *phil);
+int			do_routine(t_update *update, t_phil *phil, int nphil);
 
-int    check_death(t_phil *phil, int nphil);
-void    *process_activity(void *args);
+void		log_change(t_phil *phil, int nphil, int cur);
+int			init_phil_helper(t_phil *phil);
+int			init_phil(t_phil *phil, int argc, char *argv[]);
+t_update	*init_update(t_phil *phil);
+int			init_sem(t_phil *phil);
 
-char	*ft_itoa(int n);
-
-# endif
+#endif

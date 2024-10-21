@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:34:19 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/16 01:43:22 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:55:03 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_update
 	long	last_eat;
 }	t_update;
 
-void		handle_detach(t_phil *phil, int j);
 int			handle_thread(t_phil *phil, t_update *update);
 
 void		log_change(t_phil *phil, int nphil, int cur);

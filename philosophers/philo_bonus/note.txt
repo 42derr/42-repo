@@ -1,2 +1,0 @@
-// before all finish dont exit after all eat want stop at last eat
-// after eat all ok sometime 3600 sometime 3400 -> eating fail someone last eat 2600 -. want the one last not esat to eat// hw ti make the latest always eat

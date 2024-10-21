@@ -6,23 +6,11 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 00:46:20 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/16 00:52:14 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/21 20:14:42 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	handle_detach(t_phil *phil, int j)
-{
-	int	i;
-
-	i = 0;
-	while (i < j)
-	{
-		pthread_detach(phil->thread[i]);
-		i++;
-	}
-}
 
 int	handle_thread(t_phil *phil, t_update *update)
 {
@@ -32,13 +20,10 @@ int	handle_thread(t_phil *phil, t_update *update)
 	i = 0;
 	while (i < phil->num_phil)
 	{
-		if (pthread_create(&phil->thread[i], NULL,
-				&process_activity, &update[i]) != 0)
-			return (handle_detach(phil, i), 1);
+		pthread_create(&phil->thread[i], NULL, &process_activity, &update[i]);
 		i++;
 	}
-	if (pthread_create(&death_checker, NULL, &check_death, update) != 0)
-		return (handle_detach(phil, phil->num_phil + 1), 1);
+	pthread_create(&death_checker, NULL, &check_death, update);
 	i = 0;
 	while (i < phil->num_phil)
 	{
