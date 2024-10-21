@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:21:24 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/16 01:31:18 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/22 04:45:32 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	philo_think(t_update *update, int firstfork, int secondfork)
 	pthread_mutex_unlock(&update->phil->lock);
 	if (update->phil->time_eat + update->phil->time_sleep
 		> update->phil->time_die)
-		return (pthread_mutex_unlock(&update->phil->lock), 1);
+		return (1);
 	usleep(update->phil->time_sleep * 1000);
 	pthread_mutex_lock(&update->phil->lock);
 	if (update->phil->die)

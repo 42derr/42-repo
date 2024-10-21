@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:45:11 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/22 03:48:07 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/22 04:50:14 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	create_process(t_phil *phil, int nphil, t_update update, t_update *updatem)
 	else
 		phil->phil_pid[nphil] = pid;
 	return (0);
-} // 1 philo
+}
 
 void	create_child(t_phil *phil, t_update *update)
 {
@@ -62,6 +62,29 @@ void	create_child(t_phil *phil, t_update *update)
 	{
 		create_process(phil, i, update[i], update);
 		i++;
+	}
+}
+
+void	wait_child(t_phil *phil)
+{
+	int	i;
+	int	exitcode;
+	int	status;
+	int	x;
+
+	x = 0;
+	while (x < phil->num_phil)
+	{
+		waitpid(-1, &status, 0);
+		exitcode = status >> 8;
+		if (exitcode == 1)
+		{
+			i = 0;
+			while (i < phil->num_phil)
+				kill(phil->phil_pid[i++], SIGKILL);
+			return ;
+		}
+		x++;
 	}
 }
 

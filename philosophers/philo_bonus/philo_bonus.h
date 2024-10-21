@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:46:53 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/22 03:40:40 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/22 04:54:23 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_update
 
 int			create_process(t_phil *phil, int nphil, t_update u, t_update *um);
 void		create_child(t_phil *phil, t_update *update);
+void		handle_exit(t_phil *phil, t_update *updatem);
+void		wait_child(t_phil *phil);
 
 char		*ft_strchr(const char *s, int c);
 int			ft_atoi(const char *nptr);
@@ -65,10 +67,10 @@ void		error_handler(char *buffer, t_phil *phil, t_update *update);
 long		ft_time(void);
 
 void		*check_die(void *args);
-void		wait_child(t_phil *phil);
 int			do_routine(t_update *update, t_phil *phil, int nphil);
 int			do_routine_helper(t_update *update, t_phil *phil, int nphil);
 int			not_survive(long last, long time, t_phil *phil);
+int			check_die_helper(t_update *update);
 
 void		log_change(t_phil *phil, int nphil, int cur);
 int			init_phil_helper(t_phil *phil);
