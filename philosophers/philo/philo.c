@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 00:46:20 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/25 18:40:01 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/10/25 18:40:58 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	handle_thread(t_phil *phil, t_update *update)
 	while (i < phil->num_phil)
 	{
 		pthread_create(&phil->thread[i], NULL, &process_activity, &update[i]);
-		sleep(100);
+		usleep(100);
 		i++;
 	}
 	pthread_create(&death_checker, NULL, &check_death, update);
