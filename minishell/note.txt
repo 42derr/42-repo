@@ -1,0 +1,82 @@
+1. Standard Input/Output and Memory Management (stdio.h, stdlib.h)
+
+    printf
+    malloc
+    free
+    write
+    read
+    exit
+
+2. File Operations (fcntl.h, unistd.h, sys/stat.h)
+
+    access
+    open
+    close
+    stat
+    lstat
+    fstat
+    unlink
+
+3. Process Control (unistd.h, sys/wait.h, signal.h)
+
+    fork
+    wait
+    waitpid
+    wait3
+    wait4
+    signal
+    sigaction
+    sigemptyset
+    sigaddset
+    kill
+    execve
+
+4. Directory Control (dirent.h)
+
+    opendir
+    readdir
+    closedir
+
+5. Error Handling (string.h, errno.h)
+
+    strerror
+    perror
+
+6. Terminal Control (termios.h, termcap.h)
+
+    isatty
+    ttyname
+    ttyslot
+    ioctl
+    tcsetattr
+    tcgetattr
+    tgetent
+    tgetflag
+    tgetnum
+    tgetstr
+    tgoto
+    tputs
+
+7. Environment and Path (unistd.h)
+
+    getenv
+    getcwd
+    chdir
+
+8. Readline Library (readline/readline.h, readline/history.h)
+
+    readline
+    rl_clear_history
+    rl_on_new_line
+    rl_replace_line
+    rl_redisplay
+    add_history
+
+9. File Descriptors and Duplication (unistd.h)
+
+    dup
+    dup2
+
+10. Pipe Creation (unistd.h)
+
+    pipe
