@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:45:11 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/22 04:50:14 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/11/01 13:59:19 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	create_process(t_phil *phil, int nphil, t_update update, t_update *updatem)
 	{
 		if (update.cur_phil % 2 == 0 && phil->num_phil > 1)
 		{
+			log_change(phil, nphil + 1, 4);
 			usleep(phil->time_eat * 1000);
 			if (phil->num_phil % 2 == 1
 				&& (update.cur_phil + 1 == phil->num_phil))

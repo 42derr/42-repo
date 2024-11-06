@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 00:54:48 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/16 01:43:43 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/11/01 14:11:21 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,15 @@ int	check_non_number(char **argv)
 		i++;
 	}
 	return (0);
+}
+
+void	handle_delay(t_update *update)
+{
+	if (update->cur_phil % 2 == 0 && update->phil->num_phil > 1)
+	{
+		log_change(update->phil, update->cur_phil + 1, 4);
+		usleep(update->phil->time_eat * 1000);
+		if (update->cur_phil == update->phil->num_phil - 1)
+			usleep(update->phil->time_eat * 1000);
+	}
 }

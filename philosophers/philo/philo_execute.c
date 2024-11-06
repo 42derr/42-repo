@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:21:24 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/22 04:45:32 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/11/01 13:58:06 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	*process_activity(void *args)
 	if (firstfork == -1)
 		firstfork = update->phil->num_phil - 1;
 	secondfork = update->cur_phil;
+	handle_delay (update);
 	while ((update->total_eat != update->phil->num_eat)
 		|| update->phil->num_eat == -1)
 	{

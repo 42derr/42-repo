@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:34:19 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/22 01:06:15 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/11/01 14:06:10 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char		*ft_strchr(const char *s, int c);
 int			ft_atoi(const char *nptr);
 void		error_handler(char *buffer, t_phil *phil, t_update *update);
 int			check_non_number(char **argv);
+void		handle_delay(t_update *update);
 
 int			philo_eat(t_update *update, int firstfork, int secondfork);
 int			philo_think(t_update *update, int firstfork, int secondfork);

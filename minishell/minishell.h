@@ -1,23 +1,27 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <readline/readline.h>   // GNU Readline for input handling
-#include <readline/history.h>     // GNU Readline for command history
-#include <stdio.h>                // Standard input/output functions
-#include <stdlib.h>               // Memory management functions
-#include <fcntl.h>                // File control options
-#include <unistd.h>               // UNIX standard functions
-#include <sys/types.h>           // Data types used in system calls
-#include <sys/stat.h>            // File status information
-#include <sys/wait.h>            // Waiting for process termination
-#include <signal.h>              // Signal handling
-#include <string.h>              // String manipulation functions
-#include <dirent.h>              // Directory handling
-#include <errno.h>               // Error number definitions
-#include <sys/ioctl.h>           // Terminal I/O control
-#include <termios.h>             // Terminal control definitions
-#include <ncurses.h>             // Optional: for advanced terminal control
-#include <term.h>                // Optional: for terminal capabilities
+//idk what is this but it fix sa error
+#define _XOPEN_SOURCE 700
+#include "libft/libft.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h> 
+#include <signal.h>
+#include <string.h>       
+#include <dirent.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <termios.h>      
+#include <ncurses.h>
+#include <term.h>
+
 
 typedef enum e_num
 {
@@ -28,23 +32,40 @@ typedef enum e_num
 	HERE_DOC,
 	APPEND,
 	PIPE,
-	ENV_VAR,
 	EXIT_STATUS,
-	ARGS,
+	ENV_VAR,
 	AND,
 	OR,
 	PARENTHESIS,
 	WILDCARD,
-	END,
-	UNKNOWN,
+	ARGS,
 } e_num;
 
 typedef struct s_token
 {
-	e_num	type;
-	char	*value;
+	e_num			type;
+	char			*value;
 }				t_token;
 
-int new_anjing(void);
+// from minishell.c
+int new_line(void);
+
+// split_input.c
+char	*fill_cmd(char **arg, int sq, int dq, int cb);
+char	**cmds_handler(char *arg);
+
+//																			signal_handler.c
+void handle_sigint(int sig) ;
+int new_line(void);
+
+// lexical.c
+e_num   get_token_type(char *value);
+t_token *get_token(char *cmds);
+t_token	*add_token(char **input);
+t_token  *tokenization(char *arg);
+
+// from parsing.c
+void    parsing(t_token *token_buffer);
+void   angel_helper(int num);
 
 #endif

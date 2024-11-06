@@ -6,7 +6,7 @@
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:43:41 by dfasius           #+#    #+#             */
-/*   Updated: 2024/10/22 04:51:55 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/11/01 14:05:37 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	do_routine(t_update *update, t_phil *phil, int nphil)
 		}
 		sem_post(phil->sem_check);
 		log_change(phil, nphil + 1, 3);
-		usleep((phil->time_sleep * 1000) + 300);
+		usleep((phil->time_sleep * 1000) + 500);
 		log_change(phil, nphil + 1, 4);
 	}
 	return (0);
