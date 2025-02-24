@@ -3,20 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aputri-a <aputri-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 16:07:52 by dfasius           #+#    #+#             */
-/*   Updated: 2024/11/06 12:31:56 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:32:12 by aputri-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "../list.h"
 # include <stddef.h>
 # include <stdlib.h>
 # include <stdio.h>
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -61,7 +66,15 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-void	ft_error_handling(char *msg);
+void	ft_error_exit(char *msg);
+int		ft_error_return(char *msg);
 void	ft_free_2d(char ***arr);
+char	*ft_strcpy(char *dst, char *src);
+int		ft_strcmp(char *s1, char *s2);
+char	**ft_delstr(char **arr, int del);
+int		ft_arrlen(char **arr);
+char	**ft_copy_arr(char **arr);
+char	**ft_split_space(char *arg);
+int		ft_is_whitespace(char c);
 
 #endif

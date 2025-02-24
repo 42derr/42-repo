@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   ft_error_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aputri-a <aputri-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/11/06 12:29:34 by dfasius           #+#    #+#             */
+/*   Updated: 2024/11/14 02:40:54 by aputri-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2d(char ***arr)
+void	ft_error_exit(char *msg)
 {
-	int	i;
-
-	i = 0;
-	while ((*arr) && (*arr)[i])
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	if (arr)
-		free(*arr);
+	perror(msg);
+	exit(1);
 }

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   hd_sigc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/12/18 15:19:51 by dfasius           #+#    #+#             */
+/*   Updated: 2024/12/18 15:19:53 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_free_2d(char ***arr)
+void	here_doc_sigc(t_mini *mini, pid_t child_pid)
 {
-	int	i;
-
-	i = 0;
-	while ((*arr) && (*arr)[i])
+	if (g_my_signal == SIGINT)
 	{
-		free((*arr)[i]);
-		i++;
+		mini->sigc = 130;
+		g_my_signal = 0;
+		kill(child_pid, SIGKILL);
 	}
-	if (arr)
-		free(*arr);
 }

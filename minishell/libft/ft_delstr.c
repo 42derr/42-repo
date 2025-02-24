@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   ft_delstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aputri-a <aputri-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/11/18 12:55:34 by aputri-a          #+#    #+#             */
+/*   Updated: 2024/11/18 13:40:38 by aputri-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2d(char ***arr)
+char	**ft_delstr(char **arr, int del)
 {
-	int	i;
+	char	**new_arr;
+	int		i;
+	int		j;
 
 	i = 0;
-	while ((*arr) && (*arr)[i])
+	j = 0;
+	new_arr = malloc(sizeof(char *) * ft_arrlen(arr));
+	if (!new_arr)
+		return (NULL);
+	while (arr[i])
 	{
-		free((*arr)[i]);
+		if (i != del)
+		{
+			new_arr[j] = ft_strdup(arr[i]);
+			j++;
+		}
 		i++;
 	}
-	if (arr)
-		free(*arr);
+	new_arr[j] = NULL;
+	return (new_arr);
 }

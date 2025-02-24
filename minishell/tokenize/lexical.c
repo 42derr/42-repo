@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   lexical.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 07:42:25 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/16 07:42:26 by dfasius          ###   ########.fr       */
+/*   Created: 2024/12/16 07:42:50 by dfasius           #+#    #+#             */
+/*   Updated: 2024/12/16 07:42:51 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-volatile sig_atomic_t	g_my_signal = 0;
-
-int	main(int argc, char **argv, char **envp)
+t_token	*tokenization(char *arg, t_mini *mini)
 {
-	t_mini	mini;
+	char	**input;
+	t_token	*token_buffer;
 
-	if (argc > 1 || !argv)
-		return (1);
-	mini = (t_mini){0};
-	init_mini(&mini, &envp);
-	rl_catch_signals = 0;
-	while (1)
-	{
-		g_my_signal = 0;
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, handle_sigint);
-		new_line(&envp, &mini);
-	}
-	return (0);
+	input = cmds_handler(arg);
+	if (!input)
+		clean_exit("malloc", mini);
+	mini->all_input = input;
+	token_buffer = add_token(input);
+	if (!token_buffer)
+		clean_exit("malloc", mini);
+	return (token_buffer);
 }

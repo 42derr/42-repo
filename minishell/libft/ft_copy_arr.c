@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_copy_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 07:42:25 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/16 07:42:26 by dfasius          ###   ########.fr       */
+/*   Created: 2024/12/16 07:40:43 by dfasius           #+#    #+#             */
+/*   Updated: 2024/12/16 07:40:45 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-volatile sig_atomic_t	g_my_signal = 0;
-
-int	main(int argc, char **argv, char **envp)
+char	**ft_copy_arr(char **arr)
 {
-	t_mini	mini;
+	int		i;
+	char	**new_arr;
 
-	if (argc > 1 || !argv)
-		return (1);
-	mini = (t_mini){0};
-	init_mini(&mini, &envp);
-	rl_catch_signals = 0;
-	while (1)
+	i = 0;
+	while (arr[i])
+		i++;
+	new_arr = malloc (sizeof(char *) * (i + 1));
+	if (!new_arr)
+		return (NULL);
+	i = 0;
+	while (arr[i])
 	{
-		g_my_signal = 0;
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, handle_sigint);
-		new_line(&envp, &mini);
+		new_arr[i] = ft_strdup(arr[i]);
+		if (!new_arr[i])
+			return (ft_free_2d(&new_arr), NULL);
+		i++;
 	}
-	return (0);
+	new_arr[i] = NULL;
+	return (new_arr);
 }

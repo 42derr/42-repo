@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aputri-a <aputri-a@student.42singapor      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/03/20 10:55:59 by aputri-a          #+#    #+#             */
+/*   Updated: 2024/03/20 10:56:10 by aputri-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_free_2d(char ***arr)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
 	i = 0;
-	while ((*arr) && (*arr)[i])
-	{
-		free((*arr)[i]);
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
-	}
-	if (arr)
-		free(*arr);
+	return (s1[i] - s2[i]);
 }

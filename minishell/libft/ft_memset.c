@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
+/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:39:35 by dfasius           #+#    #+#             */
-/*   Updated: 2024/05/21 17:15:11 by dfasius          ###   ########.fr       */
+/*   Updated: 2024/12/16 07:40:29 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <string.h>
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	char	*str;
-	int		i;
+	unsigned char	*str;
+	size_t			i;
 
-	str = s;
+	str = (unsigned char *)s;
 	i = 0;
-	while (n--)
+	while (i < n)
 	{
-		str[i] = c;
+		str[i] = (unsigned char)c;
 		i++;
 	}
 	return (str);
 }
+
 /*
 #include <stdio.h>
 int	main(void)

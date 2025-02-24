@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aputri-a <aputri-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/11/18 12:56:53 by aputri-a          #+#    #+#             */
+/*   Updated: 2024/11/18 12:57:40 by aputri-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2d(char ***arr)
+int	ft_arrlen(char **arr)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	while ((*arr) && (*arr)[i])
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	if (arr)
-		free(*arr);
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
 }

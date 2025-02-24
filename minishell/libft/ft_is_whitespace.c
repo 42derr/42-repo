@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   ft_is_whitespace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/12/19 05:16:36 by dfasius           #+#    #+#             */
+/*   Updated: 2024/12/19 05:16:48 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2d(char ***arr)
+int	ft_is_whitespace(char c)
 {
-	int	i;
-
-	i = 0;
-	while ((*arr) && (*arr)[i])
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	if (arr)
-		free(*arr);
+	return ((c >= 9 && c <= 13) || c == 32);
 }

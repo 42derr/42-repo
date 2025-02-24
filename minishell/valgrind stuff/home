@@ -1,0 +1,2 @@
+--leak-check=full
+--suppressions=/home/moriarty/mini/.readline.supp

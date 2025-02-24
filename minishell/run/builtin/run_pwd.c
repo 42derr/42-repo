@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   run_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfasius <dfasius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dfasius <dfasius@student.42.sg>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 12:29:12 by dfasius           #+#    #+#             */
-/*   Updated: 2024/12/09 02:06:06 by dfasius          ###   ########.fr       */
+/*   Created: 2024/12/16 07:47:10 by dfasius           #+#    #+#             */
+/*   Updated: 2024/12/16 07:47:11 by dfasius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-void	ft_free_2d(char ***arr)
+int	run_pwd(void)
 {
-	int	i;
+	char	cwd[PATH_MAX];
 
-	i = 0;
-	while ((*arr) && (*arr)[i])
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	if (arr)
-		free(*arr);
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return (perror("getcwd"), 1);
+	printf("%s\n", cwd);
+	return (0);
 }
