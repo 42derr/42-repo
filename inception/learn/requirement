@@ -1,0 +1,55 @@
+🛠️ Docker & Infrastructure Setup
+
+    🐳 All Docker images must match their service names.
+
+    🧱 Each service runs in its own container.
+
+    🏗️ Build containers using penultimate stable version of Alpine or Debian (no latest).
+
+    📄 Write your own Dockerfile per service.
+
+    🧰 Use docker-compose.yml via Makefile to build everything.
+
+    🚫 Do not pull prebuilt images from Docker Hub — build yourself.
+
+📦 Service Requirements
+
+    🌐 NGINX container with TLSv1.2 or TLSv1.3 only, must be the only entry point (port 443).
+
+    📝 WordPress container with php-fpm only, no NGINX.
+
+    🛢️ MariaDB container, no NGINX.
+
+    💾 Use a volume for WordPress database.
+
+    📁 Use a second volume for WordPress site files.
+
+    🌐 Set up a custom Docker network connecting all services.
+
+    🔄 Containers must restart automatically on crash.
+
+📚 Best Practices
+
+    ⚠️ Avoid using tail -f or similar hacks to keep containers alive — learn how daemons and PID 1 work in Docker.
+
+    📖 Read about PID 1 behavior and Dockerfile best practices.
+
+🔐 Security & Environment
+
+    👥 In your WordPress DB, create two users, including an admin, but admin username must NOT contain "admin"/"administrator" in any form.
+
+    🔐 Use environment variables instead of hardcoding passwords.
+
+    📁 Use a .env file for environment configs.
+
+    🕵️‍♂️ Use Docker secrets for sensitive data (like DB passwords).
+
+    🏷️ Do NOT use the latest tag for base images.
+
+🌍 Domain & DNS
+
+    🧭 Set your domain name to point to your local IP.
+
+    🔗 Must use a domain like yourlogin.42.fr (e.g., wil.42.fr if your login is wil).
+
+    🌐 NGINX is the only externally accessible container, served over HTTPS (443).
