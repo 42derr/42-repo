@@ -1,9 +1,164 @@
-do docker run it alphine 
+🧠 Comprehensive Learning & Research Checklist for Project 42 Inception
+Core Mandatory Part
+1. Docker & Docker Compose
 
-and test to run it manually
+    What is Docker, images, containers
 
-learn how to make nginx conf and how to make nginx certs
+    Dockerfile syntax, ENTRYPOINT vs CMD
 
+    docker-compose.yml basics
+
+    Docker networks (custom bridge networks)
+
+    Volumes and data persistence
+
+    Container restart policies (e.g., restart: always)
+
+    PID 1 and container process management
+
+    Why infinite loops (tail -f, while true) are bad in Docker containers
+
+2. Alpine vs Debian
+
+    Differences between Alpine and Debian base images
+
+    Advantages of Alpine (small size) and when Debian might be better
+
+3. Custom Dockerfile builds
+
+    Writing Dockerfiles from scratch (no prebuilt images except Alpine/Debian)
+
+    Using Makefile to build Docker images and invoke Docker Compose
+
+4. NGINX with TLS (v1.2 or v1.3 only)
+
+    NGINX basics and reverse proxy role
+
+    TLS/SSL concepts and certificate setup (self-signed certificates)
+
+    Configuring NGINX to use only TLSv1.2 or TLSv1.3
+
+    Exposing only port 443
+
+5. WordPress + PHP-FPM (no NGINX here)
+
+    Difference between PHP-FPM and Apache module
+
+    Installing and configuring PHP-FPM in a container
+
+    WordPress setup with PHP-FPM backend only
+
+6. MariaDB database
+
+    Running MariaDB in Docker
+
+    Creating databases and users via Docker initialization scripts
+
+    WordPress connecting to MariaDB
+
+    Data persistence with Docker volumes
+
+7. Volumes and Data
+
+    Docker volumes vs bind mounts
+
+    Mounting volumes to /home/login/data on host
+
+    Persisting WordPress website files and database
+
+8. Docker networking and restrictions
+
+    Creating a dedicated Docker network in docker-compose.yml
+
+    Why network: host and links: are forbidden
+
+9. Environment variables and secrets
+
+    Using .env files in Docker Compose
+
+    Using environment: section in docker-compose.yml
+
+    Using Docker secrets to securely store sensitive data
+
+    Avoid storing passwords directly in Dockerfiles
+
+10. Domain setup (login.42.fr)
+
+    Editing /etc/hosts or local DNS to map login.42.fr to localhost IP
+
+    Using self-signed certificates for domain login.42.fr
+
+11. Makefile usage
+
+    Writing Makefiles to automate image building
+
+    Calling Docker commands from Makefiles
+
+12. Security & Best Practices
+
+    Avoiding infinite loops in containers
+
+    Handling PID 1 process correctly
+
+    Why the latest tag is forbidden
+
+    Secure password management
+
+    Using restart policies correctly
+
+Bonus Part — Optional Extra Services
+13. Redis cache for WordPress
+
+    What is Redis and why use it for caching
+
+    Installing Redis server in Docker
+
+    Configuring WordPress to use Redis (plugins, config)
+
+    Persisting Redis data (if needed)
+
+14. FTP server container
+
+    Setting up an FTP server (e.g., vsftpd, proftpd) in Docker
+
+    Pointing FTP root directory to WordPress website volume
+
+    Exposing FTP ports and security considerations
+
+15. Static website (non-PHP)
+
+    Creating a simple static website (HTML/CSS/JS)
+
+    Serving static site from a Docker container (e.g., NGINX or simple HTTP server)
+
+    Deploying static site with Dockerfile
+
+16. Adminer container
+
+    What is Adminer (database management tool)
+
+    Running Adminer in Docker
+
+    Connecting Adminer to MariaDB container
+
+17. Custom service of your choice
+
+    Research useful services (e.g., phpMyAdmin, Mailhog, monitoring tools)
+
+    Writing Dockerfile for your chosen service
+
+    Explaining and justifying your choice during defense
+
+Additional Notes
+
+    Bonus services must be in their own containers, with their own Dockerfiles.
+
+    Volumes should be used if persistent data is necessary.
+
+    Additional ports may be opened for these bonus services.
+
+    Make sure all new services integrate well with the existing Docker network.
+    
 Summary:
 Source	Destination	Port	Protocol/Service
 WordPress+PHP	DB	3306	MySQL DB connection
