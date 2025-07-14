@@ -1,0 +1,11 @@
+do docker run it alphine 
+
+and test to run it manually
+
+learn how to make nginx conf and how to make nginx certs
+
+Summary:
+Source	Destination	Port	Protocol/Service
+WordPress+PHP	DB	3306	MySQL DB connection
+NGINX	WordPress+PHP	9000	PHP-FPM processing
+Internet (WWW)	NGINX	443	HTTPS (secure web
